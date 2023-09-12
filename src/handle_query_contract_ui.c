@@ -78,14 +78,13 @@ static screens_t get_screen_withdraw_self_apecoin(ethQueryContractUI_t *msg,
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
-
-// Remove if not used from here
+    // Remove if not used from here
     bool token_sent_found = context->tokens_found & TOKEN_SENT_FOUND;
     bool token_received_found = context->tokens_found & TOKEN_RECEIVED_FOUND;
 
     bool both_tokens_found = token_received_found && token_sent_found;
     bool both_tokens_not_found = !token_received_found && !token_sent_found;
-// To here
+    // To here
 
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
