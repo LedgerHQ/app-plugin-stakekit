@@ -1,0 +1,17 @@
+{
+    "chainId": 1,
+    "contracts": [
+        {
+            "address": "0x5954ab967bc958940b7eb73ee84797dc8a2afbb9",
+            "contractName": "ApeCoinStaking",
+            "selectors": {
+                "0x9dcaafb4": {
+                    "erc20OfInterest": [],
+                    "method": "depositSelfApeCoin",
+                    "plugin": "StakeKit"
+                }
+            }
+        }
+    ],
+    "name": "StakeKit"
+}
