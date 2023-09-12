@@ -19,7 +19,7 @@ extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];    // REMOVE IF NOT USED
     (!memcmp(_addr, PLUGIN_ETH_ADDRESS, ADDRESS_LENGTH) || \
      !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH))
 
-typedef enum { 
+typedef enum {
     DEPOSIT_SELF_APECOIN,
     WITHDRAW_SELF_APECOIN,
     CLAIM_SELF_APECOIN,
