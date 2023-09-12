@@ -9,6 +9,11 @@
                     "erc20OfInterest": [],
                     "method": "depositSelfApeCoin",
                     "plugin": "StakeKit"
+                },
+                "0x7f60d338": {
+                    "erc20OfInterest": [],
+                    "method": "withdrawSelfApeCoin",
+                    "plugin": "StakeKit"
                 }
             }
         }
