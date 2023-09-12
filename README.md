@@ -1,16 +1,16 @@
 # Badges
 <Plugin Github Action Badger>
 
-# Ledger <Plugin Name> Plugin
+# Ledger StakeKit Plugin
 
-This is a plugin for the Ethereum application which helps parsing and displaying relevant information when signing a <Plugin Name> transaction.
+This is a plugin for the Ethereum application which helps parsing and displaying relevant information when signing a StakeKit transaction.
 
 ## Prerequisite
 
 Clone the plugin to a new folder.
 
 ```shell
-git clone https://github.com/blooo-io/<Plugin Repo Name>.git
+git clone https://github.com/blooo-io/LedgerHQ-app-plugin-stakekit.git
 ```
 
 Then in the same folder clone two more repositories, which is the plugin-tools and app-ethereum.
@@ -27,10 +27,18 @@ Need more information about the interface, the architecture, or general stuff ab
 
 Smart contracts covered by this plugin are:
 
-| Network | Version | Smart Contract |
+| Network | Smart Contract Name | Smart Contract Address|
 | ---       | --- | --- |
-| Ethereum  | V1  | `<Plugin Contract Address>`|
+| Ethereum  | ApeCoinStaking | 0x5954ab967bc958940b7eb73ee84797dc8a2afbb9|
 
+
+## Methods
+
+Methods covered by this plugin are:
+
+| Conrtact Name | Selector | Method Name |
+|      ---      |    ---   |     ---     |
+| ApeCoinStaking    | 0x9dcaafb4 | depositSelfApeCoin |
 
 ## Build
 
@@ -40,17 +48,17 @@ cd plugin-tools  # go to plugin folder
 ./start.sh       # run the script start.sh
 ```
 The script will build a docker image and attach a console.
-When the docker image is running go to the "<Plugin Repo Name>" folder and build the ".elf" files.
+When the docker image is running go to the "LedgerHQ-app-plugin-stakekit" folder and build the ".elf" files.
 ```shell
-cd <Plugin Repo Name>/tests       # go to the tests folder in <Plugin Repo Name>
+cd LedgerHQ-app-plugin-stakekit/tests       # go to the tests folder in LedgerHQ-app-plugin-stakekit
 ./build_local_test_elfs.sh              # run the script build_local_test_elfs.sh
 ```
 
 ## Tests
 
-To test the plugin go to the tests folder from the "<Plugin Repo Name>" and run the script "test"
+To test the plugin go to the tests folder from the "LedgerHQ-app-plugin-stakekit" and run the script "test"
 ```shell
-cd <Plugin Repo Name>/tests       # go to the tests folder in <Plugin Repo Name>
+cd LedgerHQ-app-plugin-stakekit/tests       # go to the tests folder in LedgerHQ-app-plugin-stakekit
 yarn test                       # run the script test
 ```
 ## Continuous Integration

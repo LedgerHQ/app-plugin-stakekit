@@ -1,19 +1,13 @@
-#include "<Plugin Name>_plugin.h"
+#include "stakekit_plugin.h"
 
 // Store the amount sent in the form of a string, without any ticker or decimals. These will be
 // added when displaying.
 static void handle_amount_sent(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
-    copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+    copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
 }
 
-static void handle_plugin_generic(ethPluginProvideParameter_t *msg,
-                                  plugin_parameters_t *context) {
-    if (context->go_to_offset) {
-        if (msg->parameterOffset != context->offset + SELECTOR_SIZE) {
-            return;
-        }
-        context->go_to_offset = false;
-    }
+static void handle_deposit_self_apecoin(ethPluginProvideParameter_t *msg,
+                                        plugin_parameters_t *context) {
     switch (context->next_param) {
         case AMOUNT_SENT:
             handle_amount_sent(msg, context);
@@ -43,8 +37,8 @@ void handle_provide_parameter(void *parameters) {
     msg->result = ETH_PLUGIN_RESULT_OK;
 
     switch (context->selectorIndex) {
-        case <Plugin Function Name>:
-            handle_plugin_generic(msg, context);
+        case DEPOSIT_SELF_APECOIN:
+            handle_deposit_self_apecoin(msg, context);
             break;
         default:
             PRINTF("Selector Index %d not supported\n", context->selectorIndex);
