@@ -48,6 +48,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0xc874b064f465bdd6411d45734b56fac750cda29a",
+            "contractName": "AdminUpgradeabilityProxy",
+            "selectors": {
+                "0x3a4b66f1": {
+                    "erc20OfInterest": [],
+                    "method": "stake",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
