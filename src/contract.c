@@ -6,10 +6,15 @@ static const uint8_t STAKEKIT_DEPOSIT_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x
                                                                               0xca,
                                                                               0xaf,
                                                                               0xb4};
+static const uint8_t STAKEKIT_WITHDRAW_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x7f,
+                                                                               0x60,
+                                                                               0xd3,
+                                                                               0x38};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_DEPOSIT_SELF_APECOIN_SELECTOR,
+    STAKEKIT_WITHDRAW_SELF_APECOIN_SELECTOR
 };
 
 // Ask dummy address ETH

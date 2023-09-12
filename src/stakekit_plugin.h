@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 1
+#define NUM_STAKEKIT_SELECTORS 2
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -19,7 +19,7 @@ extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];    // REMOVE IF NOT USED
     (!memcmp(_addr, PLUGIN_ETH_ADDRESS, ADDRESS_LENGTH) || \
      !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH))
 
-typedef enum { DEPOSIT_SELF_APECOIN } selector_t;
+typedef enum { DEPOSIT_SELF_APECOIN, WITHDRAW_SELF_APECOIN } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
 

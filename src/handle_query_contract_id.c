@@ -10,6 +10,9 @@ void handle_query_contract_id(void *parameters) {
         case DEPOSIT_SELF_APECOIN:
             strlcpy(msg->version, "Deposit Self APE coin", msg->versionLength);
             break;
+        case WITHDRAW_SELF_APECOIN:
+            strlcpy(msg->version, "Withdraw Self APE coin", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

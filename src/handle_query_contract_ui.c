@@ -27,18 +27,13 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
 // Set UI for "Receive" screen.
 static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
-        case DEPOSIT_SELF_APECOIN:
+        case WITHDRAW_SELF_APECOIN:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
             return;
-    }
-
-    // set network ticker (ETH, BNB, etc) if needed
-    if (ADDRESS_IS_NETWORK_TOKEN(context->contract_address_received)) {
-        strlcpy(context->ticker_received, msg->network_ticker, sizeof(context->ticker_received));
     }
 
     // Convert to string.
@@ -61,11 +56,20 @@ static void set_warning_ui(ethQueryContractUI_t *msg,
 static screens_t get_screen_deposit_self_apecoin(ethQueryContractUI_t *msg,
                                                  plugin_parameters_t *context
                                                  __attribute__((unused))) {
-    bool token_sent_found = context->tokens_found & TOKEN_SENT_FOUND;
-
     switch (msg->screenIndex) {
         case 0:
             return SEND_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
+static screens_t get_screen_withdraw_self_apecoin(ethQueryContractUI_t *msg,
+                                                  plugin_parameters_t *context
+                                                  __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return RECEIVE_SCREEN;
         default:
             return ERROR;
     }
@@ -87,6 +91,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
             return get_screen_deposit_self_apecoin(msg, context);
+        case WITHDRAW_SELF_APECOIN:
+            return get_screen_withdraw_self_apecoin(msg, context);
         default:
             return ERROR;
     }

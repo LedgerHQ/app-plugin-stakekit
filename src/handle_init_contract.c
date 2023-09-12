@@ -38,6 +38,9 @@ void handle_init_contract(void *parameters) {
         case DEPOSIT_SELF_APECOIN:
             context->next_param = AMOUNT_SENT;
             break;
+        case WITHDRAW_SELF_APECOIN:
+            context->next_param = AMOUNT_RECEIVED;
+            break;
         default:
             PRINTF("Missing selectorIndex\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;
