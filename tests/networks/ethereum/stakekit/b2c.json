@@ -32,6 +32,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x16d5a408e807db8ef7c578279beeee6b228f1c1c",
+            "contractName": "RocketSwapRouter",
+            "selectors": {
+                "0x55362f4d": {
+                    "erc20OfInterest": [],
+                    "method": "swapTo",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
