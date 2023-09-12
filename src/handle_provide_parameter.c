@@ -44,6 +44,7 @@ void handle_provide_parameter(void *parameters) {
                 copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 break;
             case CLAIM_SELF_APECOIN:
+            case STAKE:
                 break;
             case SWAP_TO:
                 copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);

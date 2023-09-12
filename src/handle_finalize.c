@@ -11,6 +11,11 @@ void handle_finalize(void *parameters) {
             case CLAIM_SELF_APECOIN:
                 msg->numScreens = 0;
                 break;
+            case STAKE:
+                msg->numScreens = 1;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, STAKEWISE_STAKED_ETH2_TICKER, sizeof(context->ticker_sent));
+                break;
             case DEPOSIT_SELF_APECOIN:
                 msg->numScreens = 1;
                 context->decimals_sent = DEFAULT_DECIMAL;

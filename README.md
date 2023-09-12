@@ -32,6 +32,7 @@ Smart contracts covered by this plugin are:
 | Ethereum  | ApeCoinStaking | 0x5954ab967bc958940b7eb73ee84797dc8a2afbb9|
 | Ethereum  | AppProxyUpgradeable | 0xae7ab96520de3a18e5e111b5eaab095312d7fe84|
 | Ethereum  | RocketSwapRouter | 0x16d5a408e807db8ef7c578279beeee6b228f1c1c|
+| Ethereum  | AdminUpgradeabilityProxy | 0xc874b064f465bdd6411d45734b56fac750cda29a|
 
 
 ## Methods
@@ -46,6 +47,7 @@ Methods covered by this plugin are:
 | AppProxyUpgradeable    | 0xa1903eab | submit |
 | RocketSwapRouter    | 0x55362f4d | swapTo |
 | RocketSwapRouter    | 0xa824ae8b | swapFrom |
+| AdminUpgradeabilityProxy    | 0x3a4b66f1 | stake |
 
 
 ## Build
