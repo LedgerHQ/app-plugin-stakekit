@@ -14,6 +14,11 @@
                     "erc20OfInterest": [],
                     "method": "withdrawSelfApeCoin",
                     "plugin": "StakeKit"
+                },
+                "0x8279e760": {
+                    "erc20OfInterest": [],
+                    "method": "claimSelfApeCoin",
+                    "plugin": "StakeKit"
                 }
             }
         }

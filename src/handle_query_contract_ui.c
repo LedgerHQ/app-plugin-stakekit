@@ -78,7 +78,6 @@ static screens_t get_screen_withdraw_self_apecoin(ethQueryContractUI_t *msg,
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
-    uint8_t index = msg->screenIndex;
 
 // Remove if not used from here
     bool token_sent_found = context->tokens_found & TOKEN_SENT_FOUND;

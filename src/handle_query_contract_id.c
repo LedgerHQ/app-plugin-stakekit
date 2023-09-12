@@ -7,6 +7,9 @@ void handle_query_contract_id(void *parameters) {
     strlcpy(msg->name, PLUGIN_NAME, msg->nameLength);
 
     switch (context->selectorIndex) {
+        case CLAIM_SELF_APECOIN:
+            strlcpy(msg->version, "Claim Self APE coin", msg->versionLength);
+            break;
         case DEPOSIT_SELF_APECOIN:
             strlcpy(msg->version, "Deposit Self APE coin", msg->versionLength);
             break;

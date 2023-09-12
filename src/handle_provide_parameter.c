@@ -37,6 +37,8 @@ void handle_provide_parameter(void *parameters) {
         case WITHDRAW_SELF_APECOIN:
             copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
             break;
+        case CLAIM_SELF_APECOIN:
+            break;
         default:
             PRINTF("Selector Index %d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

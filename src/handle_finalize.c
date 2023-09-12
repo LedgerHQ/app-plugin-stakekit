@@ -8,6 +8,9 @@ void handle_finalize(void *parameters) {
 
     if (context->valid) {
         switch (context->selectorIndex) {
+            case CLAIM_SELF_APECOIN:
+                msg->numScreens = 0;
+                break;
             case DEPOSIT_SELF_APECOIN:
                 msg->numScreens = 1;
                 context->decimals_sent = DEFAULT_DECIMAL;
