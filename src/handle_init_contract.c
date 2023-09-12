@@ -42,7 +42,16 @@ void handle_init_contract(void *parameters) {
             context->next_param = AMOUNT_RECEIVED;
             break;
         case CLAIM_SELF_APECOIN:
+        case STAKE:
             context->next_param = NONE;
+            break;
+        case SUBMIT_ETH_LIDO:
+            context->next_param = RECIPIENT;
+            break;
+        case SWAP_TO:
+        case SWAP_FROM:
+            context->skip = 3;
+            context->next_param = AMOUNT_RECEIVED;
             break;
         default:
             PRINTF("Missing selectorIndex\n");

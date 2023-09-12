@@ -1,13 +1,13 @@
 #include "stakekit_plugin.h"
 
-static void handle_deposit_self_apecoin(ethPluginProvideParameter_t *msg,
-                                        plugin_parameters_t *context) {
+static void handle_swap_from(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
-        case AMOUNT_SENT:
-            handle_amount_sent(msg, context);
-            context->next_param = NONE;
+        case AMOUNT_RECEIVED:
+            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+            context->next_param = AMOUNT_SENT;
             break;
-        case NONE:
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
             break;
         default:
             PRINTF("Param not supported\n");
@@ -29,19 +29,33 @@ void handle_provide_parameter(void *parameters) {
            msg->parameter);
 
     msg->result = ETH_PLUGIN_RESULT_OK;
-
-    switch (context->selectorIndex) {
-        case DEPOSIT_SELF_APECOIN:
-            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
-            break;
-        case WITHDRAW_SELF_APECOIN:
-            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
-            break;
-        case CLAIM_SELF_APECOIN:
-            break;
-        default:
-            PRINTF("Selector Index %d not supported\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            break;
+    if (context->skip) {
+        // Skip this step and decrease skipping counter.
+        context->skip--;
+    } else {
+        switch (context->selectorIndex) {
+            case DEPOSIT_SELF_APECOIN:
+                copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+                break;
+            case WITHDRAW_SELF_APECOIN:
+                copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+                break;
+            case SUBMIT_ETH_LIDO:
+                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+                break;
+            case CLAIM_SELF_APECOIN:
+            case STAKE:
+                break;
+            case SWAP_TO:
+                copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+                break;
+            case SWAP_FROM:
+                handle_swap_from(msg, context);
+                break;
+            default:
+                PRINTF("Selector Index %d not supported\n", context->selectorIndex);
+                msg->result = ETH_PLUGIN_RESULT_ERROR;
+                break;
+        }
     }
 }

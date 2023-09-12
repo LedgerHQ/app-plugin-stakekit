@@ -21,6 +21,44 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0xae7ab96520de3a18e5e111b5eaab095312d7fe84",
+            "contractName": "AppProxyUpgradeable",
+            "selectors": {
+                "0xa1903eab": {
+                    "erc20OfInterest": [],
+                    "method": "submit",
+                    "plugin": "StakeKit"
+                }
+            }
+        },
+        {
+            "address": "0x16d5a408e807db8ef7c578279beeee6b228f1c1c",
+            "contractName": "RocketSwapRouter",
+            "selectors": {
+                "0x55362f4d": {
+                    "erc20OfInterest": [],
+                    "method": "swapTo",
+                    "plugin": "StakeKit"
+                },
+                "0xa824ae8b": {
+                    "erc20OfInterest": [],
+                    "method": "swapFrom",
+                    "plugin": "StakeKit"
+                }
+            }
+        },
+        {
+            "address": "0xc874b064f465bdd6411d45734b56fac750cda29a",
+            "contractName": "AdminUpgradeabilityProxy",
+            "selectors": {
+                "0x3a4b66f1": {
+                    "erc20OfInterest": [],
+                    "method": "stake",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"

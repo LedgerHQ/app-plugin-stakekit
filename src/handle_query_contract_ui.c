@@ -4,6 +4,7 @@
 static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
+        case SWAP_FROM:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         default:
@@ -20,14 +21,34 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
                    msg->msg,
                    msg->msgLength);
     PRINTF("AMOUNT SENT: %s\n", msg->msg);
-    PRINTF("AMOUNT SENT: %u\n", context->decimals_sent);
-    PRINTF("Ticker sent: %s\n", context->ticker_sent);
+}
+static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case STAKE:
+            strlcpy(msg->title, "Send", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+
+    // Convert to string.
+    amountToString(msg->pluginSharedRO->txContent->value.value,
+                   msg->pluginSharedRO->txContent->value.length,
+                   context->decimals_sent,
+                   context->ticker_sent,
+                   msg->msg,
+                   msg->msgLength);
+    PRINTF("AMOUNT SENT: %s\n", msg->msg);
 }
 
 // Set UI for "Receive" screen.
 static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case WITHDRAW_SELF_APECOIN:
+        case SWAP_TO:
+        case SWAP_FROM:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
         default:
@@ -44,6 +65,27 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
                    msg->msg,
                    msg->msgLength);
     PRINTF("AMOUNT RECEIVED: %s\n", msg->msg);
+}
+
+// Set UI for "Recipient" screen.
+static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    strlcpy(msg->title, "Recipient", msg->titleLength);
+
+    // Prefix the address with `0x`.
+    msg->msg[0] = '0';
+    msg->msg[1] = 'x';
+
+    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+    // Setting it to `0` will make it work with every chainID :)
+    uint64_t chainid = 0;
+
+    // Get the string representation of the address stored in `context->beneficiary`. Put it in
+    // `msg->msg`.
+    getEthAddressStringFromBinary(
+        context->recipient,
+        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
+        msg->pluginSharedRW->sha3,
+        chainid);
 }
 
 // Set UI for "Warning" screen.
@@ -64,12 +106,44 @@ static screens_t get_screen_deposit_self_apecoin(ethQueryContractUI_t *msg,
     }
 }
 
-static screens_t get_screen_withdraw_self_apecoin(ethQueryContractUI_t *msg,
-                                                  plugin_parameters_t *context
-                                                  __attribute__((unused))) {
+static screens_t get_screen_receive(ethQueryContractUI_t *msg,
+                                    plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
         case 0:
             return RECEIVE_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
+static screens_t get_screen_submit_eth_lido(ethQueryContractUI_t *msg,
+                                            plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return RECIPIENT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
+static screens_t get_screen_amount_sent_receive(ethQueryContractUI_t *msg,
+                                                plugin_parameters_t *context
+                                                __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SEND_SCREEN;
+        case 1:
+            return RECEIVE_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
+static screens_t get_screen_value_sent(ethQueryContractUI_t *msg,
+                                       plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SEND_VALUE_SCREEN;
         default:
             return ERROR;
     }
@@ -90,7 +164,14 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case DEPOSIT_SELF_APECOIN:
             return get_screen_deposit_self_apecoin(msg, context);
         case WITHDRAW_SELF_APECOIN:
-            return get_screen_withdraw_self_apecoin(msg, context);
+        case SWAP_TO:
+            return get_screen_receive(msg, context);
+        case SUBMIT_ETH_LIDO:
+            return get_screen_submit_eth_lido(msg, context);
+        case SWAP_FROM:
+            return get_screen_amount_sent_receive(msg, context);
+        case STAKE:
+            return get_screen_value_sent(msg, context);
         default:
             return ERROR;
     }
@@ -109,8 +190,14 @@ void handle_query_contract_ui(void *parameters) {
         case SEND_SCREEN:
             set_send_ui(msg, context);
             break;
+        case SEND_VALUE_SCREEN:
+            set_send_value_ui(msg, context);
+            break;
         case RECEIVE_SCREEN:
             set_receive_ui(msg, context);
+            break;
+        case RECIPIENT_SCREEN:
+            set_recipient_ui(msg, context);
             break;
         case WARN_SCREEN:
             set_warning_ui(msg, context);
