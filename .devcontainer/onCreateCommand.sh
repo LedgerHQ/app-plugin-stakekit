@@ -1,9 +1,5 @@
 cd /workspaces/
 
-# Update apt and install clang-format
-sudo apt update
-sudo apt install clang-format
-
 # Bypass ssh fingerprint prompt
 ssh -o StrictHostKeyChecking=no git@github.com
 
