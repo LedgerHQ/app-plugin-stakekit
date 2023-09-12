@@ -41,6 +41,11 @@
                     "erc20OfInterest": [],
                     "method": "swapTo",
                     "plugin": "StakeKit"
+                },
+                "0xa824ae8b": {
+                    "erc20OfInterest": [],
+                    "method": "swapFrom",
+                    "plugin": "StakeKit"
                 }
             }
         }
