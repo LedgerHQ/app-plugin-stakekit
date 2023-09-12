@@ -48,6 +48,7 @@ void handle_init_contract(void *parameters) {
             context->next_param = RECIPIENT;
             break;
         case SWAP_TO:
+        case SWAP_FROM:
             context->skip = 3;
             context->next_param = AMOUNT_RECEIVED;
             break;

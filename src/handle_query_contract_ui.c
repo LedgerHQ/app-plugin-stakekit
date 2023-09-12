@@ -4,6 +4,7 @@
 static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
+        case SWAP_FROM:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         default:
@@ -29,6 +30,7 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
     switch (context->selectorIndex) {
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
+        case SWAP_FROM:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
         default:
@@ -107,6 +109,19 @@ static screens_t get_screen_submit_eth_lido(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_amount_sent_receive(ethQueryContractUI_t *msg,
+                                                plugin_parameters_t *context
+                                                __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SEND_SCREEN;
+        case 1:
+            return RECEIVE_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -126,6 +141,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_receive(msg, context);
         case SUBMIT_ETH_LIDO:
             return get_screen_submit_eth_lido(msg, context);
+        case SWAP_FROM:
+            return get_screen_amount_sent_receive(msg, context);
         default:
             return ERROR;
     }

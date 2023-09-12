@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 5
+#define NUM_STAKEKIT_SELECTORS 6
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -24,6 +24,7 @@ typedef enum { DEPOSIT_SELF_APECOIN,
                CLAIM_SELF_APECOIN,
                SUBMIT_ETH_LIDO,
                SWAP_TO,
+               SWAP_FROM,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -46,6 +47,9 @@ typedef enum {
 
 // Ticker used when the token wasn't found in the CAL.
 #define DEFAULT_TICKER ""
+
+// Ticker used for WETH.
+#define WETH_TICKER "WETH"
 
 // Ticker used for APE coin staking.
 #define APE_TICKER "APE"

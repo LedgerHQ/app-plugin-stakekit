@@ -26,6 +26,13 @@ void handle_finalize(void *parameters) {
                 context->decimals_received = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_received, ROCKET_POOL_ETH_TICKER, sizeof(context->ticker_received));
                 break;
+            case SWAP_FROM:
+                msg->numScreens = 2;
+                context->decimals_received = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_received, WETH_TICKER, sizeof(context->ticker_received));
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, ROCKET_POOL_ETH_TICKER, sizeof(context->ticker_sent));
+                break;
             default:
                 msg->numScreens = 1;
                 break;

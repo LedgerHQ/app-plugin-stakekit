@@ -45,6 +45,7 @@ Methods covered by this plugin are:
 | ApeCoinStaking    | 0x8279e760 | claimSelfApeCoin |
 | AppProxyUpgradeable    | 0xa1903eab | submit |
 | RocketSwapRouter    | 0x55362f4d | swapTo |
+| RocketSwapRouter    | 0xa824ae8b | swapFrom |
 
 
 ## Build
