@@ -30,6 +30,7 @@ Smart contracts covered by this plugin are:
 | Network | Smart Contract Name | Smart Contract Address|
 | ---       | --- | --- |
 | Ethereum  | ApeCoinStaking | 0x5954ab967bc958940b7eb73ee84797dc8a2afbb9|
+| Ethereum  | AppProxyUpgradeable | 0xae7ab96520de3a18e5e111b5eaab095312d7fe84|
 
 
 ## Methods
@@ -39,6 +40,10 @@ Methods covered by this plugin are:
 | Conrtact Name | Selector | Method Name |
 |      ---      |    ---   |     ---     |
 | ApeCoinStaking    | 0x9dcaafb4 | depositSelfApeCoin |
+| ApeCoinStaking    | 0x7f60d338 | withdrawSelfApeCoin |
+| ApeCoinStaking    | 0x8279e760 | claimSelfApeCoin |
+| AppProxyUpgradeable    | 0xa1903eab | submit |
+
 
 ## Build
 

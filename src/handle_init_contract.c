@@ -44,6 +44,9 @@ void handle_init_contract(void *parameters) {
         case CLAIM_SELF_APECOIN:
             context->next_param = NONE;
             break;
+        case SUBMIT_ETH_LIDO:
+            context->next_param = RECIPIENT;
+            break;
         default:
             PRINTF("Missing selectorIndex\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;

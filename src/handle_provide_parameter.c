@@ -37,6 +37,9 @@ void handle_provide_parameter(void *parameters) {
         case WITHDRAW_SELF_APECOIN:
             copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
             break;
+        case SUBMIT_ETH_LIDO:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            break;
         case CLAIM_SELF_APECOIN:
             break;
         default:

@@ -16,6 +16,9 @@ void handle_query_contract_id(void *parameters) {
         case WITHDRAW_SELF_APECOIN:
             strlcpy(msg->version, "Withdraw Self APE coin", msg->versionLength);
             break;
+        case SUBMIT_ETH_LIDO:
+            strlcpy(msg->version, "Submit", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

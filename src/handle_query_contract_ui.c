@@ -46,6 +46,27 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
     PRINTF("AMOUNT RECEIVED: %s\n", msg->msg);
 }
 
+// Set UI for "Recipient" screen.
+static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    strlcpy(msg->title, "Recipient", msg->titleLength);
+
+    // Prefix the address with `0x`.
+    msg->msg[0] = '0';
+    msg->msg[1] = 'x';
+
+    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+    // Setting it to `0` will make it work with every chainID :)
+    uint64_t chainid = 0;
+
+    // Get the string representation of the address stored in `context->beneficiary`. Put it in
+    // `msg->msg`.
+    getEthAddressStringFromBinary(
+        context->recipient,
+        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
+        msg->pluginSharedRW->sha3,
+        chainid);
+}
+
 // Set UI for "Warning" screen.
 static void set_warning_ui(ethQueryContractUI_t *msg,
                            const plugin_parameters_t *context __attribute__((unused))) {
@@ -75,6 +96,17 @@ static screens_t get_screen_withdraw_self_apecoin(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_submit_eth_lido(ethQueryContractUI_t *msg,
+                                            plugin_parameters_t *context
+                                            __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return RECIPIENT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -91,6 +123,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_deposit_self_apecoin(msg, context);
         case WITHDRAW_SELF_APECOIN:
             return get_screen_withdraw_self_apecoin(msg, context);
+        case SUBMIT_ETH_LIDO:
+            return get_screen_submit_eth_lido(msg, context);
         default:
             return ERROR;
     }
@@ -111,6 +145,9 @@ void handle_query_contract_ui(void *parameters) {
             break;
         case RECEIVE_SCREEN:
             set_receive_ui(msg, context);
+            break;
+        case RECIPIENT_SCREEN:
+            set_recipient_ui(msg, context);
             break;
         case WARN_SCREEN:
             set_warning_ui(msg, context);
