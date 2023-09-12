@@ -117,8 +117,7 @@ static screens_t get_screen_receive(ethQueryContractUI_t *msg,
 }
 
 static screens_t get_screen_submit_eth_lido(ethQueryContractUI_t *msg,
-                                            plugin_parameters_t *context
-                                            __attribute__((unused))) {
+                                            plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
         case 0:
             return RECIPIENT_SCREEN;
@@ -141,8 +140,7 @@ static screens_t get_screen_amount_sent_receive(ethQueryContractUI_t *msg,
 }
 
 static screens_t get_screen_value_sent(ethQueryContractUI_t *msg,
-                                       plugin_parameters_t *context
-                                       __attribute__((unused))) {
+                                       plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
         case 0:
             return SEND_VALUE_SCREEN;

@@ -19,13 +19,14 @@ extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];    // REMOVE IF NOT USED
     (!memcmp(_addr, PLUGIN_ETH_ADDRESS, ADDRESS_LENGTH) || \
      !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH))
 
-typedef enum { DEPOSIT_SELF_APECOIN,
-               WITHDRAW_SELF_APECOIN,
-               CLAIM_SELF_APECOIN,
-               SUBMIT_ETH_LIDO,
-               SWAP_TO,
-               SWAP_FROM,
-               STAKE,
+typedef enum { 
+    DEPOSIT_SELF_APECOIN,
+    WITHDRAW_SELF_APECOIN,
+    CLAIM_SELF_APECOIN,
+    SUBMIT_ETH_LIDO,
+    SWAP_TO,
+    SWAP_FROM,
+    STAKE,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];

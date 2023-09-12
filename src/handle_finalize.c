@@ -14,7 +14,9 @@ void handle_finalize(void *parameters) {
             case STAKE:
                 msg->numScreens = 1;
                 context->decimals_sent = DEFAULT_DECIMAL;
-                strlcpy(context->ticker_sent, STAKEWISE_STAKED_ETH2_TICKER, sizeof(context->ticker_sent));
+                strlcpy(context->ticker_sent,
+                        STAKEWISE_STAKED_ETH2_TICKER,
+                        sizeof(context->ticker_sent));
                 break;
             case DEPOSIT_SELF_APECOIN:
                 msg->numScreens = 1;
@@ -29,7 +31,9 @@ void handle_finalize(void *parameters) {
             case SWAP_TO:
                 msg->numScreens = 1;
                 context->decimals_received = DEFAULT_DECIMAL;
-                strlcpy(context->ticker_received, ROCKET_POOL_ETH_TICKER, sizeof(context->ticker_received));
+                strlcpy(context->ticker_received,
+                        ROCKET_POOL_ETH_TICKER,
+                        sizeof(context->ticker_received));
                 break;
             case SWAP_FROM:
                 msg->numScreens = 2;
