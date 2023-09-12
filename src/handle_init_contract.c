@@ -1,4 +1,4 @@
-#include "<Plugin Name>_plugin.h"
+#include "stakekit_plugin.h"
 
 // Called once to init.
 void handle_init_contract(void *parameters) {
@@ -20,14 +20,14 @@ void handle_init_contract(void *parameters) {
 
     // Determine a function to call
     size_t i;
-    for (i = 0; i < NUM_<Plugin Uppercase Name>_SELECTORS; i++) {
-        if (memcmp((uint8_t *) PIC(<Plugin Uppercase Name>_SELECTORS[i]), msg->selector, SELECTOR_SIZE) == 0) {
+    for (i = 0; i < NUM_STAKEKIT_SELECTORS; i++) {
+        if (memcmp((uint8_t *) PIC(STAKEKIT_SELECTORS[i]), msg->selector, SELECTOR_SIZE) == 0) {
             context->selectorIndex = i;
             break;
         }
     }
 
-    if (i == NUM_<Plugin Uppercase Name>_SELECTORS) {
+    if (i == NUM_STAKEKIT_SELECTORS) {
         // Selector was not found
         msg->result = ETH_PLUGIN_RESULT_ERROR;
         return;
@@ -35,8 +35,14 @@ void handle_init_contract(void *parameters) {
 
     // Set `next_param` to be the first field we expect to parse.
     switch (context->selectorIndex) {
-        case <Plugin Function Name>:
+        case DEPOSIT_SELF_APECOIN:
             context->next_param = AMOUNT_SENT;
+            break;
+        case WITHDRAW_SELF_APECOIN:
+            context->next_param = AMOUNT_RECEIVED;
+            break;
+        case CLAIM_SELF_APECOIN:
+            context->next_param = NONE;
             break;
         default:
             PRINTF("Missing selectorIndex\n");

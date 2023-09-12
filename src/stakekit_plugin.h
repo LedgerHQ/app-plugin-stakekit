@@ -4,9 +4,9 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_<Plugin Uppercase Name>_SELECTORS 1
+#define NUM_STAKEKIT_SELECTORS 3
 
-#define PLUGIN_NAME "<Plugin Displayed Name>"
+#define PLUGIN_NAME "StakeKit"
 
 #define TOKEN_SENT_FOUND     1       // REMOVE IF NOT USED
 #define TOKEN_RECEIVED_FOUND 1 << 1  // REMOVE IF NOT USED
@@ -19,9 +19,9 @@ extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];    // REMOVE IF NOT USED
     (!memcmp(_addr, PLUGIN_ETH_ADDRESS, ADDRESS_LENGTH) || \
      !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH))
 
-typedef enum {<Plugin Function Name> } selector_t;
+typedef enum { DEPOSIT_SELF_APECOIN, WITHDRAW_SELF_APECOIN, CLAIM_SELF_APECOIN } selector_t;
 
-extern const uint8_t *const <Plugin Uppercase Name>_SELECTORS[NUM_<Plugin Uppercase Name>_SELECTORS];
+extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
 
 typedef enum {
     SEND_SCREEN,
@@ -39,6 +39,9 @@ typedef enum {
 
 // Ticker used when the token wasn't found in the CAL.
 #define DEFAULT_TICKER ""
+
+// Ticker used for APE coin staking.
+#define APE_TICKER "APE"
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 typedef struct plugin_parameters_t {
