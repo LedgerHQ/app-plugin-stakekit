@@ -47,6 +47,10 @@ void handle_init_contract(void *parameters) {
         case SUBMIT_ETH_LIDO:
             context->next_param = RECIPIENT;
             break;
+        case SWAP_TO:
+            context->skip = 3;
+            context->next_param = AMOUNT_RECEIVED;
+            break;
         default:
             PRINTF("Missing selectorIndex\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;

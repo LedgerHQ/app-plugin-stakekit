@@ -28,6 +28,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
 static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case WITHDRAW_SELF_APECOIN:
+        case SWAP_TO:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
         default:
@@ -85,9 +86,8 @@ static screens_t get_screen_deposit_self_apecoin(ethQueryContractUI_t *msg,
     }
 }
 
-static screens_t get_screen_withdraw_self_apecoin(ethQueryContractUI_t *msg,
-                                                  plugin_parameters_t *context
-                                                  __attribute__((unused))) {
+static screens_t get_screen_receive(ethQueryContractUI_t *msg,
+                                    plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
         case 0:
             return RECEIVE_SCREEN;
@@ -122,7 +122,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case DEPOSIT_SELF_APECOIN:
             return get_screen_deposit_self_apecoin(msg, context);
         case WITHDRAW_SELF_APECOIN:
-            return get_screen_withdraw_self_apecoin(msg, context);
+        case SWAP_TO:
+            return get_screen_receive(msg, context);
         case SUBMIT_ETH_LIDO:
             return get_screen_submit_eth_lido(msg, context);
         default:

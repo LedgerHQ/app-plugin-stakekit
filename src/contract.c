@@ -12,6 +12,7 @@ static const uint8_t STAKEKIT_WITHDRAW_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0
                                                                                0x38};
 static const uint8_t STAKEKIT_CLAIM_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x82, 0x79, 0xe7, 0x60};
 static const uint8_t STAKEKIT_SUBMIT_ETH_LIDO_SELECTOR[SELECTOR_SIZE] = {0xa1, 0x90, 0x3e, 0xab};
+static const uint8_t STAKEKIT_SWAP_TO_SELECTOR[SELECTOR_SIZE] = {0x55, 0x36, 0x2f, 0x4d};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -19,6 +20,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_WITHDRAW_SELF_APECOIN_SELECTOR,
     STAKEKIT_CLAIM_SELF_APECOIN_SELECTOR,
     STAKEKIT_SUBMIT_ETH_LIDO_SELECTOR,
+    STAKEKIT_SWAP_TO_SELECTOR,
 };
 
 // Ask dummy address ETH

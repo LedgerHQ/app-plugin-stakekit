@@ -31,6 +31,7 @@ Smart contracts covered by this plugin are:
 | ---       | --- | --- |
 | Ethereum  | ApeCoinStaking | 0x5954ab967bc958940b7eb73ee84797dc8a2afbb9|
 | Ethereum  | AppProxyUpgradeable | 0xae7ab96520de3a18e5e111b5eaab095312d7fe84|
+| Ethereum  | RocketSwapRouter | 0x16d5a408e807db8ef7c578279beeee6b228f1c1c|
 
 
 ## Methods
@@ -43,6 +44,7 @@ Methods covered by this plugin are:
 | ApeCoinStaking    | 0x7f60d338 | withdrawSelfApeCoin |
 | ApeCoinStaking    | 0x8279e760 | claimSelfApeCoin |
 | AppProxyUpgradeable    | 0xa1903eab | submit |
+| RocketSwapRouter    | 0x55362f4d | swapTo |
 
 
 ## Build

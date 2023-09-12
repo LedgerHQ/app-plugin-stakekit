@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 4
+#define NUM_STAKEKIT_SELECTORS 5
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -23,6 +23,7 @@ typedef enum { DEPOSIT_SELF_APECOIN,
                WITHDRAW_SELF_APECOIN,
                CLAIM_SELF_APECOIN,
                SUBMIT_ETH_LIDO,
+               SWAP_TO,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -48,6 +49,9 @@ typedef enum {
 
 // Ticker used for APE coin staking.
 #define APE_TICKER "APE"
+
+// Ticker used for rETH coin staking.
+#define ROCKET_POOL_ETH_TICKER "rETH"
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 typedef struct plugin_parameters_t {

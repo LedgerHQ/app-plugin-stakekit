@@ -19,6 +19,9 @@ void handle_query_contract_id(void *parameters) {
         case SUBMIT_ETH_LIDO:
             strlcpy(msg->version, "Submit", msg->versionLength);
             break;
+        case SWAP_TO:
+            strlcpy(msg->version, "Swap To", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
