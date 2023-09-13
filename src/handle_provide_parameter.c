@@ -16,6 +16,22 @@ static void handle_swap_from(ethPluginProvideParameter_t *msg, plugin_parameters
     }
 }
 
+static void handle_submit(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->next_param = RECIPIENT;
+            break;
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 void handle_provide_parameter(void *parameters) {
     ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
@@ -38,6 +54,7 @@ void handle_provide_parameter(void *parameters) {
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
             case WITHDRAW_SELF_APECOIN:
+            case SWAP_TO:
                 copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
                 break;
             case SUBMIT_ETH_LIDO:
@@ -46,8 +63,8 @@ void handle_provide_parameter(void *parameters) {
             case CLAIM_SELF_APECOIN:
             case STAKE:
                 break;
-            case SWAP_TO:
-                copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+            case SUBMIT_MATIC_LIDO:
+                handle_submit(msg, context);
                 break;
             case SWAP_FROM:
                 handle_swap_from(msg, context);

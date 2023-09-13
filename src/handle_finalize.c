@@ -35,6 +35,11 @@ void handle_finalize(void *parameters) {
                         ROCKET_POOL_ETH_TICKER,
                         sizeof(context->ticker_received));
                 break;
+            case SUBMIT_MATIC_LIDO:
+                msg->numScreens = 2;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
+                break;
             case SWAP_FROM:
                 msg->numScreens = 2;
                 context->decimals_received = DEFAULT_DECIMAL;

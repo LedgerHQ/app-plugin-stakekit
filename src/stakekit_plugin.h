@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 7
+#define NUM_STAKEKIT_SELECTORS 8
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -27,6 +27,7 @@ typedef enum {
     SWAP_TO,
     SWAP_FROM,
     STAKE,
+    SUBMIT_MATIC_LIDO,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -59,6 +60,9 @@ typedef enum {
 
 // Ticker used for rETH.
 #define ROCKET_POOL_ETH_TICKER "rETH"
+
+// Ticker used for rETH.
+#define MATIC_TICKER "MATIC"
 
 // Ticker used for rETH.
 #define STAKEWISE_STAKED_ETH2_TICKER "sETH2"

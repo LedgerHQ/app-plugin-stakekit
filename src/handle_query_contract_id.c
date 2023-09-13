@@ -17,6 +17,7 @@ void handle_query_contract_id(void *parameters) {
             strlcpy(msg->version, "Withdraw Self APE coin", msg->versionLength);
             break;
         case SUBMIT_ETH_LIDO:
+        case SUBMIT_MATIC_LIDO:
             strlcpy(msg->version, "Submit", msg->versionLength);
             break;
         case SWAP_TO:

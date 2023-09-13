@@ -36,6 +36,7 @@ void handle_init_contract(void *parameters) {
     // Set `next_param` to be the first field we expect to parse.
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
+        case SUBMIT_MATIC_LIDO:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:
