@@ -115,6 +115,16 @@
                     "erc20OfInterest": ["_poolToken"],
                     "method": "supply",
                     "plugin": "StakeKit"
+                },
+                "0xf3fef3a3": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
+                },
+                "0x69328dec": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
                 }
             }
         }
