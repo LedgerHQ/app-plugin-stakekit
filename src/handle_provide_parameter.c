@@ -56,6 +56,7 @@ void handle_provide_parameter(void *parameters) {
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
             case BUY_VOUCHER:
+            case SELL_VOUCHER_NEW:
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 context->skip = 1;
                 break;

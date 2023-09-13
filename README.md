@@ -54,6 +54,7 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0xccc143b8 | requestWithdraw |
 | TransparentUpgradeableProxy    | 0x46e04a2f | claimTokens |
 | ValidatorShareProxy    | 0x6ab15071 | buyVoucher |
+| ValidatorShareProxy    | 0xc83ec04d | sellVoucher_new |
 
 
 ## Build
