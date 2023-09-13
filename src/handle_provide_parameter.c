@@ -36,7 +36,7 @@ static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
 static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
                                    plugin_parameters_t *context) {
     switch (context->next_param) {
-        case TOKEN_RECEIVED:
+        case TOKEN_SENT:
             copy_address(context->contract_address_sent, msg->parameter, INT256_LENGTH);
             context->next_param = RECIPIENT;
             break;
@@ -60,7 +60,7 @@ static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
 static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg,
                                    plugin_parameters_t *context) {
     switch (context->next_param) {
-        case TOKEN_RECEIVED:
+        case TOKEN_SENT:
             copy_address(context->contract_address_sent, msg->parameter, INT256_LENGTH);
             context->next_param = AMOUNT_SENT;
             break;
@@ -73,6 +73,51 @@ static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg,
             break;
     }
 }
+
+static void handle_morpho_withdraw_1(ethPluginProvideParameter_t *msg,
+                                     plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case TOKEN_RECEIVED:
+            copy_address(context->contract_address_received, msg->parameter, INT256_LENGTH);
+            context->next_param = AMOUNT_RECEIVED;
+            break;
+        case AMOUNT_RECEIVED:
+            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
+                                     plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case TOKEN_RECEIVED:
+            copy_address(context->contract_address_received, msg->parameter, INT256_LENGTH);
+            context->next_param = AMOUNT_RECEIVED;
+            break;
+        case AMOUNT_RECEIVED:
+            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+            context->next_param = RECIPIENT;
+            break;
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 
 void handle_provide_parameter(void *parameters) {
     ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
@@ -121,6 +166,12 @@ void handle_provide_parameter(void *parameters) {
             case MORPHO_SUPPLY_1:
             case MORPHO_SUPPLY_3:
                 handle_morpho_supply_1_3(msg, context);
+                break;
+            case MORPHO_WITHDRAW_1:
+                handle_morpho_withdraw_1(msg, context);
+                break;
+            case MORPHO_WITHDRAW_2:
+                handle_morpho_withdraw_2(msg, context);
                 break;
             case MORPHO_SUPPLY_2:
                 handle_morpho_supply_2(msg, context);

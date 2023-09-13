@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 15
+#define NUM_STAKEKIT_SELECTORS 17
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -35,6 +35,8 @@ typedef enum {
     MORPHO_SUPPLY_1,
     MORPHO_SUPPLY_2,
     MORPHO_SUPPLY_3,
+    MORPHO_WITHDRAW_1,
+    MORPHO_WITHDRAW_2,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -50,9 +52,10 @@ typedef enum {
 
 #define AMOUNT_SENT     0  // Amount sent by the user to the contract.
 #define AMOUNT_RECEIVED 1  // Amount sent by the contract to the user.
-#define TOKEN_RECEIVED  2  // Amount sent by the contract to the user.
-#define RECIPIENT       3  // Recipient address receiving the funds.
-#define NONE            4  // Placeholder variant to be set when parsing is done.
+#define TOKEN_SENT      2  // Amount sent by the contract to the user.
+#define TOKEN_RECEIVED  3  // Amount sent by the contract to the user.
+#define RECIPIENT       4  // Recipient address receiving the funds.
+#define NONE            5  // Placeholder variant to be set when parsing is done.
 
 // Number of decimals used when the token wasn't found in the CAL.
 #define DEFAULT_DECIMAL WEI_TO_ETHER

@@ -20,6 +20,14 @@ void handle_finalize(void *parameters) {
                 msg->numScreens = 1;
                 msg->tokenLookup1 = context->contract_address_sent;
                 break;
+            case MORPHO_WITHDRAW_1:
+                msg->numScreens = 1;
+                msg->tokenLookup2 = context->contract_address_received;
+                break;
+            case MORPHO_WITHDRAW_2:
+                msg->numScreens = 2;
+                msg->tokenLookup2 = context->contract_address_received;
+                break;
             case CLAIM_TOKENS:
             case SELL_VOUCHER_NEW:
                 msg->numScreens = 1;

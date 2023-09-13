@@ -59,6 +59,8 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
         case SWAP_FROM:
+        case MORPHO_WITHDRAW_1:
+        case MORPHO_WITHDRAW_2:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
         default:
@@ -83,6 +85,8 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
         case SUBMIT_ETH_LIDO:
+        case MORPHO_WITHDRAW_1:
+        case MORPHO_WITHDRAW_2:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -191,6 +195,34 @@ static screens_t get_screen_morpho_supply(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_morpho_withdraw(ethQueryContractUI_t *msg,
+                                            plugin_parameters_t *context __attribute__((unused))) {
+    bool token_received_found = context->tokens_found & TOKEN_RECEIVED_FOUND;
+
+    switch (msg->screenIndex) {
+        case 0:
+            if (token_received_found) {
+                return RECEIVE_SCREEN;
+            } else {
+                return WARN_SCREEN;
+            }
+        case 1:
+            if (token_received_found) {
+                return RECIPIENT_SCREEN;
+            } else {
+                return RECEIVE_SCREEN;
+            }
+        case 2:
+            if (token_received_found) {
+                return ERROR;
+            } else {
+                return RECIPIENT_SCREEN;
+            }
+        default:
+            return ERROR;
+    }
+}
+
 static screens_t get_screen_amount_sent_receive(ethQueryContractUI_t *msg,
                                                 plugin_parameters_t *context
                                                 __attribute__((unused))) {
@@ -247,6 +279,9 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_amount_sent_receive(msg, context);
         case STAKE:
             return get_screen_value_sent(msg, context);
+        case MORPHO_WITHDRAW_1:
+        case MORPHO_WITHDRAW_2:
+            return get_screen_morpho_withdraw(msg, context);
         default:
             return ERROR;
     }

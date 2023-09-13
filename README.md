@@ -59,6 +59,8 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0x0c0a769b | supply |
 | TransparentUpgradeableProxy    | 0xf2b9fdb8 | supply |
 | TransparentUpgradeableProxy    | 0xf62256c7 | supply |
+| TransparentUpgradeableProxy    | 0xf3fef3a3 | withdraw |
+| TransparentUpgradeableProxy    | 0x69328dec | withdraw |
 
 
 ## Build
