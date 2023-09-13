@@ -32,6 +32,9 @@ void handle_query_contract_id(void *parameters) {
         case REQUEST_WITHDRAW:
             strlcpy(msg->version, "Request Withdraw", msg->versionLength);
             break;
+        case CLAIM_TOKENS:
+            strlcpy(msg->version, "Claim Tokens", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

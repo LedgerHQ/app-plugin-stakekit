@@ -38,6 +38,7 @@ void handle_init_contract(void *parameters) {
         case DEPOSIT_SELF_APECOIN:
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
+        case CLAIM_TOKENS:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:

@@ -9,6 +9,9 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case REQUEST_WITHDRAW:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
+        case CLAIM_TOKENS:
+            strlcpy(msg->title, "Token ID", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -97,7 +100,7 @@ static void set_warning_ui(ethQueryContractUI_t *msg,
     strlcpy(msg->msg, "Unknown token", msg->msgLength);
 }
 
-static screens_t get_screen_deposit_self_apecoin(ethQueryContractUI_t *msg,
+static screens_t get_screen_amount_sent(ethQueryContractUI_t *msg,
                                                  plugin_parameters_t *context
                                                  __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -177,7 +180,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
 
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
-            return get_screen_deposit_self_apecoin(msg, context);
+        case CLAIM_TOKENS:
+            return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
             return get_screen_receive(msg, context);

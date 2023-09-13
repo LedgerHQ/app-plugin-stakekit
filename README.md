@@ -51,6 +51,7 @@ Methods covered by this plugin are:
 | AdminUpgradeabilityProxy    | 0x3a4b66f1 | stake |
 | TransparentUpgradeableProxy    | 0xf532e86a | submit |
 | TransparentUpgradeableProxy    | 0xccc143b8 | requestWithdraw |
+| TransparentUpgradeableProxy    | 0x46e04a2f | claimTokens |
 
 
 ## Build

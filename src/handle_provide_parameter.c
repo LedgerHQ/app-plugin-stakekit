@@ -52,6 +52,7 @@ void handle_provide_parameter(void *parameters) {
     } else {
         switch (context->selectorIndex) {
             case DEPOSIT_SELF_APECOIN:
+            case CLAIM_TOKENS:
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
             case WITHDRAW_SELF_APECOIN:
