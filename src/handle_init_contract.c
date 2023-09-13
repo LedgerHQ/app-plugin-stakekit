@@ -36,6 +36,11 @@ void handle_init_contract(void *parameters) {
     // Set `next_param` to be the first field we expect to parse.
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
+        case SUBMIT_MATIC_LIDO:
+        case REQUEST_WITHDRAW:
+        case CLAIM_TOKENS:
+        case BUY_VOUCHER:
+        case SELL_VOUCHER_NEW:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:
@@ -47,6 +52,15 @@ void handle_init_contract(void *parameters) {
             break;
         case SUBMIT_ETH_LIDO:
             context->next_param = RECIPIENT;
+            break;
+        case MORPHO_SUPPLY_1:
+        case MORPHO_SUPPLY_2:
+        case MORPHO_SUPPLY_3:
+            context->next_param = TOKEN_SENT;
+            break;
+        case MORPHO_WITHDRAW_1:
+        case MORPHO_WITHDRAW_2:
+            context->next_param = TOKEN_RECEIVED;
             break;
         case SWAP_TO:
         case SWAP_FROM:

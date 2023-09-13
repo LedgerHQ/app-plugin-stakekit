@@ -33,6 +33,9 @@ Smart contracts covered by this plugin are:
 | Ethereum  | AppProxyUpgradeable | 0xae7ab96520de3a18e5e111b5eaab095312d7fe84|
 | Ethereum  | RocketSwapRouter | 0x16d5a408e807db8ef7c578279beeee6b228f1c1c|
 | Ethereum  | AdminUpgradeabilityProxy | 0xc874b064f465bdd6411d45734b56fac750cda29a|
+| Ethereum  | TransparentUpgradeableProxy | 0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599|
+| Ethereum  | ValidatorShareProxy | 0x857679d69fe50e7b722f94acd2629d80c355163d|
+| Ethereum  | TransparentUpgradeableProxy | 0x777777c9898d384f785ee44acfe945efdff5f3e0|
 
 
 ## Methods
@@ -48,6 +51,16 @@ Methods covered by this plugin are:
 | RocketSwapRouter    | 0x55362f4d | swapTo |
 | RocketSwapRouter    | 0xa824ae8b | swapFrom |
 | AdminUpgradeabilityProxy    | 0x3a4b66f1 | stake |
+| TransparentUpgradeableProxy    | 0xf532e86a | submit |
+| TransparentUpgradeableProxy    | 0xccc143b8 | requestWithdraw |
+| TransparentUpgradeableProxy    | 0x46e04a2f | claimTokens |
+| ValidatorShareProxy    | 0x6ab15071 | buyVoucher |
+| ValidatorShareProxy    | 0xc83ec04d | sellVoucher_new |
+| TransparentUpgradeableProxy    | 0x0c0a769b | supply |
+| TransparentUpgradeableProxy    | 0xf2b9fdb8 | supply |
+| TransparentUpgradeableProxy    | 0xf62256c7 | supply |
+| TransparentUpgradeableProxy    | 0xf3fef3a3 | withdraw |
+| TransparentUpgradeableProxy    | 0x69328dec | withdraw |
 
 
 ## Build

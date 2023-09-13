@@ -59,6 +59,74 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599",
+            "contractName": "TransparentUpgradeableProxy",
+            "selectors": {
+                "0xf532e86a": {
+                    "erc20OfInterest": [],
+                    "method": "submit",
+                    "plugin": "StakeKit"
+                },
+                "0xccc143b8": {
+                    "erc20OfInterest": [],
+                    "method": "requestWithdraw",
+                    "plugin": "StakeKit"
+                },
+                "0x46e04a2f": {
+                    "erc20OfInterest": [],
+                    "method": "claimTokens",
+                    "plugin": "StakeKit"
+                }
+            }
+        },
+        {
+            "address": "0x857679d69fe50e7b722f94acd2629d80c355163d",
+            "contractName": "ValidatorShareProxy",
+            "selectors": {
+                "0x6ab15071": {
+                    "erc20OfInterest": [],
+                    "method": "buyVoucher",
+                    "plugin": "StakeKit"
+                },
+                "0xc83ec04d": {
+                    "erc20OfInterest": [],
+                    "method": "sellVoucher_new",
+                    "plugin": "StakeKit"
+                }
+            }
+        },
+        {
+            "address": "0x777777c9898d384f785ee44acfe945efdff5f3e0",
+            "contractName": "TransparentUpgradeableProxy",
+            "selectors": {
+                "0x0c0a769b": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "supply",
+                    "plugin": "StakeKit"
+                },
+                "0xf2b9fdb8": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "supply",
+                    "plugin": "StakeKit"
+                },
+                "0xf62256c7": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "supply",
+                    "plugin": "StakeKit"
+                },
+                "0xf3fef3a3": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
+                },
+                "0x69328dec": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"

@@ -17,6 +17,7 @@ void handle_query_contract_id(void *parameters) {
             strlcpy(msg->version, "Withdraw Self APE coin", msg->versionLength);
             break;
         case SUBMIT_ETH_LIDO:
+        case SUBMIT_MATIC_LIDO:
             strlcpy(msg->version, "Submit", msg->versionLength);
             break;
         case SWAP_TO:
@@ -27,6 +28,27 @@ void handle_query_contract_id(void *parameters) {
             break;
         case STAKE:
             strlcpy(msg->version, "Stake", msg->versionLength);
+            break;
+        case REQUEST_WITHDRAW:
+            strlcpy(msg->version, "Request Withdraw", msg->versionLength);
+            break;
+        case CLAIM_TOKENS:
+            strlcpy(msg->version, "Claim Tokens", msg->versionLength);
+            break;
+        case BUY_VOUCHER:
+            strlcpy(msg->version, "Buy Voucher", msg->versionLength);
+            break;
+        case SELL_VOUCHER_NEW:
+            strlcpy(msg->version, "Sell Voucher New", msg->versionLength);
+            break;
+        case MORPHO_SUPPLY_1:
+        case MORPHO_SUPPLY_2:
+        case MORPHO_SUPPLY_3:
+            strlcpy(msg->version, "Supply", msg->versionLength);
+            break;
+        case MORPHO_WITHDRAW_1:
+        case MORPHO_WITHDRAW_2:
+            strlcpy(msg->version, "Withdraw", msg->versionLength);
             break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);

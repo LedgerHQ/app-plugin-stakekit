@@ -11,6 +11,29 @@ void handle_finalize(void *parameters) {
             case CLAIM_SELF_APECOIN:
                 msg->numScreens = 0;
                 break;
+            case MORPHO_SUPPLY_1:
+            case MORPHO_SUPPLY_3:
+                msg->numScreens = 2;
+                msg->tokenLookup1 = context->contract_address_sent;
+                break;
+            case MORPHO_SUPPLY_2:
+                msg->numScreens = 1;
+                msg->tokenLookup1 = context->contract_address_sent;
+                break;
+            case MORPHO_WITHDRAW_1:
+                msg->numScreens = 1;
+                msg->tokenLookup2 = context->contract_address_received;
+                break;
+            case MORPHO_WITHDRAW_2:
+                msg->numScreens = 2;
+                msg->tokenLookup2 = context->contract_address_received;
+                break;
+            case CLAIM_TOKENS:
+            case SELL_VOUCHER_NEW:
+                msg->numScreens = 1;
+                context->decimals_sent = 0;
+                strlcpy(context->ticker_sent, DEFAULT_TICKER, sizeof(context->ticker_sent));
+                break;
             case STAKE:
                 msg->numScreens = 1;
                 context->decimals_sent = DEFAULT_DECIMAL;
@@ -34,6 +57,17 @@ void handle_finalize(void *parameters) {
                 strlcpy(context->ticker_received,
                         ROCKET_POOL_ETH_TICKER,
                         sizeof(context->ticker_received));
+                break;
+            case SUBMIT_MATIC_LIDO:
+            case REQUEST_WITHDRAW:
+                msg->numScreens = 2;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
+                break;
+            case BUY_VOUCHER:
+                msg->numScreens = 1;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
                 break;
             case SWAP_FROM:
                 msg->numScreens = 2;
