@@ -124,8 +124,7 @@ static void set_warning_ui(ethQueryContractUI_t *msg,
 }
 
 static screens_t get_screen_amount_sent(ethQueryContractUI_t *msg,
-                                                 plugin_parameters_t *context
-                                                 __attribute__((unused))) {
+                                        plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
         case 0:
             return SEND_SCREEN;

@@ -34,7 +34,7 @@ static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
 }
 
 static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
-                                   plugin_parameters_t *context) {
+                                     plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
             copy_address(context->contract_address_sent, msg->parameter, INT256_LENGTH);
@@ -57,8 +57,7 @@ static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
     }
 }
 
-static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg,
-                                   plugin_parameters_t *context) {
+static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
             copy_address(context->contract_address_sent, msg->parameter, INT256_LENGTH);
@@ -117,7 +116,6 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
             break;
     }
 }
-
 
 void handle_provide_parameter(void *parameters) {
     ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
