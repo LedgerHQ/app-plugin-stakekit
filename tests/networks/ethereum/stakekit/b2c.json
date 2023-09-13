@@ -89,6 +89,11 @@
                     "erc20OfInterest": [],
                     "method": "buyVoucher",
                     "plugin": "StakeKit"
+                },
+                "0xc83ec04d": {
+                    "erc20OfInterest": [],
+                    "method": "sellVoucher_new",
+                    "plugin": "StakeKit"
                 }
             }
         }
