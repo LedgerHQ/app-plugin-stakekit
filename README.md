@@ -35,6 +35,7 @@ Smart contracts covered by this plugin are:
 | Ethereum  | AdminUpgradeabilityProxy | 0xc874b064f465bdd6411d45734b56fac750cda29a|
 | Ethereum  | TransparentUpgradeableProxy | 0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599|
 | Ethereum  | ValidatorShareProxy | 0x857679d69fe50e7b722f94acd2629d80c355163d|
+| Ethereum  | TransparentUpgradeableProxy | 0x777777c9898d384f785ee44acfe945efdff5f3e0|
 
 
 ## Methods
@@ -55,6 +56,9 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0x46e04a2f | claimTokens |
 | ValidatorShareProxy    | 0x6ab15071 | buyVoucher |
 | ValidatorShareProxy    | 0xc83ec04d | sellVoucher_new |
+| TransparentUpgradeableProxy    | 0x0c0a769b | supply |
+| TransparentUpgradeableProxy    | 0xf2b9fdb8 | supply |
+| TransparentUpgradeableProxy    | 0xf62256c7 | supply |
 
 
 ## Build
