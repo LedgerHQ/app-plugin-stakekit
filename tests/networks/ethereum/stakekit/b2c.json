@@ -73,6 +73,11 @@
                     "erc20OfInterest": [],
                     "method": "requestWithdraw",
                     "plugin": "StakeKit"
+                },
+                "0x46e04a2f": {
+                    "erc20OfInterest": [],
+                    "method": "claimTokens",
+                    "plugin": "StakeKit"
                 }
             }
         }
