@@ -50,6 +50,7 @@ Methods covered by this plugin are:
 | RocketSwapRouter    | 0xa824ae8b | swapFrom |
 | AdminUpgradeabilityProxy    | 0x3a4b66f1 | stake |
 | TransparentUpgradeableProxy    | 0xf532e86a | submit |
+| TransparentUpgradeableProxy    | 0xccc143b8 | requestWithdraw |
 
 
 ## Build

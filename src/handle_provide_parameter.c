@@ -16,7 +16,8 @@ static void handle_swap_from(ethPluginProvideParameter_t *msg, plugin_parameters
     }
 }
 
-static void handle_submit(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
+                                    plugin_parameters_t *context) {
     switch (context->next_param) {
         case AMOUNT_SENT:
             copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
@@ -64,7 +65,8 @@ void handle_provide_parameter(void *parameters) {
             case STAKE:
                 break;
             case SUBMIT_MATIC_LIDO:
-                handle_submit(msg, context);
+            case REQUEST_WITHDRAW:
+                handle_amount_recipient(msg, context);
                 break;
             case SWAP_FROM:
                 handle_swap_from(msg, context);

@@ -29,6 +29,9 @@ void handle_query_contract_id(void *parameters) {
         case STAKE:
             strlcpy(msg->version, "Stake", msg->versionLength);
             break;
+        case REQUEST_WITHDRAW:
+            strlcpy(msg->version, "Request Withdraw", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

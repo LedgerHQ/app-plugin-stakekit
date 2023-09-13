@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 8
+#define NUM_STAKEKIT_SELECTORS 9
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -28,6 +28,7 @@ typedef enum {
     SWAP_FROM,
     STAKE,
     SUBMIT_MATIC_LIDO,
+    REQUEST_WITHDRAW,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];

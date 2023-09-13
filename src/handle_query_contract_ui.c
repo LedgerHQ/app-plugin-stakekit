@@ -6,6 +6,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case DEPOSIT_SELF_APECOIN:
         case SWAP_FROM:
         case SUBMIT_MATIC_LIDO:
+        case REQUEST_WITHDRAW:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         default:
@@ -127,8 +128,9 @@ static screens_t get_screen_submit_eth_lido(ethQueryContractUI_t *msg,
     }
 }
 
-static screens_t get_screen_submit_matic_lido(ethQueryContractUI_t *msg,
-                                              plugin_parameters_t *context __attribute__((unused))) {
+static screens_t get_screen_amount_sent_recipient(ethQueryContractUI_t *msg,
+                                                  plugin_parameters_t *context
+                                                  __attribute__((unused))) {
     switch (msg->screenIndex) {
         case 0:
             return SEND_SCREEN;
@@ -182,7 +184,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SUBMIT_ETH_LIDO:
             return get_screen_submit_eth_lido(msg, context);
         case SUBMIT_MATIC_LIDO:
-            return get_screen_submit_matic_lido(msg, context);
+        case REQUEST_WITHDRAW:
+            return get_screen_amount_sent_recipient(msg, context);
         case SWAP_FROM:
             return get_screen_amount_sent_receive(msg, context);
         case STAKE:

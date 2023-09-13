@@ -36,6 +36,7 @@ void handle_finalize(void *parameters) {
                         sizeof(context->ticker_received));
                 break;
             case SUBMIT_MATIC_LIDO:
+            case REQUEST_WITHDRAW:
                 msg->numScreens = 2;
                 context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
