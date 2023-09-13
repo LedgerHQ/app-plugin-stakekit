@@ -46,6 +46,11 @@ void handle_finalize(void *parameters) {
                 context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
                 break;
+            case BUY_VOUCHER:
+                msg->numScreens = 1;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
+                break;
             case SWAP_FROM:
                 msg->numScreens = 2;
                 context->decimals_received = DEFAULT_DECIMAL;

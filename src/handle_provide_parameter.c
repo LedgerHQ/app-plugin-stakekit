@@ -55,6 +55,10 @@ void handle_provide_parameter(void *parameters) {
             case CLAIM_TOKENS:
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
+            case BUY_VOUCHER:
+                copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+                context->skip = 1;
+                break;
             case WITHDRAW_SELF_APECOIN:
             case SWAP_TO:
                 copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);

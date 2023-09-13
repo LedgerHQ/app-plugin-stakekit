@@ -35,6 +35,9 @@ void handle_query_contract_id(void *parameters) {
         case CLAIM_TOKENS:
             strlcpy(msg->version, "Claim Tokens", msg->versionLength);
             break;
+        case BUY_VOUCHER:
+            strlcpy(msg->version, "Buy Voucher", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

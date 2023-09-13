@@ -7,6 +7,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case SWAP_FROM:
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
+        case BUY_VOUCHER:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -181,6 +182,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
         case CLAIM_TOKENS:
+        case BUY_VOUCHER:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
