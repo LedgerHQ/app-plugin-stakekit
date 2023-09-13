@@ -9,6 +9,9 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case REQUEST_WITHDRAW:
         case BUY_VOUCHER:
         case SELL_VOUCHER_NEW:
+        case MORPHO_SUPPLY_1:
+        case MORPHO_SUPPLY_2:
+        case MORPHO_SUPPLY_3:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -76,7 +79,21 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
 
 // Set UI for "Recipient" screen.
 static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
-    strlcpy(msg->title, "Recipient", msg->titleLength);
+    switch (context->selectorIndex) {
+        case SUBMIT_MATIC_LIDO:
+        case REQUEST_WITHDRAW:
+        case SUBMIT_ETH_LIDO:
+            strlcpy(msg->title, "Recipient", msg->titleLength);
+            break;
+        case MORPHO_SUPPLY_1:
+        case MORPHO_SUPPLY_3:
+            strlcpy(msg->title, "Sender", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
 
     // Prefix the address with `0x`.
     msg->msg[0] = '0';
@@ -146,6 +163,34 @@ static screens_t get_screen_amount_sent_recipient(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_morpho_supply(ethQueryContractUI_t *msg,
+                                          plugin_parameters_t *context __attribute__((unused))) {
+    bool token_sent_found = context->tokens_found & TOKEN_SENT_FOUND;
+
+    switch (msg->screenIndex) {
+        case 0:
+            if (token_sent_found) {
+                return SEND_SCREEN;
+            } else {
+                return WARN_SCREEN;
+            }
+        case 1:
+            if (token_sent_found) {
+                return RECIPIENT_SCREEN;
+            } else {
+                return SEND_SCREEN;
+            }
+        case 2:
+            if (token_sent_found) {
+                return ERROR;
+            } else {
+                return RECIPIENT_SCREEN;
+            }
+        default:
+            return ERROR;
+    }
+}
+
 static screens_t get_screen_amount_sent_receive(ethQueryContractUI_t *msg,
                                                 plugin_parameters_t *context
                                                 __attribute__((unused))) {
@@ -194,6 +239,10 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
             return get_screen_amount_sent_recipient(msg, context);
+        case MORPHO_SUPPLY_1:
+        case MORPHO_SUPPLY_2:
+        case MORPHO_SUPPLY_3:
+            return get_screen_morpho_supply(msg, context);
         case SWAP_FROM:
             return get_screen_amount_sent_receive(msg, context);
         case STAKE:

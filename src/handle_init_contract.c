@@ -53,6 +53,11 @@ void handle_init_contract(void *parameters) {
         case SUBMIT_ETH_LIDO:
             context->next_param = RECIPIENT;
             break;
+        case MORPHO_SUPPLY_1:
+        case MORPHO_SUPPLY_2:
+        case MORPHO_SUPPLY_3:
+            context->next_param = TOKEN_RECEIVED;
+            break;
         case SWAP_TO:
         case SWAP_FROM:
             context->skip = 3;

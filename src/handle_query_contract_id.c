@@ -41,6 +41,11 @@ void handle_query_contract_id(void *parameters) {
         case SELL_VOUCHER_NEW:
             strlcpy(msg->version, "Sell Voucher New", msg->versionLength);
             break;
+        case MORPHO_SUPPLY_1:
+        case MORPHO_SUPPLY_2:
+        case MORPHO_SUPPLY_3:
+            strlcpy(msg->version, "Supply", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

@@ -96,6 +96,27 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x777777c9898d384f785ee44acfe945efdff5f3e0",
+            "contractName": "TransparentUpgradeableProxy",
+            "selectors": {
+                "0x0c0a769b": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "supply",
+                    "plugin": "StakeKit"
+                },
+                "0xf2b9fdb8": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "supply",
+                    "plugin": "StakeKit"
+                },
+                "0xf62256c7": {
+                    "erc20OfInterest": ["_poolToken"],
+                    "method": "supply",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
