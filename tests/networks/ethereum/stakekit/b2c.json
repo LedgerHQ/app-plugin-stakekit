@@ -80,6 +80,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x857679d69fe50e7b722f94acd2629d80c355163d",
+            "contractName": "ValidatorShareProxy",
+            "selectors": {
+                "0x6ab15071": {
+                    "erc20OfInterest": [],
+                    "method": "buyVoucher",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
