@@ -196,6 +196,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x1b0e765f6224c21223aea2af16c1c46e38885a40",
+            "contractName": "CometRewards",
+            "selectors": {
+                "0xb7034f7e": {
+                    "erc20OfInterest": [],
+                    "method": "claim",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
