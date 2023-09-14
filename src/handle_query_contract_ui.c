@@ -14,6 +14,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case MORPHO_SUPPLY_3:
         case PARASPACE_DEPOSIT:
         case GRT_DELEGATE:
+        case ENTER:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -284,6 +285,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case CLAIM_TOKENS:
         case BUY_VOUCHER:
         case SELL_VOUCHER_NEW:
+        case ENTER:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:

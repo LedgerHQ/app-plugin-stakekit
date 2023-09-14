@@ -38,6 +38,7 @@ Smart contracts covered by this plugin are:
 | Ethereum  | TransparentUpgradeableProxy | 0x777777c9898d384f785ee44acfe945efdff5f3e0|
 | Ethereum  | InitializableAdminUpgradeabilityProxy | 0xc5c9fb6223a989208df27dcee33fc59ff5c26fff|
 | Ethereum  | GraphProxy | 0xf55041e37e12cd407ad00ce2910b8269b01263b9|
+| Ethereum  | SushiBar | 0x8798249c2e607446efb7ad49ec89dd1865ff4272|
 
 
 ## Methods
@@ -68,6 +69,7 @@ Methods covered by this plugin are:
 | GraphProxy    | 0x026e402b | delegate |
 | GraphProxy    | 0x4d99dd16 | undelegate |
 | GraphProxy    | 0x51a60b02 | withdrawDelegated |
+| SushiBar    | 0xa59f3e0c | enter |
 
 
 ## Build

@@ -63,6 +63,9 @@ void handle_query_contract_id(void *parameters) {
         case GRT_WITHDRAW_DELEGATED:
             strlcpy(msg->version, "Withdraw Delegated", msg->versionLength);
             break;
+        case ENTER:
+            strlcpy(msg->version, "Enter", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
