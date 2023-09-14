@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 21
+#define NUM_STAKEKIT_SELECTORS 22
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -41,6 +41,7 @@ typedef enum {
     PARASPACE_WITHDRAW,
     GRT_DELEGATE,
     GRT_UNDELEGATE,
+    GRT_WITHDRAW_DELEGATED,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];

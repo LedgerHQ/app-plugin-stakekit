@@ -197,6 +197,10 @@ void handle_provide_parameter(void *parameters) {
             case GRT_UNDELEGATE:
                 handle_recipient_amount_sent(msg, context);
                 break;
+            case GRT_WITHDRAW_DELEGATED:
+                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+                context->skip = 1;
+                break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);
                 msg->result = ETH_PLUGIN_RESULT_ERROR;

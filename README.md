@@ -67,6 +67,7 @@ Methods covered by this plugin are:
 | InitializableAdminUpgradeabilityProxy    | 0x2e1a7d4d | withdraw |
 | GraphProxy    | 0x026e402b | delegate |
 | GraphProxy    | 0x4d99dd16 | undelegate |
+| GraphProxy    | 0x51a60b02 | withdrawDelegated |
 
 
 ## Build

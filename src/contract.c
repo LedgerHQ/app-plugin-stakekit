@@ -29,6 +29,10 @@ static const uint8_t STAKEKIT_PARASPACE_DEPOSIT_SELECTOR[SELECTOR_SIZE] = {0x47,
 static const uint8_t STAKEKIT_PARASPACE_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0x2e, 0x1a, 0x7d, 0x4d};
 static const uint8_t STAKEKIT_GRT_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x02, 0x6e, 0x40, 0x2b};
 static const uint8_t STAKEKIT_GRT_UNDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x4d, 0x99, 0xdd, 0x16};
+static const uint8_t STAKEKIT_GRT_WITHDRAW_DELEGATED_SELECTOR[SELECTOR_SIZE] = {0x51,
+                                                                                0xa6,
+                                                                                0x0b,
+                                                                                0x02};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -53,6 +57,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_PARASPACE_WITHDRAW_SELECTOR,
     STAKEKIT_GRT_DELEGATE_SELECTOR,
     STAKEKIT_GRT_UNDELEGATE_SELECTOR,
+    STAKEKIT_GRT_WITHDRAW_DELEGATED_SELECTOR,
 };
 
 // Ask dummy address ETH
