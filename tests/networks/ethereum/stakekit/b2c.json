@@ -173,6 +173,11 @@
                     "erc20OfInterest": [],
                     "method": "enter",
                     "plugin": "StakeKit"
+                },
+                "0x67dfd4c9": {
+                    "erc20OfInterest": [],
+                    "method": "leave",
+                    "plugin": "StakeKit"
                 }
             }
         }
