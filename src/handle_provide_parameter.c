@@ -186,6 +186,7 @@ void handle_provide_parameter(void *parameters) {
                 handle_morpho_supply_1_3(msg, context);
                 break;
             case MORPHO_WITHDRAW_1:
+            case COMET_WITHDRAW:
                 handle_morpho_withdraw_1(msg, context);
                 break;
             case MORPHO_WITHDRAW_2:

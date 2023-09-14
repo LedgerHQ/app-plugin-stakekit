@@ -36,6 +36,7 @@ static const uint8_t STAKEKIT_GRT_WITHDRAW_DELEGATED_SELECTOR[SELECTOR_SIZE] = {
 static const uint8_t STAKEKIT_ENTER_SELECTOR[SELECTOR_SIZE] = {0xa5, 0x9f, 0x3e, 0x0c};
 static const uint8_t STAKEKIT_LEAVE_SELECTOR[SELECTOR_SIZE] = {0x67, 0xdf, 0xd4, 0xc9};
 static const uint8_t STAKEKIT_COMET_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
+static const uint8_t STAKEKIT_COMET_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xf3, 0xfe, 0xf3, 0xa3};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -64,6 +65,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_ENTER_SELECTOR,
     STAKEKIT_LEAVE_SELECTOR,
     STAKEKIT_COMET_SUPPLY_SELECTOR,
+    STAKEKIT_COMET_WITHDRAW_SELECTOR,
 };
 
 // Ask dummy address ETH

@@ -67,6 +67,7 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
         case PARASPACE_WITHDRAW:
+        case COMET_WITHDRAW:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
         default:
@@ -293,6 +294,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
         case PARASPACE_WITHDRAW:
+        case COMET_WITHDRAW:
             return get_screen_receive(msg, context);
         case GRT_UNDELEGATE:
         case GRT_WITHDRAW_DELEGATED:

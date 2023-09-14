@@ -22,6 +22,7 @@ void handle_finalize(void *parameters) {
                 msg->tokenLookup1 = context->contract_address_sent;
                 break;
             case MORPHO_WITHDRAW_1:
+            case COMET_WITHDRAW:
                 msg->numScreens = 1;
                 msg->tokenLookup2 = context->contract_address_received;
                 break;

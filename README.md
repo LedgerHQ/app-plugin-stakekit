@@ -74,6 +74,7 @@ Methods covered by this plugin are:
 | SushiBar    | 0xa59f3e0c | enter |
 | SushiBar    | 0x67dfd4c9 | leave |
 | TransparentUpgradeableProxy    | 0xf2b9fdb8 | supply |
+| TransparentUpgradeableProxy    | 0xf3fef3a3 | withdraw |
 
 
 ## Build

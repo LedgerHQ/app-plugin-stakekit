@@ -68,6 +68,7 @@ void handle_init_contract(void *parameters) {
             break;
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
+        case COMET_WITHDRAW:
             context->next_param = TOKEN_RECEIVED;
             break;
         case SWAP_TO:
