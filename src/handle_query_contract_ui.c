@@ -62,6 +62,7 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
         case SWAP_FROM:
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
+        case PARASPACE_WITHDRAW:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
         default:
@@ -266,6 +267,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
+        case PARASPACE_WITHDRAW:
             return get_screen_receive(msg, context);
         case SUBMIT_ETH_LIDO:
             return get_screen_submit_eth_lido(msg, context);

@@ -47,6 +47,7 @@ void handle_finalize(void *parameters) {
                 strlcpy(context->ticker_sent, APE_TICKER, sizeof(context->ticker_sent));
                 break;
             case WITHDRAW_SELF_APECOIN:
+            case PARASPACE_WITHDRAW:
                 msg->numScreens = 1;
                 context->decimals_received = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_received, APE_TICKER, sizeof(context->ticker_received));
@@ -79,7 +80,7 @@ void handle_finalize(void *parameters) {
             case PARASPACE_DEPOSIT:
                 msg->numScreens = 2;
                 context->decimals_sent = DEFAULT_DECIMAL;
-                strlcpy(context->ticker_sent, PARASPACE_TICKER, sizeof(context->ticker_sent));
+                strlcpy(context->ticker_sent, APE_TICKER, sizeof(context->ticker_sent));
                 break;
             default:
                 msg->numScreens = 1;

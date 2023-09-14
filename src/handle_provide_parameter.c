@@ -163,6 +163,7 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case WITHDRAW_SELF_APECOIN:
             case SWAP_TO:
+            case PARASPACE_WITHDRAW:
                 copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
                 break;
             case SUBMIT_ETH_LIDO:

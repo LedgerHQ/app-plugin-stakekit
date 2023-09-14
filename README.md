@@ -63,6 +63,7 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0xf3fef3a3 | withdraw |
 | TransparentUpgradeableProxy    | 0x69328dec | withdraw |
 | InitializableAdminUpgradeabilityProxy    | 0x47e7ef24 | deposit |
+| InitializableAdminUpgradeabilityProxy    | 0x2e1a7d4d | withdraw |
 
 
 ## Build

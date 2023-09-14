@@ -48,6 +48,7 @@ void handle_query_contract_id(void *parameters) {
             break;
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
+        case PARASPACE_WITHDRAW:
             strlcpy(msg->version, "Withdraw", msg->versionLength);
             break;
         case PARASPACE_DEPOSIT:
