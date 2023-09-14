@@ -143,6 +143,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0xf55041e37e12cd407ad00ce2910b8269b01263b9",
+            "contractName": "GraphProxy",
+            "selectors": {
+                "0x026e402b": {
+                    "erc20OfInterest": [],
+                    "method": "delegate",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
