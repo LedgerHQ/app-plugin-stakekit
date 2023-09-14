@@ -54,7 +54,7 @@ static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
-            copy_address(context->contract_address_sent, msg->parameter, INT256_LENGTH);
+            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
             context->next_param = RECIPIENT;
             break;
         case RECIPIENT:
@@ -77,7 +77,7 @@ static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
 static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
-            copy_address(context->contract_address_sent, msg->parameter, INT256_LENGTH);
+            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
             context->next_param = AMOUNT_SENT;
             break;
         case AMOUNT_SENT:
@@ -94,7 +94,7 @@ static void handle_morpho_withdraw_1(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_RECEIVED:
-            copy_address(context->contract_address_received, msg->parameter, INT256_LENGTH);
+            copy_address(context->contract_address_received, msg->parameter, ADDRESS_LENGTH);
             context->next_param = AMOUNT_RECEIVED;
             break;
         case AMOUNT_RECEIVED:
@@ -114,7 +114,7 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_RECEIVED:
-            copy_address(context->contract_address_received, msg->parameter, INT256_LENGTH);
+            copy_address(context->contract_address_received, msg->parameter, ADDRESS_LENGTH);
             context->next_param = AMOUNT_RECEIVED;
             break;
         case AMOUNT_RECEIVED:
@@ -122,6 +122,25 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
             context->next_param = RECIPIENT;
             break;
         case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT: // Put the Comet protocol address in contract_address_sent
+            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = RECIPIENT_2;
+            break;
+        case RECIPIENT_2:
             copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
             context->next_param = NONE;
             break;
@@ -204,6 +223,9 @@ void handle_provide_parameter(void *parameters) {
             case GRT_WITHDRAW_DELEGATED:
                 copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 context->skip = 1;
+                break;
+            case COMET_CLAIM:
+                handle_comet_claim(msg, context);
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

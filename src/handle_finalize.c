@@ -11,6 +11,9 @@ void handle_finalize(void *parameters) {
             case CLAIM_SELF_APECOIN:
                 msg->numScreens = 0;
                 break;
+            case COMET_CLAIM:
+                msg->numScreens = 2;
+                break;
             case MORPHO_SUPPLY_1:
             case MORPHO_SUPPLY_3:
                 msg->numScreens = 2;

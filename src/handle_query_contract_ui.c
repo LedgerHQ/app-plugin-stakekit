@@ -110,6 +110,9 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case GRT_WITHDRAW_DELEGATED:
             strlcpy(msg->title, "From", msg->titleLength);
             break;
+        case COMET_CLAIM:
+            strlcpy(msg->title, "Owner", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -128,6 +131,34 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
     // `msg->msg`.
     getEthAddressStringFromBinary(
         context->recipient,
+        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
+        msg->pluginSharedRW->sha3,
+        chainid);
+}
+
+static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case COMET_CLAIM:
+            strlcpy(msg->title, "Comet Protocol", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+
+    // Prefix the address with `0x`.
+    msg->msg[0] = '0';
+    msg->msg[1] = 'x';
+
+    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+    // Setting it to `0` will make it work with every chainID :)
+    uint64_t chainid = 0;
+
+    // Get the string representation of the address stored in `context->beneficiary`. Put it in
+    // `msg->msg`.
+    getEthAddressStringFromBinary(
+        context->contract_address_sent,
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
         msg->pluginSharedRW->sha3,
         chainid);
@@ -239,6 +270,18 @@ static screens_t get_screen_morpho_withdraw(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_comet_claim(ethQueryContractUI_t *msg,
+                                        plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return RECIPIENT_SCREEN;
+        case 1:
+            return RECIPIENT_2_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 static screens_t get_screen_amount_sent_receive(ethQueryContractUI_t *msg,
                                                 plugin_parameters_t *context
                                                 __attribute__((unused))) {
@@ -275,14 +318,6 @@ static screens_t get_screen_recipient(ethQueryContractUI_t *msg,
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
-    // Remove if not used from here
-    bool token_sent_found = context->tokens_found & TOKEN_SENT_FOUND;
-    bool token_received_found = context->tokens_found & TOKEN_RECEIVED_FOUND;
-
-    bool both_tokens_found = token_received_found && token_sent_found;
-    bool both_tokens_not_found = !token_received_found && !token_sent_found;
-    // To here
-
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
         case CLAIM_TOKENS:
@@ -318,6 +353,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
             return get_screen_morpho_withdraw(msg, context);
+        case COMET_CLAIM:
+            return get_screen_comet_claim(msg, context);
         default:
             return ERROR;
     }
@@ -344,6 +381,9 @@ void handle_query_contract_ui(void *parameters) {
             break;
         case RECIPIENT_SCREEN:
             set_recipient_ui(msg, context);
+            break;
+        case RECIPIENT_2_SCREEN:
+            set_recipient_2_ui(msg, context);
             break;
         case WARN_SCREEN:
             set_warning_ui(msg, context);
