@@ -41,6 +41,8 @@ void handle_init_contract(void *parameters) {
         case CLAIM_TOKENS:
         case BUY_VOUCHER:
         case SELL_VOUCHER_NEW:
+        case ENTER:
+        case LEAVE:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:
@@ -56,15 +58,18 @@ void handle_init_contract(void *parameters) {
         case GRT_DELEGATE:
         case GRT_UNDELEGATE:
         case GRT_WITHDRAW_DELEGATED:
+        case COMET_CLAIM:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
+        case COMET_SUPPLY:
             context->next_param = TOKEN_SENT;
             break;
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
+        case COMET_WITHDRAW:
             context->next_param = TOKEN_RECEIVED;
             break;
         case SWAP_TO:

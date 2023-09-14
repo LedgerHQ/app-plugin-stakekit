@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 22
+#define NUM_STAKEKIT_SELECTORS 27
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -42,6 +42,11 @@ typedef enum {
     GRT_DELEGATE,
     GRT_UNDELEGATE,
     GRT_WITHDRAW_DELEGATED,
+    ENTER,
+    LEAVE,
+    COMET_SUPPLY,
+    COMET_WITHDRAW,
+    COMET_CLAIM,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -51,6 +56,7 @@ typedef enum {
     SEND_VALUE_SCREEN,
     RECEIVE_SCREEN,
     RECIPIENT_SCREEN,
+    RECIPIENT_2_SCREEN,
     WARN_SCREEN,
     ERROR,
 } screens_t;
@@ -60,7 +66,8 @@ typedef enum {
 #define TOKEN_SENT      2  // Amount sent by the contract to the user.
 #define TOKEN_RECEIVED  3  // Amount sent by the contract to the user.
 #define RECIPIENT       4  // Recipient address receiving the funds.
-#define NONE            5  // Placeholder variant to be set when parsing is done.
+#define RECIPIENT_2     5  // Recipient address receiving the funds.
+#define NONE            6  // Placeholder variant to be set when parsing is done.
 
 // Number of decimals used when the token wasn't found in the CAL.
 #define DEFAULT_DECIMAL WEI_TO_ETHER
@@ -82,6 +89,12 @@ typedef enum {
 
 // Ticker used for GRT.
 #define GRT_TICKER "GRT"
+
+// Ticker used for SUSHI.
+#define SUSHI_TICKER "SUSHI"
+
+// Ticker used for xSUSHI.
+#define XSUSHI_TICKER "xSUSHI"
 
 // Ticker used for rETH.
 #define STAKEWISE_STAKED_ETH2_TICKER "sETH2"

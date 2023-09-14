@@ -11,16 +11,21 @@ void handle_finalize(void *parameters) {
             case CLAIM_SELF_APECOIN:
                 msg->numScreens = 0;
                 break;
+            case COMET_CLAIM:
+                msg->numScreens = 2;
+                break;
             case MORPHO_SUPPLY_1:
             case MORPHO_SUPPLY_3:
                 msg->numScreens = 2;
                 msg->tokenLookup1 = context->contract_address_sent;
                 break;
             case MORPHO_SUPPLY_2:
+            case COMET_SUPPLY:
                 msg->numScreens = 1;
                 msg->tokenLookup1 = context->contract_address_sent;
                 break;
             case MORPHO_WITHDRAW_1:
+            case COMET_WITHDRAW:
                 msg->numScreens = 1;
                 msg->tokenLookup2 = context->contract_address_received;
                 break;
@@ -33,6 +38,16 @@ void handle_finalize(void *parameters) {
                 msg->numScreens = 1;
                 context->decimals_sent = 0;
                 strlcpy(context->ticker_sent, DEFAULT_TICKER, sizeof(context->ticker_sent));
+                break;
+            case ENTER:
+                msg->numScreens = 1;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, SUSHI_TICKER, sizeof(context->ticker_sent));
+                break;
+            case LEAVE:
+                msg->numScreens = 1;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, XSUSHI_TICKER, sizeof(context->ticker_sent));
                 break;
             case STAKE:
                 msg->numScreens = 1;

@@ -164,6 +164,49 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
+            "contractName": "SushiBar",
+            "selectors": {
+                "0xa59f3e0c": {
+                    "erc20OfInterest": [],
+                    "method": "enter",
+                    "plugin": "StakeKit"
+                },
+                "0x67dfd4c9": {
+                    "erc20OfInterest": [],
+                    "method": "leave",
+                    "plugin": "StakeKit"
+                }
+            }
+        },
+        {
+            "address": "0xc3d688b66703497daa19211eedff47f25384cdc3",
+            "contractName": "TransparentUpgradeableProxy",
+            "selectors": {
+                "0xf2b9fdb8": {
+                    "erc20OfInterest": ["asset"],
+                    "method": "supply",
+                    "plugin": "StakeKit"
+                },
+                "0xf3fef3a3": {
+                    "erc20OfInterest": ["to"],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
+                }
+            }
+        },
+        {
+            "address": "0x1b0e765f6224c21223aea2af16c1c46e38885a40",
+            "contractName": "CometRewards",
+            "selectors": {
+                "0xb7034f7e": {
+                    "erc20OfInterest": [],
+                    "method": "claim",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"

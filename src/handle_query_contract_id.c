@@ -44,11 +44,13 @@ void handle_query_contract_id(void *parameters) {
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
+        case COMET_SUPPLY:
             strlcpy(msg->version, "Supply", msg->versionLength);
             break;
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
         case PARASPACE_WITHDRAW:
+        case COMET_WITHDRAW:
             strlcpy(msg->version, "Withdraw", msg->versionLength);
             break;
         case PARASPACE_DEPOSIT:
@@ -62,6 +64,15 @@ void handle_query_contract_id(void *parameters) {
             break;
         case GRT_WITHDRAW_DELEGATED:
             strlcpy(msg->version, "Withdraw Delegated", msg->versionLength);
+            break;
+        case ENTER:
+            strlcpy(msg->version, "Enter", msg->versionLength);
+            break;
+        case LEAVE:
+            strlcpy(msg->version, "Leave", msg->versionLength);
+            break;
+        case COMET_CLAIM:
+            strlcpy(msg->version, "Claim", msg->versionLength);
             break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
