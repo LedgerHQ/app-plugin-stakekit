@@ -157,6 +157,11 @@
                     "erc20OfInterest": [],
                     "method": "undelegate",
                     "plugin": "StakeKit"
+                },
+                "0x51a60b02": {
+                    "erc20OfInterest": [],
+                    "method": "withdrawDelegated",
+                    "plugin": "StakeKit"
                 }
             }
         }
