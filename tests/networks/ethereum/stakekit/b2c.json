@@ -127,6 +127,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0xc5c9fb6223a989208df27dcee33fc59ff5c26fff",
+            "contractName": "InitializableAdminUpgradeabilityProxy",
+            "selectors": {
+                "0x47e7ef24": {
+                    "erc20OfInterest": [],
+                    "method": "deposit",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
