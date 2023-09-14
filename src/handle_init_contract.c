@@ -53,6 +53,7 @@ void handle_init_contract(void *parameters) {
             break;
         case SUBMIT_ETH_LIDO:
         case PARASPACE_DEPOSIT:
+        case GRT_DELEGATE:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:

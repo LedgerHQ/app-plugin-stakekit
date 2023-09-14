@@ -13,6 +13,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
         case PARASPACE_DEPOSIT:
+        case GRT_DELEGATE:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -95,6 +96,9 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case MORPHO_SUPPLY_3:
         case PARASPACE_DEPOSIT:
             strlcpy(msg->title, "Sender", msg->titleLength);
+            break;
+        case GRT_DELEGATE:
+            strlcpy(msg->title, "Delegate to", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -274,6 +278,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
         case PARASPACE_DEPOSIT:
+        case GRT_DELEGATE:
             return get_screen_amount_sent_recipient(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:

@@ -193,6 +193,7 @@ void handle_provide_parameter(void *parameters) {
                 handle_morpho_supply_2(msg, context);
                 break;
             case PARASPACE_DEPOSIT:
+            case GRT_DELEGATE:
                 handle_recipient_amount_sent(msg, context);
                 break;
             default:

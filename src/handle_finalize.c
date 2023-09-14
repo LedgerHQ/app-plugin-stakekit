@@ -82,6 +82,11 @@ void handle_finalize(void *parameters) {
                 context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, APE_TICKER, sizeof(context->ticker_sent));
                 break;
+            case GRT_DELEGATE:
+                msg->numScreens = 2;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, GRT_TICKER, sizeof(context->ticker_sent));
+                break;
             default:
                 msg->numScreens = 1;
                 break;
