@@ -194,6 +194,7 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case PARASPACE_DEPOSIT:
             case GRT_DELEGATE:
+            case GRT_UNDELEGATE:
                 handle_recipient_amount_sent(msg, context);
                 break;
             default:

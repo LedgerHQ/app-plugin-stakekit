@@ -100,6 +100,9 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case GRT_DELEGATE:
             strlcpy(msg->title, "Delegate to", msg->titleLength);
             break;
+        case GRT_UNDELEGATE:
+            strlcpy(msg->title, "Undelegate to", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -252,6 +255,16 @@ static screens_t get_screen_value_sent(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_recipient(ethQueryContractUI_t *msg,
+                                      plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return RECIPIENT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -273,6 +286,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SWAP_TO:
         case PARASPACE_WITHDRAW:
             return get_screen_receive(msg, context);
+        case GRT_UNDELEGATE:
+            return get_screen_recipient(msg, context);
         case SUBMIT_ETH_LIDO:
             return get_screen_submit_eth_lido(msg, context);
         case SUBMIT_MATIC_LIDO:

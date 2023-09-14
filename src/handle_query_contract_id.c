@@ -57,6 +57,9 @@ void handle_query_contract_id(void *parameters) {
         case GRT_DELEGATE:
             strlcpy(msg->version, "Delegate", msg->versionLength);
             break;
+        case GRT_UNDELEGATE:
+            strlcpy(msg->version, "Undelegate", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
