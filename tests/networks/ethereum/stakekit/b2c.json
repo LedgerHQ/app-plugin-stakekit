@@ -189,6 +189,11 @@
                     "erc20OfInterest": ["asset"],
                     "method": "supply",
                     "plugin": "StakeKit"
+                },
+                "0xf3fef3a3": {
+                    "erc20OfInterest": ["to"],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
                 }
             }
         }
