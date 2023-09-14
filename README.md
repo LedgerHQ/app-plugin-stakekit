@@ -36,6 +36,8 @@ Smart contracts covered by this plugin are:
 | Ethereum  | TransparentUpgradeableProxy | 0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599|
 | Ethereum  | ValidatorShareProxy | 0x857679d69fe50e7b722f94acd2629d80c355163d|
 | Ethereum  | TransparentUpgradeableProxy | 0x777777c9898d384f785ee44acfe945efdff5f3e0|
+| Ethereum  | InitializableAdminUpgradeabilityProxy | 0xc5c9fb6223a989208df27dcee33fc59ff5c26fff|
+| Ethereum  | GraphProxy | 0xf55041e37e12cd407ad00ce2910b8269b01263b9|
 
 
 ## Methods
@@ -61,6 +63,11 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0xf62256c7 | supply |
 | TransparentUpgradeableProxy    | 0xf3fef3a3 | withdraw |
 | TransparentUpgradeableProxy    | 0x69328dec | withdraw |
+| InitializableAdminUpgradeabilityProxy    | 0x47e7ef24 | deposit |
+| InitializableAdminUpgradeabilityProxy    | 0x2e1a7d4d | withdraw |
+| GraphProxy    | 0x026e402b | delegate |
+| GraphProxy    | 0x4d99dd16 | undelegate |
+| GraphProxy    | 0x51a60b02 | withdrawDelegated |
 
 
 ## Build

@@ -12,6 +12,8 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
+        case PARASPACE_DEPOSIT:
+        case GRT_DELEGATE:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -61,6 +63,7 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
         case SWAP_FROM:
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
+        case PARASPACE_WITHDRAW:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
         default:
@@ -91,7 +94,17 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             break;
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_3:
+        case PARASPACE_DEPOSIT:
             strlcpy(msg->title, "Sender", msg->titleLength);
+            break;
+        case GRT_DELEGATE:
+            strlcpy(msg->title, "Delegate to", msg->titleLength);
+            break;
+        case GRT_UNDELEGATE:
+            strlcpy(msg->title, "Undelegate to", msg->titleLength);
+            break;
+        case GRT_WITHDRAW_DELEGATED:
+            strlcpy(msg->title, "From", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -245,6 +258,16 @@ static screens_t get_screen_value_sent(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_recipient(ethQueryContractUI_t *msg,
+                                      plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return RECIPIENT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -264,11 +287,17 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
+        case PARASPACE_WITHDRAW:
             return get_screen_receive(msg, context);
+        case GRT_UNDELEGATE:
+        case GRT_WITHDRAW_DELEGATED:
+            return get_screen_recipient(msg, context);
         case SUBMIT_ETH_LIDO:
             return get_screen_submit_eth_lido(msg, context);
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
+        case PARASPACE_DEPOSIT:
+        case GRT_DELEGATE:
             return get_screen_amount_sent_recipient(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:

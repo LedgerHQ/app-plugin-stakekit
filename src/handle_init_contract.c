@@ -44,6 +44,7 @@ void handle_init_contract(void *parameters) {
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:
+        case PARASPACE_WITHDRAW:
             context->next_param = AMOUNT_RECEIVED;
             break;
         case CLAIM_SELF_APECOIN:
@@ -51,6 +52,10 @@ void handle_init_contract(void *parameters) {
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:
+        case PARASPACE_DEPOSIT:
+        case GRT_DELEGATE:
+        case GRT_UNDELEGATE:
+        case GRT_WITHDRAW_DELEGATED:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:

@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 17
+#define NUM_STAKEKIT_SELECTORS 22
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -37,6 +37,11 @@ typedef enum {
     MORPHO_SUPPLY_3,
     MORPHO_WITHDRAW_1,
     MORPHO_WITHDRAW_2,
+    PARASPACE_DEPOSIT,
+    PARASPACE_WITHDRAW,
+    GRT_DELEGATE,
+    GRT_UNDELEGATE,
+    GRT_WITHDRAW_DELEGATED,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -74,6 +79,9 @@ typedef enum {
 
 // Ticker used for rETH.
 #define MATIC_TICKER "MATIC"
+
+// Ticker used for GRT.
+#define GRT_TICKER "GRT"
 
 // Ticker used for rETH.
 #define STAKEWISE_STAKED_ETH2_TICKER "sETH2"

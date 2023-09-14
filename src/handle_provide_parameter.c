@@ -33,6 +33,23 @@ static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
     }
 }
 
+static void handle_recipient_amount_sent(ethPluginProvideParameter_t *msg,
+                                         plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -146,6 +163,7 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case WITHDRAW_SELF_APECOIN:
             case SWAP_TO:
+            case PARASPACE_WITHDRAW:
                 copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
                 break;
             case SUBMIT_ETH_LIDO:
@@ -173,6 +191,15 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case MORPHO_SUPPLY_2:
                 handle_morpho_supply_2(msg, context);
+                break;
+            case PARASPACE_DEPOSIT:
+            case GRT_DELEGATE:
+            case GRT_UNDELEGATE:
+                handle_recipient_amount_sent(msg, context);
+                break;
+            case GRT_WITHDRAW_DELEGATED:
+                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+                context->skip = 1;
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

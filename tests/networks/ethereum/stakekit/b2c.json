@@ -127,6 +127,43 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0xc5c9fb6223a989208df27dcee33fc59ff5c26fff",
+            "contractName": "InitializableAdminUpgradeabilityProxy",
+            "selectors": {
+                "0x47e7ef24": {
+                    "erc20OfInterest": [],
+                    "method": "deposit",
+                    "plugin": "StakeKit"
+                },
+                "0x2e1a7d4d": {
+                    "erc20OfInterest": [],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
+                }
+            }
+        },
+        {
+            "address": "0xf55041e37e12cd407ad00ce2910b8269b01263b9",
+            "contractName": "GraphProxy",
+            "selectors": {
+                "0x026e402b": {
+                    "erc20OfInterest": [],
+                    "method": "delegate",
+                    "plugin": "StakeKit"
+                },
+                "0x4d99dd16": {
+                    "erc20OfInterest": [],
+                    "method": "undelegate",
+                    "plugin": "StakeKit"
+                },
+                "0x51a60b02": {
+                    "erc20OfInterest": [],
+                    "method": "withdrawDelegated",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
