@@ -76,6 +76,11 @@ void handle_finalize(void *parameters) {
                 context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, ROCKET_POOL_ETH_TICKER, sizeof(context->ticker_sent));
                 break;
+            case PARASPACE_DEPOSIT:
+                msg->numScreens = 2;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, PARASPACE_TICKER, sizeof(context->ticker_sent));
+                break;
             default:
                 msg->numScreens = 1;
                 break;

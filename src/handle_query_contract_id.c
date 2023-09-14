@@ -50,6 +50,9 @@ void handle_query_contract_id(void *parameters) {
         case MORPHO_WITHDRAW_2:
             strlcpy(msg->version, "Withdraw", msg->versionLength);
             break;
+        case PARASPACE_DEPOSIT:
+            strlcpy(msg->version, "Deposit", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
