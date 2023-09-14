@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 23
+#define NUM_STAKEKIT_SELECTORS 24
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -43,6 +43,7 @@ typedef enum {
     GRT_UNDELEGATE,
     GRT_WITHDRAW_DELEGATED,
     ENTER,
+    LEAVE,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -86,6 +87,9 @@ typedef enum {
 
 // Ticker used for SUSHI.
 #define SUSHI_TICKER "SUSHI"
+
+// Ticker used for xSUSHI.
+#define XSUSHI_TICKER "xSUSHI"
 
 // Ticker used for rETH.
 #define STAKEWISE_STAKED_ETH2_TICKER "sETH2"

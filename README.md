@@ -70,6 +70,7 @@ Methods covered by this plugin are:
 | GraphProxy    | 0x4d99dd16 | undelegate |
 | GraphProxy    | 0x51a60b02 | withdrawDelegated |
 | SushiBar    | 0xa59f3e0c | enter |
+| SushiBar    | 0x67dfd4c9 | leave |
 
 
 ## Build

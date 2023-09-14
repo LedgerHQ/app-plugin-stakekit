@@ -155,6 +155,7 @@ void handle_provide_parameter(void *parameters) {
             case DEPOSIT_SELF_APECOIN:
             case CLAIM_TOKENS:
             case ENTER:
+            case LEAVE:
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
             case BUY_VOUCHER:

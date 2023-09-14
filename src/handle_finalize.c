@@ -39,6 +39,11 @@ void handle_finalize(void *parameters) {
                 context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, SUSHI_TICKER, sizeof(context->ticker_sent));
                 break;
+            case LEAVE:
+                msg->numScreens = 1;
+                context->decimals_sent = DEFAULT_DECIMAL;
+                strlcpy(context->ticker_sent, XSUSHI_TICKER, sizeof(context->ticker_sent));
+                break;
             case STAKE:
                 msg->numScreens = 1;
                 context->decimals_sent = DEFAULT_DECIMAL;
