@@ -164,6 +164,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x8798249c2e607446efb7ad49ec89dd1865ff4272",
+            "contractName": "SushiBar",
+            "selectors": {
+                "0xa59f3e0c": {
+                    "erc20OfInterest": [],
+                    "method": "enter",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
