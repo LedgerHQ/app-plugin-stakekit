@@ -16,6 +16,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case GRT_DELEGATE:
         case ENTER:
         case LEAVE:
+        case COMET_SUPPLY:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -181,8 +182,8 @@ static screens_t get_screen_amount_sent_recipient(ethQueryContractUI_t *msg,
     }
 }
 
-static screens_t get_screen_morpho_supply(ethQueryContractUI_t *msg,
-                                          plugin_parameters_t *context __attribute__((unused))) {
+static screens_t get_screen_supply(ethQueryContractUI_t *msg,
+                                   plugin_parameters_t *context __attribute__((unused))) {
     bool token_sent_found = context->tokens_found & TOKEN_SENT_FOUND;
 
     switch (msg->screenIndex) {
@@ -306,7 +307,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
-            return get_screen_morpho_supply(msg, context);
+        case COMET_SUPPLY:
+            return get_screen_supply(msg, context);
         case SWAP_FROM:
             return get_screen_amount_sent_receive(msg, context);
         case STAKE:

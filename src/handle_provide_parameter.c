@@ -192,6 +192,7 @@ void handle_provide_parameter(void *parameters) {
                 handle_morpho_withdraw_2(msg, context);
                 break;
             case MORPHO_SUPPLY_2:
+            case COMET_SUPPLY:
                 handle_morpho_supply_2(msg, context);
                 break;
             case PARASPACE_DEPOSIT:
