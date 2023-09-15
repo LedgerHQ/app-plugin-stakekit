@@ -23,6 +23,10 @@ void handle_finalize(void *parameters) {
             case VOTE:
                 msg->numScreens = 4;
                 break;
+            case REVOKE_ACTIVE:
+                context->decimals_sent = 0;
+                msg->numScreens = 4;
+                break;
             case MORPHO_SUPPLY_1:
             case MORPHO_SUPPLY_3:
             case TRANSFER_OUT:

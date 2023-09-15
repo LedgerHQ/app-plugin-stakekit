@@ -265,6 +265,7 @@ void handle_provide_parameter(void *parameters) {
                 handle_comet_claim(msg, context);
                 break;
             case VOTE:
+            case REVOKE_ACTIVE:
                 handle_vote_revoke(msg, context);
                 break;
             default:

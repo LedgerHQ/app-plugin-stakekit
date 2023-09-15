@@ -63,6 +63,7 @@ void handle_init_contract(void *parameters) {
         case GRT_WITHDRAW_DELEGATED:
         case COMET_CLAIM:
         case VOTE:
+        case REVOKE_ACTIVE:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:

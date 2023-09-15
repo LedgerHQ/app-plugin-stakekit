@@ -27,6 +27,9 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case VOTE:
             strlcpy(msg->title, "Gold Amount", msg->titleLength);
             break;
+        case REVOKE_ACTIVE:
+            strlcpy(msg->title, "Votes", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -120,6 +123,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             strlcpy(msg->title, "Owner", msg->titleLength);
             break;
         case VOTE:
+        case REVOKE_ACTIVE:
             strlcpy(msg->title, "Validator Group", msg->titleLength);
             break;
         default:
@@ -151,6 +155,7 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
             strlcpy(msg->title, "Comet Protocol", msg->titleLength);
             break;
         case VOTE:
+        case REVOKE_ACTIVE:
             strlcpy(msg->title, "Lesser Group", msg->titleLength);
             break;
         default:
@@ -179,6 +184,7 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
 static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case VOTE:
+        case REVOKE_ACTIVE:
             strlcpy(msg->title, "Greater Group", msg->titleLength);
             break;
         default:
@@ -459,6 +465,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case LOCK:
             return get_screen_smart_contract_address(msg, context);
         case VOTE:
+        case REVOKE_ACTIVE:
             return get_screen_vote_revoke(msg, context);
         default:
             return ERROR;
