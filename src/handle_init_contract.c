@@ -43,6 +43,7 @@ void handle_init_contract(void *parameters) {
         case SELL_VOUCHER_NEW:
         case ENTER:
         case LEAVE:
+        case UNLOCK:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:
@@ -51,6 +52,8 @@ void handle_init_contract(void *parameters) {
             break;
         case CLAIM_SELF_APECOIN:
         case STAKE:
+        case CREATE_ACCOUNT:
+        case LOCK:
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:
@@ -59,12 +62,15 @@ void handle_init_contract(void *parameters) {
         case GRT_UNDELEGATE:
         case GRT_WITHDRAW_DELEGATED:
         case COMET_CLAIM:
+        case VOTE:
+        case REVOKE_ACTIVE:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
         case COMET_SUPPLY:
+        case TRANSFER_OUT:
             context->next_param = TOKEN_SENT;
             break;
         case MORPHO_WITHDRAW_1:

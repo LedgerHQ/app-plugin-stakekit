@@ -74,6 +74,24 @@ void handle_query_contract_id(void *parameters) {
         case COMET_CLAIM:
             strlcpy(msg->version, "Claim", msg->versionLength);
             break;
+        case TRANSFER_OUT:
+            strlcpy(msg->version, "Transfer Out", msg->versionLength);
+            break;
+        case CREATE_ACCOUNT:
+            strlcpy(msg->version, "Create Account", msg->versionLength);
+            break;
+        case LOCK:
+            strlcpy(msg->version, "Lock", msg->versionLength);
+            break;
+        case UNLOCK:
+            strlcpy(msg->version, "Unlock", msg->versionLength);
+            break;
+        case VOTE:
+            strlcpy(msg->version, "Vote", msg->versionLength);
+            break;
+        case REVOKE_ACTIVE:
+            strlcpy(msg->version, "Revoke Active", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

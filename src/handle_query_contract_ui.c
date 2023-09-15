@@ -17,10 +17,18 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case ENTER:
         case LEAVE:
         case COMET_SUPPLY:
+        case TRANSFER_OUT:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
             strlcpy(msg->title, "Token ID", msg->titleLength);
+            break;
+        case UNLOCK:
+        case VOTE:
+            strlcpy(msg->title, "Gold Amount", msg->titleLength);
+            break;
+        case REVOKE_ACTIVE:
+            strlcpy(msg->title, "Votes", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -94,6 +102,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case SUBMIT_ETH_LIDO:
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
+        case TRANSFER_OUT:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -112,6 +121,10 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             break;
         case COMET_CLAIM:
             strlcpy(msg->title, "Owner", msg->titleLength);
+            break;
+        case VOTE:
+        case REVOKE_ACTIVE:
+            strlcpy(msg->title, "Validator Group", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -141,6 +154,10 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
         case COMET_CLAIM:
             strlcpy(msg->title, "Comet Protocol", msg->titleLength);
             break;
+        case VOTE:
+        case REVOKE_ACTIVE:
+            strlcpy(msg->title, "Lesser Group", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -159,6 +176,66 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
     // `msg->msg`.
     getEthAddressStringFromBinary(
         context->contract_address_sent,
+        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
+        msg->pluginSharedRW->sha3,
+        chainid);
+}
+
+static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case VOTE:
+        case REVOKE_ACTIVE:
+            strlcpy(msg->title, "Greater Group", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+
+    // Prefix the address with `0x`.
+    msg->msg[0] = '0';
+    msg->msg[1] = 'x';
+
+    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+    // Setting it to `0` will make it work with every chainID :)
+    uint64_t chainid = 0;
+
+    // Get the string representation of the address stored in `context->beneficiary`. Put it in
+    // `msg->msg`.
+    getEthAddressStringFromBinary(
+        context->contract_address_received,
+        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
+        msg->pluginSharedRW->sha3,
+        chainid);
+}
+
+// Set UI for smart contract address screen.
+static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case CLAIM_SELF_APECOIN:
+        case CREATE_ACCOUNT:
+        case LOCK:
+            strlcpy(msg->title, "Smart Contract", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+
+    // Prefix the address with `0x`.
+    msg->msg[0] = '0';
+    msg->msg[1] = 'x';
+
+    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+    // Setting it to `0` will make it work with every chainID :)
+    uint64_t chainid = 0;
+
+    // Get the string representation of the address stored in `context->beneficiary`. Put it in
+    // `msg->msg`.
+    getEthAddressStringFromBinary(
+        msg->pluginSharedRO->txContent->destination,
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
         msg->pluginSharedRW->sha3,
         chainid);
@@ -315,6 +392,33 @@ static screens_t get_screen_recipient(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_smart_contract_address(ethQueryContractUI_t *msg,
+                                                   plugin_parameters_t *context
+                                                   __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SMART_CONTRACT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
+static screens_t get_screen_vote_revoke(ethQueryContractUI_t *msg,
+                                        plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return RECIPIENT_SCREEN;
+        case 1:
+            return SEND_SCREEN;
+        case 2:
+            return RECIPIENT_2_SCREEN;
+        case 3:
+            return RECIPIENT_3_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -325,6 +429,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SELL_VOUCHER_NEW:
         case ENTER:
         case LEAVE:
+        case UNLOCK:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
@@ -345,6 +450,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
         case COMET_SUPPLY:
+        case TRANSFER_OUT:
             return get_screen_supply(msg, context);
         case SWAP_FROM:
             return get_screen_amount_sent_receive(msg, context);
@@ -355,6 +461,13 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_morpho_withdraw(msg, context);
         case COMET_CLAIM:
             return get_screen_comet_claim(msg, context);
+        case CLAIM_SELF_APECOIN:
+        case CREATE_ACCOUNT:
+        case LOCK:
+            return get_screen_smart_contract_address(msg, context);
+        case VOTE:
+        case REVOKE_ACTIVE:
+            return get_screen_vote_revoke(msg, context);
         default:
             return ERROR;
     }
@@ -384,6 +497,12 @@ void handle_query_contract_ui(void *parameters) {
             break;
         case RECIPIENT_2_SCREEN:
             set_recipient_2_ui(msg, context);
+            break;
+        case RECIPIENT_3_SCREEN:
+            set_recipient_3_ui(msg, context);
+            break;
+        case SMART_CONTRACT_SCREEN:
+            set_smart_contract_ui(msg, context);
             break;
         case WARN_SCREEN:
             set_warning_ui(msg, context);

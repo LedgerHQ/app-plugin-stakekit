@@ -43,6 +43,10 @@ Smart contracts covered by this plugin are:
 | Ethereum  | CometRewards | 0x1b0e765f6224c21223aea2af16c1c46e38885a40|
 | Polygon  | TransparentUpgradeableProxy | 0xf25212e676d1f7f89cd72ffee66158f541246445|
 | Polygon  | CometRewards | 0x45939657d1ca34a8fa39a924b71d28fe8431e581|
+| BSC  | TokenHub | 0x0000000000000000000000000000000000001004|
+| Celo  | AccountsProxy | 0x7d21685c17607338b313a7174bab6620bad0aab7|
+| Celo  | LockedGoldProxy | 0x6cc083aed9e3ebe302a6336dbc7c921c9f03349e|
+| Celo  | ElectionProxy | 0x8d6677192144292870907e3fa8a5527fe55a7ff6|
 
 
 ## Methods
@@ -78,6 +82,12 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0xf2b9fdb8 | supply |
 | TransparentUpgradeableProxy    | 0xf3fef3a3 | withdraw |
 | CometRewards    | 0xb7034f7e | claim |
+| TokenHub    | 0xaa7415f5 | transferOut |
+| AccountsProxy    | 0x9dca362f | createAccount |
+| LockedGoldProxy    | 0xf83d08ba | lock |
+| LockedGoldProxy    | 0x6198e339 | unlock |
+| ElectionProxy    | 0x580d747a | vote |
+| ElectionProxy    | 0x6e198475 | revokeActive |
 
 
 ## Build

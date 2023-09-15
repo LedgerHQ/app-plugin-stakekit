@@ -4,20 +4,24 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 27
+#define NUM_STAKEKIT_SELECTORS 33
 
 #define PLUGIN_NAME "StakeKit"
 
 #define TOKEN_SENT_FOUND     1       // REMOVE IF NOT USED
 #define TOKEN_RECEIVED_FOUND 1 << 1  // REMOVE IF NOT USED
 
-extern const uint8_t PLUGIN_ETH_ADDRESS[ADDRESS_LENGTH];  // REMOVE IF NOT USED
-extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];    // REMOVE IF NOT USED
+#define CHAIN_ID_LENGTH 1
 
-// Returns 1 if corresponding address is the address for the chain token (ETH, BNB, MATIC,
-#define ADDRESS_IS_NETWORK_TOKEN(_addr)                    \
-    (!memcmp(_addr, PLUGIN_ETH_ADDRESS, ADDRESS_LENGTH) || \
-     !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH))
+extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];
+extern const uint8_t ETH_CHAIN_ID[CHAIN_ID_LENGTH];
+extern const uint8_t BSC_CHAIN_ID[CHAIN_ID_LENGTH];
+
+// Returns 1 if corresponding address is the address for the chain token (ETH, BNB, MATIC,...)
+#define ADDRESS_IS_NETWORK_TOKEN(_addr) !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH)
+
+// Returns 1 if corresponding address is NULL
+#define ADDRESS_IS_NULL(_addr) !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH)
 
 typedef enum {
     DEPOSIT_SELF_APECOIN,
@@ -47,6 +51,12 @@ typedef enum {
     COMET_SUPPLY,
     COMET_WITHDRAW,
     COMET_CLAIM,
+    TRANSFER_OUT,
+    CREATE_ACCOUNT,
+    LOCK,
+    UNLOCK,
+    VOTE,
+    REVOKE_ACTIVE,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -57,6 +67,8 @@ typedef enum {
     RECEIVE_SCREEN,
     RECIPIENT_SCREEN,
     RECIPIENT_2_SCREEN,
+    RECIPIENT_3_SCREEN,
+    SMART_CONTRACT_SCREEN,
     WARN_SCREEN,
     ERROR,
 } screens_t;
@@ -67,13 +79,20 @@ typedef enum {
 #define TOKEN_RECEIVED  3  // Amount sent by the contract to the user.
 #define RECIPIENT       4  // Recipient address receiving the funds.
 #define RECIPIENT_2     5  // Recipient address receiving the funds.
-#define NONE            6  // Placeholder variant to be set when parsing is done.
+#define RECIPIENT_3     6  // Recipient address receiving the funds.
+#define NONE            7  // Placeholder variant to be set when parsing is done.
 
 // Number of decimals used when the token wasn't found in the CAL.
 #define DEFAULT_DECIMAL WEI_TO_ETHER
 
 // Ticker used when the token wasn't found in the CAL.
 #define DEFAULT_TICKER ""
+
+// Ticker used for ETH.
+#define ETH_TICKER "ETH"
+
+// Ticker used for BSC.
+#define BNB_TICKER "BNB"
 
 // Ticker used for WETH.
 #define WETH_TICKER "WETH"

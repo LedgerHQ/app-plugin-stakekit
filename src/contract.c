@@ -38,6 +38,12 @@ static const uint8_t STAKEKIT_LEAVE_SELECTOR[SELECTOR_SIZE] = {0x67, 0xdf, 0xd4,
 static const uint8_t STAKEKIT_COMET_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
 static const uint8_t STAKEKIT_COMET_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xf3, 0xfe, 0xf3, 0xa3};
 static const uint8_t STAKEKIT_COMET_CLAIM_SELECTOR[SELECTOR_SIZE] = {0xb7, 0x03, 0x4f, 0x7e};
+static const uint8_t STAKEKIT_TRANSFER_OUT_SELECTOR[SELECTOR_SIZE] = {0xaa, 0x74, 0x15, 0xf5};
+static const uint8_t STAKEKIT_CREATE_ACCOUNT_SELECTOR[SELECTOR_SIZE] = {0x9d, 0xca, 0x36, 0x2f};
+static const uint8_t STAKEKIT_LOCK_SELECTOR[SELECTOR_SIZE] = {0xf8, 0x3d, 0x08, 0xba};
+static const uint8_t STAKEKIT_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0x61, 0x98, 0xe3, 0x39};
+static const uint8_t STAKEKIT_VOTE_SELECTOR[SELECTOR_SIZE] = {0x58, 0x0d, 0x74, 0x7a};
+static const uint8_t STAKEKIT_REVOKE_ACTIVE_SELECTOR[SELECTOR_SIZE] = {0x6e, 0x19, 0x84, 0x75};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -68,13 +74,19 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_COMET_SUPPLY_SELECTOR,
     STAKEKIT_COMET_WITHDRAW_SELECTOR,
     STAKEKIT_COMET_CLAIM_SELECTOR,
+    STAKEKIT_TRANSFER_OUT_SELECTOR,
+    STAKEKIT_CREATE_ACCOUNT_SELECTOR,
+    STAKEKIT_LOCK_SELECTOR,
+    STAKEKIT_UNLOCK_SELECTOR,
+    STAKEKIT_VOTE_SELECTOR,
+    STAKEKIT_REVOKE_ACTIVE_SELECTOR,
 };
 
-// Ask dummy address ETH
-// Remove if not used
-const uint8_t PLUGIN_ETH_ADDRESS[ADDRESS_LENGTH] = {0xee, 0xee, 0xee, 0xee, 0xee, 0xee, 0xee,
-                                                    0xee, 0xee, 0xee, 0xee, 0xee, 0xee, 0xee,
-                                                    0xee, 0xee, 0xee, 0xee, 0xee, 0xee};
+// Indicate the Ethereum chain ID
+const uint8_t ETH_CHAIN_ID[CHAIN_ID_LENGTH] = {0x01};
+
+// Indicate the BSC chain ID
+const uint8_t BSC_CHAIN_ID[CHAIN_ID_LENGTH] = {0x38};
 
 // Remove if not used
 const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
