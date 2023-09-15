@@ -14,9 +14,6 @@ void handle_finalize(void *parameters) {
 
     if (context->valid) {
         switch (context->selectorIndex) {
-            case CLAIM_SELF_APECOIN:
-                msg->numScreens = 0;
-                break;
             case COMET_CLAIM:
                 msg->numScreens = 2;
                 break;

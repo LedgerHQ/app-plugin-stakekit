@@ -213,6 +213,7 @@ static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
 // Set UI for smart contract address screen.
 static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
+        case CLAIM_SELF_APECOIN:
         case CREATE_ACCOUNT:
         case LOCK:
             strlcpy(msg->title, "Smart Contract", msg->titleLength);
@@ -461,6 +462,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_morpho_withdraw(msg, context);
         case COMET_CLAIM:
             return get_screen_comet_claim(msg, context);
+        case CLAIM_SELF_APECOIN:
         case CREATE_ACCOUNT:
         case LOCK:
             return get_screen_smart_contract_address(msg, context);
