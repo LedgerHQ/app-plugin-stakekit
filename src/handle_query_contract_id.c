@@ -45,6 +45,7 @@ void handle_query_contract_id(void *parameters) {
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
         case COMET_SUPPLY:
+        case AAVE_SUPPLY:
             strlcpy(msg->version, "Supply", msg->versionLength);
             break;
         case MORPHO_WITHDRAW_1:
@@ -91,6 +92,12 @@ void handle_query_contract_id(void *parameters) {
             break;
         case REVOKE_ACTIVE:
             strlcpy(msg->version, "Revoke Active", msg->versionLength);
+            break;
+        case WITHDRAW_REWARDS:
+            strlcpy(msg->version, "Withdraw Rewards", msg->versionLength);
+            break;
+        case UNSTAKE_CLAIM_TOKENS_NEW:
+            strlcpy(msg->version, "Unstake Claim Tokens New", msg->versionLength);
             break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);

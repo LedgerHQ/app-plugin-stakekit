@@ -43,10 +43,14 @@ Smart contracts covered by this plugin are:
 | Ethereum  | CometRewards | 0x1b0e765f6224c21223aea2af16c1c46e38885a40|
 | Polygon  | TransparentUpgradeableProxy | 0xf25212e676d1f7f89cd72ffee66158f541246445|
 | Polygon  | CometRewards | 0x45939657d1ca34a8fa39a924b71d28fe8431e581|
+| Polygon  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
 | BSC  | TokenHub | 0x0000000000000000000000000000000000001004|
 | Celo  | AccountsProxy | 0x7d21685c17607338b313a7174bab6620bad0aab7|
 | Celo  | LockedGoldProxy | 0x6cc083aed9e3ebe302a6336dbc7c921c9f03349e|
 | Celo  | ElectionProxy | 0x8d6677192144292870907e3fa8a5527fe55a7ff6|
+| Avalanche  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
+| Optimism  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
+| Arbitrum  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
 
 
 ## Methods
@@ -67,6 +71,8 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0x46e04a2f | claimTokens |
 | ValidatorShareProxy    | 0x6ab15071 | buyVoucher |
 | ValidatorShareProxy    | 0xc83ec04d | sellVoucher_new |
+| ValidatorShareProxy    | 0xc7b8981c | withdrawRewards |
+| ValidatorShareProxy    | 0xe97fddc2 | unstakeClaimTokens_new |
 | TransparentUpgradeableProxy    | 0x0c0a769b | supply |
 | TransparentUpgradeableProxy    | 0xf2b9fdb8 | supply |
 | TransparentUpgradeableProxy    | 0xf62256c7 | supply |
@@ -88,6 +94,8 @@ Methods covered by this plugin are:
 | LockedGoldProxy    | 0x6198e339 | unlock |
 | ElectionProxy    | 0x580d747a | vote |
 | ElectionProxy    | 0x6e198475 | revokeActive |
+| InitializableImmutableAdminUpgradeabilityProxy    | 0x617ba037 | supply |
+| InitializableImmutableAdminUpgradeabilityProxy    | 0x69328dec | withdraw |
 
 
 ## Build

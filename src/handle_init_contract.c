@@ -54,6 +54,7 @@ void handle_init_contract(void *parameters) {
         case STAKE:
         case CREATE_ACCOUNT:
         case LOCK:
+        case WITHDRAW_REWARDS:
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:
@@ -71,6 +72,7 @@ void handle_init_contract(void *parameters) {
         case MORPHO_SUPPLY_3:
         case COMET_SUPPLY:
         case TRANSFER_OUT:
+        case AAVE_SUPPLY:
             context->next_param = TOKEN_SENT;
             break;
         case MORPHO_WITHDRAW_1:
@@ -82,6 +84,9 @@ void handle_init_contract(void *parameters) {
         case SWAP_FROM:
             context->skip = 3;
             context->next_param = AMOUNT_RECEIVED;
+            break;
+        case UNSTAKE_CLAIM_TOKENS_NEW:
+            context->next_param = UNBOUND_NONCE;
             break;
         default:
             PRINTF("Missing selectorIndex\n");

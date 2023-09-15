@@ -18,6 +18,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case LEAVE:
         case COMET_SUPPLY:
         case TRANSFER_OUT:
+        case AAVE_SUPPLY:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -103,6 +104,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
         case TRANSFER_OUT:
+        case AAVE_SUPPLY:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -216,6 +218,7 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
         case CLAIM_SELF_APECOIN:
         case CREATE_ACCOUNT:
         case LOCK:
+        case WITHDRAW_REWARDS:
             strlcpy(msg->title, "Smart Contract", msg->titleLength);
             break;
         default:
@@ -239,6 +242,24 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
         msg->pluginSharedRW->sha3,
         chainid);
+}
+
+// Set UI for unbound nonce boolean screen.
+static void set_unbound_nonce_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case UNSTAKE_CLAIM_TOKENS_NEW:
+            strlcpy(msg->title, "Unbound Nonce", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+    if (context->unbound_nonce == 0) {
+        strlcpy(msg->msg, "False", msg->msgLength);
+    } else {
+        strlcpy(msg->msg, "True", msg->msgLength);
+    }
 }
 
 // Set UI for "Warning" screen.
@@ -419,6 +440,16 @@ static screens_t get_screen_vote_revoke(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_unstake_claim(ethQueryContractUI_t *msg,
+                                          plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return UNBOUND_NONCE_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -451,6 +482,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case MORPHO_SUPPLY_3:
         case COMET_SUPPLY:
         case TRANSFER_OUT:
+        case AAVE_SUPPLY:
             return get_screen_supply(msg, context);
         case SWAP_FROM:
             return get_screen_amount_sent_receive(msg, context);
@@ -464,10 +496,13 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case CLAIM_SELF_APECOIN:
         case CREATE_ACCOUNT:
         case LOCK:
+        case WITHDRAW_REWARDS:
             return get_screen_smart_contract_address(msg, context);
         case VOTE:
         case REVOKE_ACTIVE:
             return get_screen_vote_revoke(msg, context);
+        case UNSTAKE_CLAIM_TOKENS_NEW:
+            return get_screen_unstake_claim(msg, context);
         default:
             return ERROR;
     }
@@ -503,6 +538,9 @@ void handle_query_contract_ui(void *parameters) {
             break;
         case SMART_CONTRACT_SCREEN:
             set_smart_contract_ui(msg, context);
+            break;
+        case UNBOUND_NONCE_SCREEN:
+            set_unbound_nonce_ui(msg, context);
             break;
         case WARN_SCREEN:
             set_warning_ui(msg, context);

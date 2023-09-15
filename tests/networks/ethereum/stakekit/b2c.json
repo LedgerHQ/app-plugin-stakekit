@@ -94,6 +94,16 @@
                     "erc20OfInterest": [],
                     "method": "sellVoucher_new",
                     "plugin": "StakeKit"
+                },
+                "0xc7b8981c": {
+                    "erc20OfInterest": [],
+                    "method": "withdrawRewards",
+                    "plugin": "StakeKit"
+                },
+                "0xe97fddc2": {
+                    "erc20OfInterest": [],
+                    "method": "unstakeClaimTokens_new",
+                    "plugin": "StakeKit"
                 }
             }
         },
