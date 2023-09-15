@@ -86,6 +86,9 @@ void handle_query_contract_id(void *parameters) {
         case UNLOCK:
             strlcpy(msg->version, "Unlock", msg->versionLength);
             break;
+        case VOTE:
+            strlcpy(msg->version, "Vote", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

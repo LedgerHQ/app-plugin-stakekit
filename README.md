@@ -46,6 +46,7 @@ Smart contracts covered by this plugin are:
 | BSC  | TokenHub | 0x0000000000000000000000000000000000001004|
 | Celo  | AccountsProxy | 0x7d21685c17607338b313a7174bab6620bad0aab7|
 | Celo  | LockedGoldProxy | 0x6cc083aed9e3ebe302a6336dbc7c921c9f03349e|
+| Celo  | ElectionProxy | 0x8d6677192144292870907e3fa8a5527fe55a7ff6|
 
 
 ## Methods
@@ -85,6 +86,8 @@ Methods covered by this plugin are:
 | AccountsProxy    | 0x9dca362f | createAccount |
 | LockedGoldProxy    | 0xf83d08ba | lock |
 | LockedGoldProxy    | 0x6198e339 | unlock |
+| ElectionProxy    | 0x580d747a | vote |
+| ElectionProxy    | 0x6e198475 | revokeActive |
 
 
 ## Build

@@ -153,6 +153,39 @@ static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_paramete
     }
 }
 
+static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->next_param = RECIPIENT_2;
+            break;
+        case RECIPIENT_2: // Put the lesser group address in contract_address_sent
+            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
+            if (ADDRESS_IS_NULL(context->contract_address_sent)) {
+                copy_address(context->contract_address_sent, context->recipient, ADDRESS_LENGTH);
+            }
+            context->next_param = RECIPIENT_3;
+            break;
+        case RECIPIENT_3: // Put the greater group address in contract_address_received
+            copy_address(context->contract_address_received, msg->parameter, ADDRESS_LENGTH);
+            if (ADDRESS_IS_NULL(context->contract_address_received)) {
+                copy_address(context->contract_address_received, context->recipient, ADDRESS_LENGTH);
+            }
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 void handle_provide_parameter(void *parameters) {
     ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
@@ -230,6 +263,9 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case COMET_CLAIM:
                 handle_comet_claim(msg, context);
+                break;
+            case VOTE:
+                handle_vote_revoke(msg, context);
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

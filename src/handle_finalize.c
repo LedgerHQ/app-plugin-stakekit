@@ -20,6 +20,9 @@ void handle_finalize(void *parameters) {
             case COMET_CLAIM:
                 msg->numScreens = 2;
                 break;
+            case VOTE:
+                msg->numScreens = 4;
+                break;
             case MORPHO_SUPPLY_1:
             case MORPHO_SUPPLY_3:
             case TRANSFER_OUT:
