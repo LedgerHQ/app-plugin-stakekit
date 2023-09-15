@@ -27,6 +27,22 @@
                   "plugin": "StakeKit"
               }
           }
+      },
+      {
+          "address": "0x8d6677192144292870907e3fa8a5527fe55a7ff6",
+          "contractName": "ElectionProxy",
+          "selectors": {
+              "0x580d747a": {
+                  "erc20OfInterest": [],
+                  "method": "vote",
+                  "plugin": "StakeKit"
+              },
+              "0x6e198475": {
+                  "erc20OfInterest": [],
+                  "method": "revokeActive",
+                  "plugin": "StakeKit"
+              }
+          }
       }
   ],
   "name": "StakeKit"
