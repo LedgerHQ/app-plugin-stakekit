@@ -85,6 +85,9 @@ void handle_init_contract(void *parameters) {
             context->skip = 3;
             context->next_param = AMOUNT_RECEIVED;
             break;
+        case UNSTAKE_CLAIM_TOKENS_NEW:
+            context->next_param = UNBOUND_NONCE;
+            break;
         default:
             PRINTF("Missing selectorIndex\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;

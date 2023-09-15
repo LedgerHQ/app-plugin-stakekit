@@ -96,6 +96,9 @@ void handle_query_contract_id(void *parameters) {
         case WITHDRAW_REWARDS:
             strlcpy(msg->version, "Withdraw Rewards", msg->versionLength);
             break;
+        case UNSTAKE_CLAIM_TOKENS_NEW:
+            strlcpy(msg->version, "Unstake Claim Tokens New", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

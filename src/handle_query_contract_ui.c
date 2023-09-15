@@ -244,6 +244,24 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
         chainid);
 }
 
+// Set UI for unbound nonce boolean screen.
+static void set_unbound_nonce_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case UNSTAKE_CLAIM_TOKENS_NEW:
+            strlcpy(msg->title, "Unbound Nonce", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+    if (context->unbound_nonce == 0) {
+        strlcpy(msg->msg, "False", msg->msgLength);
+    } else {
+        strlcpy(msg->msg, "True", msg->msgLength);
+    }
+}
+
 // Set UI for "Warning" screen.
 static void set_warning_ui(ethQueryContractUI_t *msg,
                            const plugin_parameters_t *context __attribute__((unused))) {
@@ -422,6 +440,16 @@ static screens_t get_screen_vote_revoke(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_unstake_claim(ethQueryContractUI_t *msg,
+                                          plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return UNBOUND_NONCE_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -473,6 +501,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case VOTE:
         case REVOKE_ACTIVE:
             return get_screen_vote_revoke(msg, context);
+        case UNSTAKE_CLAIM_TOKENS_NEW:
+            return get_screen_unstake_claim(msg, context);
         default:
             return ERROR;
     }
@@ -508,6 +538,9 @@ void handle_query_contract_ui(void *parameters) {
             break;
         case SMART_CONTRACT_SCREEN:
             set_smart_contract_ui(msg, context);
+            break;
+        case UNBOUND_NONCE_SCREEN:
+            set_unbound_nonce_ui(msg, context);
             break;
         case WARN_SCREEN:
             set_warning_ui(msg, context);

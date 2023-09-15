@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 35
+#define NUM_STAKEKIT_SELECTORS 36
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -59,6 +59,7 @@ typedef enum {
     REVOKE_ACTIVE,
     AAVE_SUPPLY,
     WITHDRAW_REWARDS,
+    UNSTAKE_CLAIM_TOKENS_NEW,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -71,6 +72,7 @@ typedef enum {
     RECIPIENT_2_SCREEN,
     RECIPIENT_3_SCREEN,
     SMART_CONTRACT_SCREEN,
+    UNBOUND_NONCE_SCREEN,
     WARN_SCREEN,
     ERROR,
 } screens_t;
@@ -82,7 +84,8 @@ typedef enum {
 #define RECIPIENT       4  // Recipient address receiving the funds.
 #define RECIPIENT_2     5  // Recipient address receiving the funds.
 #define RECIPIENT_3     6  // Recipient address receiving the funds.
-#define NONE            7  // Placeholder variant to be set when parsing is done.
+#define UNBOUND_NONCE   7  // Unbond nonce.
+#define NONE            8  // Placeholder variant to be set when parsing is done.
 
 // Number of decimals used when the token wasn't found in the CAL.
 #define DEFAULT_DECIMAL WEI_TO_ETHER
@@ -130,8 +133,7 @@ typedef struct plugin_parameters_t {
     char ticker_sent[MAX_TICKER_LEN];
     char ticker_received[MAX_TICKER_LEN];
 
-    uint16_t offset;
-    uint16_t checkpoint;
+    uint16_t unbound_nonce;
     uint8_t next_param;
     uint8_t tokens_found;
     uint8_t valid;
@@ -139,11 +141,10 @@ typedef struct plugin_parameters_t {
     uint8_t decimals_received;
     uint8_t selectorIndex;
     uint8_t skip;
-    bool go_to_offset;
 } plugin_parameters_t;  // Remove any variable not used
 // 32*2 + 3*20 + 12*2 = 148
-// 2*2 + 1*7 = 11
-// 11+148 = 159
+// 1*7 + 1*2 = 9
+// 9+148 = 157
 
 // Piece of code that will check that the above structure is not bigger than 5 * 32.
 // Do not remove this check.

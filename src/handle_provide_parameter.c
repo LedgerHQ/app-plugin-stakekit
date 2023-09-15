@@ -297,6 +297,12 @@ void handle_provide_parameter(void *parameters) {
             case AAVE_SUPPLY:
                 handle_aave_supply(msg, context);
                 break;
+            case UNSTAKE_CLAIM_TOKENS_NEW:
+                if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
+                    msg->result = ETH_PLUGIN_RESULT_ERROR;
+                    break;
+                }
+                break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);
                 msg->result = ETH_PLUGIN_RESULT_ERROR;
