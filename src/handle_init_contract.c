@@ -51,6 +51,7 @@ void handle_init_contract(void *parameters) {
             break;
         case CLAIM_SELF_APECOIN:
         case STAKE:
+        case CREATE_ACCOUNT:
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:

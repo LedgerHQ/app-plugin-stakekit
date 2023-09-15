@@ -192,6 +192,7 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case CLAIM_SELF_APECOIN:
             case STAKE:
+            case CREATE_ACCOUNT:
                 break;
             case SUBMIT_MATIC_LIDO:
             case REQUEST_WITHDRAW:

@@ -77,6 +77,9 @@ void handle_query_contract_id(void *parameters) {
         case TRANSFER_OUT:
             strlcpy(msg->version, "Transfer Out", msg->versionLength);
             break;
+        case CREATE_ACCOUNT:
+            strlcpy(msg->version, "Create Account", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

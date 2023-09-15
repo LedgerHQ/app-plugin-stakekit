@@ -166,6 +166,36 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
         chainid);
 }
 
+// Set UI for smart contract address screen.
+static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case CREATE_ACCOUNT:
+            strlcpy(msg->title, "Smart Contract", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+
+    // Prefix the address with `0x`.
+    msg->msg[0] = '0';
+    msg->msg[1] = 'x';
+
+    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+    // Setting it to `0` will make it work with every chainID :)
+    uint64_t chainid = 0;
+
+    // Get the string representation of the address stored in `context->beneficiary`. Put it in
+    // `msg->msg`.
+    getEthAddressStringFromBinary(
+        msg->pluginSharedRO->txContent->destination,
+        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
+        msg->pluginSharedRW->sha3,
+        chainid);
+
+}
+
 // Set UI for "Warning" screen.
 static void set_warning_ui(ethQueryContractUI_t *msg,
                            const plugin_parameters_t *context __attribute__((unused))) {
@@ -317,6 +347,17 @@ static screens_t get_screen_recipient(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_smart_contract_address(ethQueryContractUI_t *msg,
+                                                   plugin_parameters_t *context
+                                                   __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SMART_CONTRACT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -358,6 +399,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_morpho_withdraw(msg, context);
         case COMET_CLAIM:
             return get_screen_comet_claim(msg, context);
+        case CREATE_ACCOUNT:
+            return get_screen_smart_contract_address(msg, context);
         default:
             return ERROR;
     }
@@ -387,6 +430,9 @@ void handle_query_contract_ui(void *parameters) {
             break;
         case RECIPIENT_2_SCREEN:
             set_recipient_2_ui(msg, context);
+            break;
+        case SMART_CONTRACT_SCREEN:
+            set_smart_contract_ui(msg, context);
             break;
         case WARN_SCREEN:
             set_warning_ui(msg, context);
