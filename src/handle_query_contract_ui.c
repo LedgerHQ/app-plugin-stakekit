@@ -170,6 +170,7 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
 static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case CREATE_ACCOUNT:
+        case LOCK:
             strlcpy(msg->title, "Smart Contract", msg->titleLength);
             break;
         default:
@@ -400,6 +401,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case COMET_CLAIM:
             return get_screen_comet_claim(msg, context);
         case CREATE_ACCOUNT:
+        case LOCK:
             return get_screen_smart_contract_address(msg, context);
         default:
             return ERROR;

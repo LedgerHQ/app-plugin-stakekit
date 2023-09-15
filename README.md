@@ -83,6 +83,7 @@ Methods covered by this plugin are:
 | CometRewards    | 0xb7034f7e | claim |
 | TokenHub    | 0xaa7415f5 | transferOut |
 | AccountsProxy    | 0x9dca362f | createAccount |
+| LockedGoldProxy    | 0xf83d08ba | lock |
 
 
 ## Build

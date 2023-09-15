@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 29
+#define NUM_STAKEKIT_SELECTORS 30
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -50,6 +50,7 @@ typedef enum {
     COMET_CLAIM,
     TRANSFER_OUT,
     CREATE_ACCOUNT,
+    LOCK,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
