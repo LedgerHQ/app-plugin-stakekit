@@ -253,6 +253,7 @@ void handle_provide_parameter(void *parameters) {
             case STAKE:
             case CREATE_ACCOUNT:
             case LOCK:
+            case WITHDRAW_REWARDS:
                 break;
             case SUBMIT_MATIC_LIDO:
             case REQUEST_WITHDRAW:

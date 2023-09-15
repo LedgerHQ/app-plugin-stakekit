@@ -71,6 +71,7 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0x46e04a2f | claimTokens |
 | ValidatorShareProxy    | 0x6ab15071 | buyVoucher |
 | ValidatorShareProxy    | 0xc83ec04d | sellVoucher_new |
+| ValidatorShareProxy    | 0xc7b8981c | withdrawRewards |
 | TransparentUpgradeableProxy    | 0x0c0a769b | supply |
 | TransparentUpgradeableProxy    | 0xf2b9fdb8 | supply |
 | TransparentUpgradeableProxy    | 0xf62256c7 | supply |
