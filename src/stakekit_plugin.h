@@ -13,7 +13,7 @@
 
 #define CHAIN_ID_LENGTH 1
 
-extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];    // REMOVE IF NOT USED
+extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];
 extern const uint8_t ETH_CHAIN_ID[CHAIN_ID_LENGTH];
 extern const uint8_t BSC_CHAIN_ID[CHAIN_ID_LENGTH];
 

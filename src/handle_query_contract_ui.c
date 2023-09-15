@@ -239,7 +239,6 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
         msg->pluginSharedRW->sha3,
         chainid);
-
 }
 
 // Set UI for "Warning" screen.

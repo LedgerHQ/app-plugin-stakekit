@@ -136,7 +136,7 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
 
 static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
-        case RECIPIENT: // Put the Comet protocol address in contract_address_sent
+        case RECIPIENT:  // Put the Comet protocol address in contract_address_sent
             copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
             context->next_param = RECIPIENT_2;
             break;
@@ -163,17 +163,19 @@ static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_paramete
             copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
             context->next_param = RECIPIENT_2;
             break;
-        case RECIPIENT_2: // Put the lesser group address in contract_address_sent
+        case RECIPIENT_2:  // Put the lesser group address in contract_address_sent
             copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
             if (ADDRESS_IS_NULL(context->contract_address_sent)) {
                 copy_address(context->contract_address_sent, context->recipient, ADDRESS_LENGTH);
             }
             context->next_param = RECIPIENT_3;
             break;
-        case RECIPIENT_3: // Put the greater group address in contract_address_received
+        case RECIPIENT_3:  // Put the greater group address in contract_address_received
             copy_address(context->contract_address_received, msg->parameter, ADDRESS_LENGTH);
             if (ADDRESS_IS_NULL(context->contract_address_received)) {
-                copy_address(context->contract_address_received, context->recipient, ADDRESS_LENGTH);
+                copy_address(context->contract_address_received,
+                             context->recipient,
+                             ADDRESS_LENGTH);
             }
             context->next_param = NONE;
             break;
