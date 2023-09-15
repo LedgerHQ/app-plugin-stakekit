@@ -27,6 +27,7 @@ void handle_finalize(void *parameters) {
             case MORPHO_SUPPLY_1:
             case MORPHO_SUPPLY_3:
             case TRANSFER_OUT:
+            case AAVE_SUPPLY:
                 msg->numScreens = 2;
                 msg->tokenLookup1 = context->contract_address_sent;
                 break;

@@ -71,6 +71,7 @@ void handle_init_contract(void *parameters) {
         case MORPHO_SUPPLY_3:
         case COMET_SUPPLY:
         case TRANSFER_OUT:
+        case AAVE_SUPPLY:
             context->next_param = TOKEN_SENT;
             break;
         case MORPHO_WITHDRAW_1:

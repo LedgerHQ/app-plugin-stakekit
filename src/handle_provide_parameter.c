@@ -188,6 +188,29 @@ static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_paramete
     }
 }
 
+static void handle_aave_supply(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case TOKEN_SENT:
+            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->next_param = RECIPIENT;
+            break;
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 void handle_provide_parameter(void *parameters) {
     ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
@@ -269,6 +292,9 @@ void handle_provide_parameter(void *parameters) {
             case VOTE:
             case REVOKE_ACTIVE:
                 handle_vote_revoke(msg, context);
+                break;
+            case AAVE_SUPPLY:
+                handle_aave_supply(msg, context);
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

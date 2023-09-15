@@ -44,6 +44,7 @@ static const uint8_t STAKEKIT_LOCK_SELECTOR[SELECTOR_SIZE] = {0xf8, 0x3d, 0x08, 
 static const uint8_t STAKEKIT_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0x61, 0x98, 0xe3, 0x39};
 static const uint8_t STAKEKIT_VOTE_SELECTOR[SELECTOR_SIZE] = {0x58, 0x0d, 0x74, 0x7a};
 static const uint8_t STAKEKIT_REVOKE_ACTIVE_SELECTOR[SELECTOR_SIZE] = {0x6e, 0x19, 0x84, 0x75};
+static const uint8_t STAKEKIT_AAVE_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0x61, 0x7b, 0xa0, 0x37};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -80,6 +81,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_UNLOCK_SELECTOR,
     STAKEKIT_VOTE_SELECTOR,
     STAKEKIT_REVOKE_ACTIVE_SELECTOR,
+    STAKEKIT_AAVE_SUPPLY_SELECTOR,
 };
 
 // Indicate the Ethereum chain ID

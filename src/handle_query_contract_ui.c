@@ -18,6 +18,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case LEAVE:
         case COMET_SUPPLY:
         case TRANSFER_OUT:
+        case AAVE_SUPPLY:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -103,6 +104,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
         case TRANSFER_OUT:
+        case AAVE_SUPPLY:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -451,6 +453,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case MORPHO_SUPPLY_3:
         case COMET_SUPPLY:
         case TRANSFER_OUT:
+        case AAVE_SUPPLY:
             return get_screen_supply(msg, context);
         case SWAP_FROM:
             return get_screen_amount_sent_receive(msg, context);

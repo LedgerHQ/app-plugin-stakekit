@@ -45,6 +45,7 @@ void handle_query_contract_id(void *parameters) {
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
         case COMET_SUPPLY:
+        case AAVE_SUPPLY:
             strlcpy(msg->version, "Supply", msg->versionLength);
             break;
         case MORPHO_WITHDRAW_1:
