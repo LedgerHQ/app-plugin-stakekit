@@ -43,6 +43,7 @@ void handle_init_contract(void *parameters) {
         case SELL_VOUCHER_NEW:
         case ENTER:
         case LEAVE:
+        case UNLOCK:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:

@@ -84,6 +84,7 @@ Methods covered by this plugin are:
 | TokenHub    | 0xaa7415f5 | transferOut |
 | AccountsProxy    | 0x9dca362f | createAccount |
 | LockedGoldProxy    | 0xf83d08ba | lock |
+| LockedGoldProxy    | 0x6198e339 | unlock |
 
 
 ## Build

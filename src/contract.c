@@ -41,6 +41,7 @@ static const uint8_t STAKEKIT_COMET_CLAIM_SELECTOR[SELECTOR_SIZE] = {0xb7, 0x03,
 static const uint8_t STAKEKIT_TRANSFER_OUT_SELECTOR[SELECTOR_SIZE] = {0xaa, 0x74, 0x15, 0xf5};
 static const uint8_t STAKEKIT_CREATE_ACCOUNT_SELECTOR[SELECTOR_SIZE] = {0x9d, 0xca, 0x36, 0x2f};
 static const uint8_t STAKEKIT_LOCK_SELECTOR[SELECTOR_SIZE] = {0xf8, 0x3d, 0x08, 0xba};
+static const uint8_t STAKEKIT_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0x61, 0x98, 0xe3, 0x39};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -74,6 +75,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_TRANSFER_OUT_SELECTOR,
     STAKEKIT_CREATE_ACCOUNT_SELECTOR,
     STAKEKIT_LOCK_SELECTOR,
+    STAKEKIT_UNLOCK_SELECTOR,
 };
 
 // Indicate the Ethereum chain ID

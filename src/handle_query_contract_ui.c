@@ -23,6 +23,9 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case CLAIM_TOKENS:
             strlcpy(msg->title, "Token ID", msg->titleLength);
             break;
+        case UNLOCK:
+            strlcpy(msg->title, "Gold Amount", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -369,6 +372,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SELL_VOUCHER_NEW:
         case ENTER:
         case LEAVE:
+        case UNLOCK:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:

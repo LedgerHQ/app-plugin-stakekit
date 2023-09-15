@@ -6,6 +6,12 @@ void handle_finalize(void *parameters) {
 
     msg->uiType = ETH_UI_TYPE_GENERIC;
 
+    // Initialize the decimals and ticker to default value.
+    context->decimals_sent = DEFAULT_DECIMAL;
+    strlcpy(context->ticker_sent, DEFAULT_TICKER, sizeof(context->ticker_sent));
+    context->decimals_received = DEFAULT_DECIMAL;
+    strlcpy(context->ticker_received, DEFAULT_TICKER, sizeof(context->ticker_received));
+
     if (context->valid) {
         switch (context->selectorIndex) {
             case CLAIM_SELF_APECOIN:
@@ -38,39 +44,32 @@ void handle_finalize(void *parameters) {
             case SELL_VOUCHER_NEW:
                 msg->numScreens = 1;
                 context->decimals_sent = 0;
-                strlcpy(context->ticker_sent, DEFAULT_TICKER, sizeof(context->ticker_sent));
                 break;
             case ENTER:
                 msg->numScreens = 1;
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, SUSHI_TICKER, sizeof(context->ticker_sent));
                 break;
             case LEAVE:
                 msg->numScreens = 1;
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, XSUSHI_TICKER, sizeof(context->ticker_sent));
                 break;
             case STAKE:
                 msg->numScreens = 1;
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent,
                         STAKEWISE_STAKED_ETH2_TICKER,
                         sizeof(context->ticker_sent));
                 break;
             case DEPOSIT_SELF_APECOIN:
                 msg->numScreens = 1;
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, APE_TICKER, sizeof(context->ticker_sent));
                 break;
             case WITHDRAW_SELF_APECOIN:
             case PARASPACE_WITHDRAW:
                 msg->numScreens = 1;
-                context->decimals_received = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_received, APE_TICKER, sizeof(context->ticker_received));
                 break;
             case SWAP_TO:
                 msg->numScreens = 1;
-                context->decimals_received = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_received,
                         ROCKET_POOL_ETH_TICKER,
                         sizeof(context->ticker_received));
@@ -78,29 +77,23 @@ void handle_finalize(void *parameters) {
             case SUBMIT_MATIC_LIDO:
             case REQUEST_WITHDRAW:
                 msg->numScreens = 2;
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
                 break;
             case BUY_VOUCHER:
                 msg->numScreens = 1;
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
                 break;
             case SWAP_FROM:
                 msg->numScreens = 2;
-                context->decimals_received = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_received, WETH_TICKER, sizeof(context->ticker_received));
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, ROCKET_POOL_ETH_TICKER, sizeof(context->ticker_sent));
                 break;
             case PARASPACE_DEPOSIT:
                 msg->numScreens = 2;
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, APE_TICKER, sizeof(context->ticker_sent));
                 break;
             case GRT_DELEGATE:
                 msg->numScreens = 2;
-                context->decimals_sent = DEFAULT_DECIMAL;
                 strlcpy(context->ticker_sent, GRT_TICKER, sizeof(context->ticker_sent));
                 break;
             default:
