@@ -202,6 +202,7 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case MORPHO_SUPPLY_1:
             case MORPHO_SUPPLY_3:
+            case TRANSFER_OUT:
                 handle_morpho_supply_1_3(msg, context);
                 break;
             case MORPHO_WITHDRAW_1:

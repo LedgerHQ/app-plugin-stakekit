@@ -4,20 +4,21 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 27
+#define NUM_STAKEKIT_SELECTORS 28
 
 #define PLUGIN_NAME "StakeKit"
 
 #define TOKEN_SENT_FOUND     1       // REMOVE IF NOT USED
 #define TOKEN_RECEIVED_FOUND 1 << 1  // REMOVE IF NOT USED
 
-extern const uint8_t PLUGIN_ETH_ADDRESS[ADDRESS_LENGTH];  // REMOVE IF NOT USED
-extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];    // REMOVE IF NOT USED
+#define CHAIN_ID_LENGTH 1
 
-// Returns 1 if corresponding address is the address for the chain token (ETH, BNB, MATIC,
-#define ADDRESS_IS_NETWORK_TOKEN(_addr)                    \
-    (!memcmp(_addr, PLUGIN_ETH_ADDRESS, ADDRESS_LENGTH) || \
-     !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH))
+extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];    // REMOVE IF NOT USED
+extern const uint8_t ETH_CHAIN_ID[CHAIN_ID_LENGTH];
+extern const uint8_t BSC_CHAIN_ID[CHAIN_ID_LENGTH];
+
+// Returns 1 if corresponding address is the address for the chain token (ETH, BNB, MATIC,...)
+#define ADDRESS_IS_NETWORK_TOKEN(_addr) !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH)
 
 typedef enum {
     DEPOSIT_SELF_APECOIN,
@@ -47,6 +48,7 @@ typedef enum {
     COMET_SUPPLY,
     COMET_WITHDRAW,
     COMET_CLAIM,
+    TRANSFER_OUT,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -74,6 +76,12 @@ typedef enum {
 
 // Ticker used when the token wasn't found in the CAL.
 #define DEFAULT_TICKER ""
+
+// Ticker used for ETH.
+#define ETH_TICKER "ETH"
+
+// Ticker used for BSC.
+#define BNB_TICKER "BNB"
 
 // Ticker used for WETH.
 #define WETH_TICKER "WETH"

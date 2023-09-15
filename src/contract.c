@@ -38,6 +38,7 @@ static const uint8_t STAKEKIT_LEAVE_SELECTOR[SELECTOR_SIZE] = {0x67, 0xdf, 0xd4,
 static const uint8_t STAKEKIT_COMET_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
 static const uint8_t STAKEKIT_COMET_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xf3, 0xfe, 0xf3, 0xa3};
 static const uint8_t STAKEKIT_COMET_CLAIM_SELECTOR[SELECTOR_SIZE] = {0xb7, 0x03, 0x4f, 0x7e};
+static const uint8_t STAKEKIT_TRANSFER_OUT_SELECTOR[SELECTOR_SIZE] = {0xaa, 0x74, 0x15, 0xf5};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -68,13 +69,14 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_COMET_SUPPLY_SELECTOR,
     STAKEKIT_COMET_WITHDRAW_SELECTOR,
     STAKEKIT_COMET_CLAIM_SELECTOR,
+    STAKEKIT_TRANSFER_OUT_SELECTOR,
 };
 
-// Ask dummy address ETH
-// Remove if not used
-const uint8_t PLUGIN_ETH_ADDRESS[ADDRESS_LENGTH] = {0xee, 0xee, 0xee, 0xee, 0xee, 0xee, 0xee,
-                                                    0xee, 0xee, 0xee, 0xee, 0xee, 0xee, 0xee,
-                                                    0xee, 0xee, 0xee, 0xee, 0xee, 0xee};
+// Indicate the Ethereum chain ID
+const uint8_t ETH_CHAIN_ID[CHAIN_ID_LENGTH] = {0x01};
+
+// Indicate the BSC chain ID
+const uint8_t BSC_CHAIN_ID[CHAIN_ID_LENGTH] = {0x38};
 
 // Remove if not used
 const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

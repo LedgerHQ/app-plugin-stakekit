@@ -74,6 +74,9 @@ void handle_query_contract_id(void *parameters) {
         case COMET_CLAIM:
             strlcpy(msg->version, "Claim", msg->versionLength);
             break;
+        case TRANSFER_OUT:
+            strlcpy(msg->version, "Transfer Out", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

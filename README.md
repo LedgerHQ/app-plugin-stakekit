@@ -43,6 +43,7 @@ Smart contracts covered by this plugin are:
 | Ethereum  | CometRewards | 0x1b0e765f6224c21223aea2af16c1c46e38885a40|
 | Polygon  | TransparentUpgradeableProxy | 0xf25212e676d1f7f89cd72ffee66158f541246445|
 | Polygon  | CometRewards | 0x45939657d1ca34a8fa39a924b71d28fe8431e581|
+| BSC  | TokenHub | 0x0000000000000000000000000000000000001004|
 
 
 ## Methods
@@ -78,6 +79,7 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0xf2b9fdb8 | supply |
 | TransparentUpgradeableProxy    | 0xf3fef3a3 | withdraw |
 | CometRewards    | 0xb7034f7e | claim |
+| TokenHub    | 0xaa7415f5 | transferOut |
 
 
 ## Build
