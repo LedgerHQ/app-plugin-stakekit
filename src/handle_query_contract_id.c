@@ -103,6 +103,10 @@ void handle_query_contract_id(void *parameters) {
         case AVALANCHE_REQUEST_UNLOCK:
             strlcpy(msg->version, "Request Unlock", msg->versionLength);
             break;
+        case AVALANCHE_REDEEM_1:
+        case AVALANCHE_REDEEM_2:
+            strlcpy(msg->version, "Redeem", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

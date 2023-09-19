@@ -55,6 +55,8 @@ static const uint8_t STAKEKIT_AVALANCHE_REQUEST_UNLOCK_SELECTOR[SELECTOR_SIZE] =
                                                                                   0xd2,
                                                                                   0xff,
                                                                                   0x9d};
+static const uint8_t STAKEKIT_AVALANCHE_REDEEM_1_SELECTOR[SELECTOR_SIZE] = {0xbe, 0x04, 0x0f, 0xb0};
+static const uint8_t STAKEKIT_AVALANCHE_REDEEM_2_SELECTOR[SELECTOR_SIZE] = {0xdb, 0x00, 0x6a, 0x75};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -96,6 +98,8 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR,
     STAKEKIT_AVALANCHE_SUBMIT_SELECTOR,
     STAKEKIT_AVALANCHE_REQUEST_UNLOCK_SELECTOR,
+    STAKEKIT_AVALANCHE_REDEEM_1_SELECTOR,
+    STAKEKIT_AVALANCHE_REDEEM_2_SELECTOR,
 };
 
 // Indicate the Ethereum chain ID

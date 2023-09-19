@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 38
+#define NUM_STAKEKIT_SELECTORS 40
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -62,6 +62,8 @@ typedef enum {
     UNSTAKE_CLAIM_TOKENS_NEW,
     AVALANCHE_SUBMIT,
     AVALANCHE_REQUEST_UNLOCK,
+    AVALANCHE_REDEEM_1,
+    AVALANCHE_REDEEM_2,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
