@@ -217,6 +217,27 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0xa354f35829ae975e850e23e9615b11da1b3dc4de",
+            "contractName": "Vyper_contract",
+            "selectors": {
+                "0xd0e30db0": {
+                    "erc20OfInterest": [],
+                    "method": "deposit",
+                    "plugin": "StakeKit"
+                },
+                "0xb6b55f25": {
+                    "erc20OfInterest": [],
+                    "method": "deposit",
+                    "plugin": "StakeKit"
+                },
+                "0x6e553f65": {
+                    "erc20OfInterest": [],
+                    "method": "deposit",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
