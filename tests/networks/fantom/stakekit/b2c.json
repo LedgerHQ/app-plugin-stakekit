@@ -19,6 +19,21 @@
                   "erc20OfInterest": [],
                   "method": "deposit",
                   "plugin": "StakeKit"
+              },
+              "0x3ccfd60b": {
+                  "erc20OfInterest": [],
+                  "method": "withdraw",
+                  "plugin": "StakeKit"
+              },
+              "0x2e1a7d4d": {
+                  "erc20OfInterest": [],
+                  "method": "withdraw",
+                  "plugin": "StakeKit"
+              },
+              "0x00f714ce": {
+                  "erc20OfInterest": [],
+                  "method": "withdraw",
+                  "plugin": "StakeKit"
               }
           }
       }
