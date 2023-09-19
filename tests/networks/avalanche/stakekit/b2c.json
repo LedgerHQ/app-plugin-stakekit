@@ -36,9 +36,14 @@
                     "method": "redeem",
                     "plugin": "StakeKit"
                 },
-                "0xbe040fb0": {
+                "0x0d10d32c": {
                     "erc20OfInterest": [],
-                    "method": "redeem",
+                    "method": "redeemOverdueShares",
+                    "plugin": "StakeKit"
+                },
+                "0x0f7e2048": {
+                    "erc20OfInterest": [],
+                    "method": "redeemOverdueShares",
                     "plugin": "StakeKit"
                 }
             }
