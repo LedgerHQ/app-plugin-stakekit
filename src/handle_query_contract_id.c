@@ -53,6 +53,9 @@ void handle_query_contract_id(void *parameters) {
         case MORPHO_WITHDRAW_2:
         case PARASPACE_WITHDRAW:
         case COMET_WITHDRAW:
+        case YEARN_VAULT_WITHDRAW_1:
+        case YEARN_VAULT_WITHDRAW_2:
+        case YEARN_VAULT_WITHDRAW_3:
             strlcpy(msg->version, "Withdraw", msg->versionLength);
             break;
         case PARASPACE_DEPOSIT:

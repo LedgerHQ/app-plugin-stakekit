@@ -4,20 +4,21 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 45
+#define NUM_STAKEKIT_SELECTORS 48
 
 #define PLUGIN_NAME "StakeKit"
 
 #define TOKEN_SENT_FOUND     1       // REMOVE IF NOT USED
 #define TOKEN_RECEIVED_FOUND 1 << 1  // REMOVE IF NOT USED
 
-#define NUM_SUPPORTED_TOKENS 1
+#define NUM_SUPPORTED_SMART_CONTRACT 2
 typedef struct tokenSymbolAndDecimals_t {
     uint8_t smart_contract[ADDRESS_LENGTH];
-    char token_symbol[MAX_TICKER_LEN];
+    char token_symbol_deposit[MAX_TICKER_LEN];
+    char token_symbol_withdraw[MAX_TICKER_LEN];
     uint8_t decimals_sent;
 } tokenSymbolAndDecimals_t;
-extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_TOKENS];
+extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMART_CONTRACT];
 
 #define CHAIN_ID_LENGTH 1
 
@@ -77,6 +78,9 @@ typedef enum {
     YEARN_VAULT_DEPOSIT_1,
     YEARN_VAULT_DEPOSIT_2,
     YEARN_VAULT_DEPOSIT_3,
+    YEARN_VAULT_WITHDRAW_1,
+    YEARN_VAULT_WITHDRAW_2,
+    YEARN_VAULT_WITHDRAW_3,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];

@@ -1,13 +1,32 @@
 #include "stakekit_plugin.h"
 
-// Sets the ticker as the token symbol previously stored concatenated to a space
-static bool set_ticker_for_mapped_token(plugin_parameters_t *context, ethPluginFinalize_t *msg) {
-    for (size_t i = 0; i < NUM_SUPPORTED_TOKENS; i++) {
+// Sets the deposit ticker as the token symbol
+static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
+                                                ethPluginFinalize_t *msg) {
+    for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
         if (!memcmp(msg->pluginSharedRO->txContent->destination,
                     STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
                     ADDRESS_LENGTH)) {
             char ticker[MAX_TICKER_LEN];
-            strlcpy(ticker, (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol, sizeof(ticker));
+            strlcpy(ticker, (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_deposit, sizeof(ticker));
+            strlcat(ticker, " ", sizeof(ticker));
+            strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
+            context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
+            context->tokens_found |= TOKEN_SENT_FOUND;
+            return 1;
+        }
+    }
+    return 0;
+}
+// Sets the withdraw ticker as the token symbol
+static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
+                                                 ethPluginFinalize_t *msg) {
+    for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
+        if (!memcmp(msg->pluginSharedRO->txContent->destination,
+                    STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
+                    ADDRESS_LENGTH)) {
+            char ticker[MAX_TICKER_LEN];
+            strlcpy(ticker, (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_withdraw, sizeof(ticker));
             strlcat(ticker, " ", sizeof(ticker));
             strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
             context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
@@ -89,7 +108,6 @@ void handle_finalize(void *parameters) {
                 strlcpy(context->ticker_sent, APE_TICKER, sizeof(context->ticker_sent));
                 break;
             case WITHDRAW_SELF_APECOIN:
-            case PARASPACE_WITHDRAW:
                 msg->numScreens = 1;
                 strlcpy(context->ticker_received, APE_TICKER, sizeof(context->ticker_received));
                 break;
@@ -131,15 +149,16 @@ void handle_finalize(void *parameters) {
                 if (context->selectorIndex == YEARN_VAULT_DEPOSIT_3) {
                     msg->numScreens++;
                 }
-                bool success = set_ticker_for_mapped_token(context, msg);
-                if (!success) {
-                    // The smart contract was not found in custom mapping
-                    context->decimals_sent = DEFAULT_DECIMAL;
-                    strlcpy(context->ticker_sent, DEFAULT_TICKER, sizeof(context->ticker_sent));
-                    // // We will need an additional screen to display a warning message.
+                set_ticker_deposit_for_mapped_token(context, msg);
+                break;
+            case PARASPACE_WITHDRAW:
+            case YEARN_VAULT_WITHDRAW_2:
+            case YEARN_VAULT_WITHDRAW_3:
+                msg->numScreens = 1;
+                if (context->selectorIndex == YEARN_VAULT_WITHDRAW_3) {
                     msg->numScreens++;
-                    PRINTF("Token not found in mapping\n");
                 }
+                set_ticker_withdraw_for_mapped_token(context, msg);
                 break;
             default:
                 msg->numScreens = 1;

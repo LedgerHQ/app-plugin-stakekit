@@ -109,6 +109,9 @@ Methods covered by this plugin are:
 | Yearn Vault    | 0xd0e30db0 | deposit |
 | Yearn Vault    | 0xb6b55f25 | deposit |
 | Yearn Vault    | 0x6e553f65 | deposit |
+| Yearn Vault    | 0x3ccfd60b | withdraw |
+| Yearn Vault    | 0x2e1a7d4d | withdraw |
+| Yearn Vault    | 0x00f714ce | withdraw |
 
 
 ## Build

@@ -19,8 +19,11 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case COMET_SUPPLY:
         case TRANSFER_OUT:
         case AAVE_SUPPLY:
+        case PARASPACE_WITHDRAW:
         case YEARN_VAULT_DEPOSIT_2:
         case YEARN_VAULT_DEPOSIT_3:
+        case YEARN_VAULT_WITHDRAW_2:
+        case YEARN_VAULT_WITHDRAW_3:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         case CLAIM_TOKENS:
@@ -84,7 +87,6 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
         case SWAP_FROM:
         case MORPHO_WITHDRAW_1:
         case MORPHO_WITHDRAW_2:
-        case PARASPACE_WITHDRAW:
         case COMET_WITHDRAW:
             strlcpy(msg->title, "Receive", msg->titleLength);
             break;
@@ -115,6 +117,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case TRANSFER_OUT:
         case AAVE_SUPPLY:
         case YEARN_VAULT_DEPOSIT_3:
+        case YEARN_VAULT_WITHDRAW_3:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -233,6 +236,7 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
         case AVALANCHE_REDEEM_1:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
         case YEARN_VAULT_DEPOSIT_1:
+        case YEARN_VAULT_WITHDRAW_1:
             strlcpy(msg->title, "Smart Contract", msg->titleLength);
             break;
         default:
@@ -478,11 +482,9 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case AVALANCHE_REQUEST_UNLOCK:
         case AVALANCHE_REDEEM_2:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
-        case YEARN_VAULT_DEPOSIT_2:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
-        case PARASPACE_WITHDRAW:
         case COMET_WITHDRAW:
             return get_screen_receive(msg, context);
         case GRT_UNDELEGATE:
@@ -493,8 +495,12 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
         case PARASPACE_DEPOSIT:
+        case PARASPACE_WITHDRAW:
         case GRT_DELEGATE:
+        case YEARN_VAULT_DEPOSIT_2:
         case YEARN_VAULT_DEPOSIT_3:
+        case YEARN_VAULT_WITHDRAW_2:
+        case YEARN_VAULT_WITHDRAW_3:
             return get_screen_amount_sent_recipient(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
@@ -520,6 +526,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case AVALANCHE_REDEEM_1:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
         case YEARN_VAULT_DEPOSIT_1:
+        case YEARN_VAULT_WITHDRAW_1:
             return get_screen_smart_contract_address(msg, context);
         case VOTE:
         case REVOKE_ACTIVE:
