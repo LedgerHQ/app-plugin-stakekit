@@ -7,7 +7,7 @@ static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
         if (!memcmp(msg->pluginSharedRO->txContent->destination,
                     STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
                     ADDRESS_LENGTH)) {
-            char ticker[MAX_TICKER_LEN];
+            char ticker[TICKER_LEN];
             strlcpy(ticker,
                     (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_deposit,
                     sizeof(ticker));
@@ -27,7 +27,7 @@ static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
         if (!memcmp(msg->pluginSharedRO->txContent->destination,
                     STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
                     ADDRESS_LENGTH)) {
-            char ticker[MAX_TICKER_LEN];
+            char ticker[TICKER_LEN];
             strlcpy(ticker,
                     (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_withdraw,
                     sizeof(ticker));
