@@ -30,6 +30,16 @@
                     "erc20OfInterest": [],
                     "method": "requestUnlock",
                     "plugin": "StakeKit"
+                },
+                "0xdb006a75": {
+                    "erc20OfInterest": [],
+                    "method": "redeem",
+                    "plugin": "StakeKit"
+                },
+                "0xbe040fb0": {
+                    "erc20OfInterest": [],
+                    "method": "redeem",
+                    "plugin": "StakeKit"
                 }
             }
         }
