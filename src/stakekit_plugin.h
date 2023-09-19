@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 36
+#define NUM_STAKEKIT_SELECTORS 42
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -60,6 +60,12 @@ typedef enum {
     AAVE_SUPPLY,
     WITHDRAW_REWARDS,
     UNSTAKE_CLAIM_TOKENS_NEW,
+    AVALANCHE_SUBMIT,
+    AVALANCHE_REQUEST_UNLOCK,
+    AVALANCHE_REDEEM_1,
+    AVALANCHE_REDEEM_2,
+    AVALANCHE_REDEEM_OVERDUE_SHARES_1,
+    AVALANCHE_REDEEM_OVERDUE_SHARES_2,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -122,6 +128,9 @@ typedef enum {
 
 // Ticker used for rETH.
 #define STAKEWISE_STAKED_ETH2_TICKER "sETH2"
+
+// Ticker used for Staked AVAX.
+#define STAKED_AVAX_TICKER "sAVAX"
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 typedef struct plugin_parameters_t {

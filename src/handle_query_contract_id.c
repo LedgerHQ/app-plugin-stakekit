@@ -18,6 +18,7 @@ void handle_query_contract_id(void *parameters) {
             break;
         case SUBMIT_ETH_LIDO:
         case SUBMIT_MATIC_LIDO:
+        case AVALANCHE_SUBMIT:
             strlcpy(msg->version, "Submit", msg->versionLength);
             break;
         case SWAP_TO:
@@ -98,6 +99,17 @@ void handle_query_contract_id(void *parameters) {
             break;
         case UNSTAKE_CLAIM_TOKENS_NEW:
             strlcpy(msg->version, "Unstake Claim Tokens New", msg->versionLength);
+            break;
+        case AVALANCHE_REQUEST_UNLOCK:
+            strlcpy(msg->version, "Request Unlock", msg->versionLength);
+            break;
+        case AVALANCHE_REDEEM_1:
+        case AVALANCHE_REDEEM_2:
+            strlcpy(msg->version, "Redeem", msg->versionLength);
+            break;
+        case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
+        case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
+            strlcpy(msg->version, "Redeem Overdue Shares", msg->versionLength);
             break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);

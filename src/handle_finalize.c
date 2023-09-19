@@ -47,6 +47,8 @@ void handle_finalize(void *parameters) {
                 break;
             case CLAIM_TOKENS:
             case SELL_VOUCHER_NEW:
+            case AVALANCHE_REDEEM_2:
+            case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
                 msg->numScreens = 1;
                 context->decimals_sent = 0;
                 break;
@@ -100,6 +102,10 @@ void handle_finalize(void *parameters) {
             case GRT_DELEGATE:
                 msg->numScreens = 2;
                 strlcpy(context->ticker_sent, GRT_TICKER, sizeof(context->ticker_sent));
+                break;
+            case AVALANCHE_REQUEST_UNLOCK:
+                msg->numScreens = 1;
+                strlcpy(context->ticker_sent, STAKED_AVAX_TICKER, sizeof(context->ticker_sent));
                 break;
             default:
                 msg->numScreens = 1;

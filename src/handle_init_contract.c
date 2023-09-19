@@ -44,6 +44,9 @@ void handle_init_contract(void *parameters) {
         case ENTER:
         case LEAVE:
         case UNLOCK:
+        case AVALANCHE_REQUEST_UNLOCK:
+        case AVALANCHE_REDEEM_2:
+        case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:
@@ -55,6 +58,9 @@ void handle_init_contract(void *parameters) {
         case CREATE_ACCOUNT:
         case LOCK:
         case WITHDRAW_REWARDS:
+        case AVALANCHE_SUBMIT:
+        case AVALANCHE_REDEEM_1:
+        case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:

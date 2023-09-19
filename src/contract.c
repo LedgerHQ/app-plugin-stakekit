@@ -50,6 +50,21 @@ static const uint8_t STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR[SELECTOR_SIZE] =
                                                                                   0x7f,
                                                                                   0xdd,
                                                                                   0xc2};
+static const uint8_t STAKEKIT_AVALANCHE_SUBMIT_SELECTOR[SELECTOR_SIZE] = {0x5b, 0xcb, 0x2f, 0xc6};
+static const uint8_t STAKEKIT_AVALANCHE_REQUEST_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0xc9,
+                                                                                  0xd2,
+                                                                                  0xff,
+                                                                                  0x9d};
+static const uint8_t STAKEKIT_AVALANCHE_REDEEM_1_SELECTOR[SELECTOR_SIZE] = {0xbe, 0x04, 0x0f, 0xb0};
+static const uint8_t STAKEKIT_AVALANCHE_REDEEM_2_SELECTOR[SELECTOR_SIZE] = {0xdb, 0x00, 0x6a, 0x75};
+static const uint8_t STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_1_SELECTOR[SELECTOR_SIZE] = {0x0d,
+                                                                                           0x10,
+                                                                                           0xd3,
+                                                                                           0x2c};
+static const uint8_t STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_2_SELECTOR[SELECTOR_SIZE] = {0x0f,
+                                                                                           0x7e,
+                                                                                           0x20,
+                                                                                           0x48};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -89,6 +104,12 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_AAVE_SUPPLY_SELECTOR,
     STAKEKIT_WITHDRAW_REWARDS_SELECTOR,
     STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR,
+    STAKEKIT_AVALANCHE_SUBMIT_SELECTOR,
+    STAKEKIT_AVALANCHE_REQUEST_UNLOCK_SELECTOR,
+    STAKEKIT_AVALANCHE_REDEEM_1_SELECTOR,
+    STAKEKIT_AVALANCHE_REDEEM_2_SELECTOR,
+    STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_1_SELECTOR,
+    STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_2_SELECTOR,
 };
 
 // Indicate the Ethereum chain ID

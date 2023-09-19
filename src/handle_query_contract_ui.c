@@ -31,6 +31,13 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case REVOKE_ACTIVE:
             strlcpy(msg->title, "Votes", msg->titleLength);
             break;
+        case AVALANCHE_REQUEST_UNLOCK:
+            strlcpy(msg->title, "Shares", msg->titleLength);
+            break;
+        case AVALANCHE_REDEEM_2:
+        case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
+            strlcpy(msg->title, "Index", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -219,6 +226,9 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
         case CREATE_ACCOUNT:
         case LOCK:
         case WITHDRAW_REWARDS:
+        case AVALANCHE_SUBMIT:
+        case AVALANCHE_REDEEM_1:
+        case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
             strlcpy(msg->title, "Smart Contract", msg->titleLength);
             break;
         default:
@@ -461,6 +471,9 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case ENTER:
         case LEAVE:
         case UNLOCK:
+        case AVALANCHE_REQUEST_UNLOCK:
+        case AVALANCHE_REDEEM_2:
+        case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
@@ -497,6 +510,9 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case CREATE_ACCOUNT:
         case LOCK:
         case WITHDRAW_REWARDS:
+        case AVALANCHE_SUBMIT:
+        case AVALANCHE_REDEEM_1:
+        case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
             return get_screen_smart_contract_address(msg, context);
         case VOTE:
         case REVOKE_ACTIVE:

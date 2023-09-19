@@ -49,6 +49,7 @@ Smart contracts covered by this plugin are:
 | Celo  | LockedGoldProxy | 0x6cc083aed9e3ebe302a6336dbc7c921c9f03349e|
 | Celo  | ElectionProxy | 0x8d6677192144292870907e3fa8a5527fe55a7ff6|
 | Avalanche  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
+| Avalanche  | TransparentUpgradeableProxy | 0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be|
 | Optimism  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
 | Arbitrum  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
 
@@ -96,6 +97,12 @@ Methods covered by this plugin are:
 | ElectionProxy    | 0x6e198475 | revokeActive |
 | InitializableImmutableAdminUpgradeabilityProxy    | 0x617ba037 | supply |
 | InitializableImmutableAdminUpgradeabilityProxy    | 0x69328dec | withdraw |
+| TransparentUpgradeableProxy    | 0x5bcb2fc6 | submit |
+| TransparentUpgradeableProxy    | 0xc9d2ff9d | requestUnlock |
+| TransparentUpgradeableProxy    | 0xdb006a75 | redeem |
+| TransparentUpgradeableProxy    | 0xbe040fb0 | redeem |
+| TransparentUpgradeableProxy    | 0x0d10d32c | redeemOverdueShares |
+| TransparentUpgradeableProxy    | 0x0f7e2048 | redeemOverdueShares |
 
 
 ## Build
