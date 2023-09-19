@@ -101,6 +101,8 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0xc9d2ff9d | requestUnlock |
 | TransparentUpgradeableProxy    | 0xdb006a75 | redeem |
 | TransparentUpgradeableProxy    | 0xbe040fb0 | redeem |
+| TransparentUpgradeableProxy    | 0x0d10d32c | redeemOverdueShares |
+| TransparentUpgradeableProxy    | 0x0f7e2048 | redeemOverdueShares |
 
 
 ## Build

@@ -48,6 +48,7 @@ void handle_finalize(void *parameters) {
             case CLAIM_TOKENS:
             case SELL_VOUCHER_NEW:
             case AVALANCHE_REDEEM_2:
+            case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
                 msg->numScreens = 1;
                 context->decimals_sent = 0;
                 break;

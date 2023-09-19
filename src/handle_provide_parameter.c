@@ -236,6 +236,7 @@ void handle_provide_parameter(void *parameters) {
             case UNLOCK:
             case AVALANCHE_REQUEST_UNLOCK:
             case AVALANCHE_REDEEM_2:
+            case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
             case BUY_VOUCHER:
@@ -258,6 +259,7 @@ void handle_provide_parameter(void *parameters) {
             case WITHDRAW_REWARDS:
             case AVALANCHE_SUBMIT:
             case AVALANCHE_REDEEM_1:
+            case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
                 break;
             case SUBMIT_MATIC_LIDO:
             case REQUEST_WITHDRAW:
