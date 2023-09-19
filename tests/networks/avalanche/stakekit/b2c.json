@@ -16,6 +16,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be",
+            "contractName": "TransparentUpgradeableProxy",
+            "selectors": {
+                "0x5bcb2fc6": {
+                    "erc20OfInterest": [],
+                    "method": "submit",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
