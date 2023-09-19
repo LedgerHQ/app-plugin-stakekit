@@ -1,5 +1,23 @@
 #include "stakekit_plugin.h"
 
+// Sets the ticker as the token symbol previously stored concatenated to a space
+static bool set_ticker_for_mapped_token(plugin_parameters_t *context, ethPluginFinalize_t *msg) {
+    for (size_t i = 0; i < NUM_SUPPORTED_TOKENS; i++) {
+        if (!memcmp(msg->pluginSharedRO->txContent->destination,
+                    STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
+                    ADDRESS_LENGTH)) {
+            char ticker[MAX_TICKER_LEN];
+            strlcpy(ticker, (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol, sizeof(ticker));
+            strlcat(ticker, " ", sizeof(ticker));
+            strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
+            context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
+            context->tokens_found |= TOKEN_SENT_FOUND;
+            return 1;
+        }
+    }
+    return 0;
+}
+
 void handle_finalize(void *parameters) {
     ethPluginFinalize_t *msg = (ethPluginFinalize_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
@@ -106,6 +124,22 @@ void handle_finalize(void *parameters) {
             case AVALANCHE_REQUEST_UNLOCK:
                 msg->numScreens = 1;
                 strlcpy(context->ticker_sent, STAKED_AVAX_TICKER, sizeof(context->ticker_sent));
+                break;
+            case YEARN_VAULT_DEPOSIT_2:
+            case YEARN_VAULT_DEPOSIT_3:
+                msg->numScreens = 1;
+                if (context->selectorIndex == YEARN_VAULT_DEPOSIT_3) {
+                    msg->numScreens++;
+                }
+                bool success = set_ticker_for_mapped_token(context, msg);
+                if (!success) {
+                    // The smart contract was not found in custom mapping
+                    context->decimals_sent = DEFAULT_DECIMAL;
+                    strlcpy(context->ticker_sent, DEFAULT_TICKER, sizeof(context->ticker_sent));
+                    // // We will need an additional screen to display a warning message.
+                    msg->numScreens++;
+                    PRINTF("Token not found in mapping\n");
+                }
                 break;
             default:
                 msg->numScreens = 1;

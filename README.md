@@ -41,6 +41,7 @@ Smart contracts covered by this plugin are:
 | Ethereum  | SushiBar | 0x8798249c2e607446efb7ad49ec89dd1865ff4272|
 | Ethereum  | TransparentUpgradeableProxy | 0xc3d688b66703497daa19211eedff47f25384cdc3|
 | Ethereum  | CometRewards | 0x1b0e765f6224c21223aea2af16c1c46e38885a40|
+| Ethereum  | Yearn Vault | refer to the table below |
 | Polygon  | TransparentUpgradeableProxy | 0xf25212e676d1f7f89cd72ffee66158f541246445|
 | Polygon  | CometRewards | 0x45939657d1ca34a8fa39a924b71d28fe8431e581|
 | Polygon  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
@@ -51,7 +52,9 @@ Smart contracts covered by this plugin are:
 | Avalanche  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
 | Avalanche  | TransparentUpgradeableProxy | 0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be|
 | Optimism  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
+| Optimism  | Yearn Vault | refer to the table below |
 | Arbitrum  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad|
+| Fantom  | Yearn Vault | refer to the table below |
 
 
 ## Methods
@@ -103,6 +106,9 @@ Methods covered by this plugin are:
 | TransparentUpgradeableProxy    | 0xbe040fb0 | redeem |
 | TransparentUpgradeableProxy    | 0x0d10d32c | redeemOverdueShares |
 | TransparentUpgradeableProxy    | 0x0f7e2048 | redeemOverdueShares |
+| Yearn Vault    | 0xd0e30db0 | deposit |
+| Yearn Vault    | 0xb6b55f25 | deposit |
+| Yearn Vault    | 0x6e553f65 | deposit |
 
 
 ## Build

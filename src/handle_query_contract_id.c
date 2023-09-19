@@ -56,6 +56,9 @@ void handle_query_contract_id(void *parameters) {
             strlcpy(msg->version, "Withdraw", msg->versionLength);
             break;
         case PARASPACE_DEPOSIT:
+        case YEARN_VAULT_DEPOSIT_1:
+        case YEARN_VAULT_DEPOSIT_2:
+        case YEARN_VAULT_DEPOSIT_3:
             strlcpy(msg->version, "Deposit", msg->versionLength);
             break;
         case GRT_DELEGATE:
