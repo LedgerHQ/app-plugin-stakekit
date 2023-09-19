@@ -25,6 +25,11 @@
                     "erc20OfInterest": [],
                     "method": "submit",
                     "plugin": "StakeKit"
+                },
+                "0xc9d2ff9d": {
+                    "erc20OfInterest": [],
+                    "method": "requestUnlock",
+                    "plugin": "StakeKit"
                 }
             }
         }
