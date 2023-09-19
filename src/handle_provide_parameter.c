@@ -254,6 +254,7 @@ void handle_provide_parameter(void *parameters) {
             case CREATE_ACCOUNT:
             case LOCK:
             case WITHDRAW_REWARDS:
+            case AVALANCHE_SUBMIT:
                 break;
             case SUBMIT_MATIC_LIDO:
             case REQUEST_WITHDRAW:

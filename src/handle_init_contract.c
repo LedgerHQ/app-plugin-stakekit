@@ -55,6 +55,7 @@ void handle_init_contract(void *parameters) {
         case CREATE_ACCOUNT:
         case LOCK:
         case WITHDRAW_REWARDS:
+        case AVALANCHE_SUBMIT:
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:

@@ -219,6 +219,7 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
         case CREATE_ACCOUNT:
         case LOCK:
         case WITHDRAW_REWARDS:
+        case AVALANCHE_SUBMIT:
             strlcpy(msg->title, "Smart Contract", msg->titleLength);
             break;
         default:
@@ -497,6 +498,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case CREATE_ACCOUNT:
         case LOCK:
         case WITHDRAW_REWARDS:
+        case AVALANCHE_SUBMIT:
             return get_screen_smart_contract_address(msg, context);
         case VOTE:
         case REVOKE_ACTIVE:

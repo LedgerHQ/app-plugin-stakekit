@@ -18,6 +18,7 @@ void handle_query_contract_id(void *parameters) {
             break;
         case SUBMIT_ETH_LIDO:
         case SUBMIT_MATIC_LIDO:
+        case AVALANCHE_SUBMIT:
             strlcpy(msg->version, "Submit", msg->versionLength);
             break;
         case SWAP_TO:

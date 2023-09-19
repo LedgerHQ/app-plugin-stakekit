@@ -4,7 +4,7 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 36
+#define NUM_STAKEKIT_SELECTORS 37
 
 #define PLUGIN_NAME "StakeKit"
 
@@ -60,6 +60,7 @@ typedef enum {
     AAVE_SUPPLY,
     WITHDRAW_REWARDS,
     UNSTAKE_CLAIM_TOKENS_NEW,
+    AVALANCHE_SUBMIT,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
