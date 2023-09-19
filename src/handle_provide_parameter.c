@@ -237,6 +237,9 @@ void handle_provide_parameter(void *parameters) {
             case AVALANCHE_REQUEST_UNLOCK:
             case AVALANCHE_REDEEM_2:
             case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
+            case PARASPACE_WITHDRAW:
+            case YEARN_VAULT_DEPOSIT_2:
+            case YEARN_VAULT_WITHDRAW_2:
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
             case BUY_VOUCHER:
@@ -246,7 +249,6 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case WITHDRAW_SELF_APECOIN:
             case SWAP_TO:
-            case PARASPACE_WITHDRAW:
                 copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
                 break;
             case SUBMIT_ETH_LIDO:
@@ -260,9 +262,13 @@ void handle_provide_parameter(void *parameters) {
             case AVALANCHE_SUBMIT:
             case AVALANCHE_REDEEM_1:
             case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
+            case YEARN_VAULT_DEPOSIT_1:
+            case YEARN_VAULT_WITHDRAW_1:
                 break;
             case SUBMIT_MATIC_LIDO:
             case REQUEST_WITHDRAW:
+            case YEARN_VAULT_DEPOSIT_3:
+            case YEARN_VAULT_WITHDRAW_3:
                 handle_amount_recipient(msg, context);
                 break;
             case SWAP_FROM:

@@ -65,6 +65,30 @@ static const uint8_t STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_2_SELECTOR[SELECTO
                                                                                            0x7e,
                                                                                            0x20,
                                                                                            0x48};
+static const uint8_t STAKEKIT_YEARN_VAULT_DEPOSIT_1_SELECTOR[SELECTOR_SIZE] = {0xd0,
+                                                                               0xe3,
+                                                                               0x0d,
+                                                                               0xb0};
+static const uint8_t STAKEKIT_YEARN_VAULT_DEPOSIT_2_SELECTOR[SELECTOR_SIZE] = {0xb6,
+                                                                               0xb5,
+                                                                               0x5f,
+                                                                               0x25};
+static const uint8_t STAKEKIT_YEARN_VAULT_DEPOSIT_3_SELECTOR[SELECTOR_SIZE] = {0x6e,
+                                                                               0x55,
+                                                                               0x3f,
+                                                                               0x65};
+static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_1_SELECTOR[SELECTOR_SIZE] = {0x3c,
+                                                                                0xcf,
+                                                                                0xd6,
+                                                                                0x0b};
+static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_2_SELECTOR[SELECTOR_SIZE] = {0x2e,
+                                                                                0x1a,
+                                                                                0x7d,
+                                                                                0x4d};
+static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR[SELECTOR_SIZE] = {0x00,
+                                                                                0xf7,
+                                                                                0x14,
+                                                                                0xce};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -110,6 +134,12 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_AVALANCHE_REDEEM_2_SELECTOR,
     STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_1_SELECTOR,
     STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_2_SELECTOR,
+    STAKEKIT_YEARN_VAULT_DEPOSIT_1_SELECTOR,
+    STAKEKIT_YEARN_VAULT_DEPOSIT_2_SELECTOR,
+    STAKEKIT_YEARN_VAULT_DEPOSIT_3_SELECTOR,
+    STAKEKIT_YEARN_VAULT_WITHDRAW_1_SELECTOR,
+    STAKEKIT_YEARN_VAULT_WITHDRAW_2_SELECTOR,
+    STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR,
 };
 
 // Indicate the Ethereum chain ID
@@ -122,3 +152,18 @@ const uint8_t BSC_CHAIN_ID[CHAIN_ID_LENGTH] = {0x38};
 const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+// Array containing the yearn vault smart contracts supported by StakeKit Plugin
+// each contain the token symbol and decimal
+const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMART_CONTRACT] = {
+    {{0xef, 0x02, 0x10, 0xeb, 0x96, 0xc7, 0xeb, 0x36, 0xaf, 0x8e,
+      0xd1, 0xc2, 0x03, 0x06, 0x46, 0x27, 0x64, 0x93, 0x56, 0x07},
+     "USDC",
+     "yvUSDC",
+     6},
+    {{0xc5, 0xc9, 0xfb, 0x62, 0x23, 0xa9, 0x89, 0x20, 0x8d, 0xf2,
+      0x7d, 0xce, 0xe3, 0x3f, 0xc5, 0x9f, 0xf5, 0xc2, 0x6f, 0xff},
+     "APE",
+     "cAPE",
+     18},
+};
