@@ -44,6 +44,7 @@ void handle_init_contract(void *parameters) {
         case ENTER:
         case LEAVE:
         case UNLOCK:
+        case AVALANCHE_REQUEST_UNLOCK:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:

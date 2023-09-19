@@ -234,6 +234,7 @@ void handle_provide_parameter(void *parameters) {
             case ENTER:
             case LEAVE:
             case UNLOCK:
+            case AVALANCHE_REQUEST_UNLOCK:
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
             case BUY_VOUCHER:

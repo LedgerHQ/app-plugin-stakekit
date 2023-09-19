@@ -31,6 +31,9 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case REVOKE_ACTIVE:
             strlcpy(msg->title, "Votes", msg->titleLength);
             break;
+        case AVALANCHE_REQUEST_UNLOCK:
+            strlcpy(msg->title, "Shares", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -462,6 +465,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case ENTER:
         case LEAVE:
         case UNLOCK:
+        case AVALANCHE_REQUEST_UNLOCK:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:

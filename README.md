@@ -98,6 +98,7 @@ Methods covered by this plugin are:
 | InitializableImmutableAdminUpgradeabilityProxy    | 0x617ba037 | supply |
 | InitializableImmutableAdminUpgradeabilityProxy    | 0x69328dec | withdraw |
 | TransparentUpgradeableProxy    | 0x5bcb2fc6 | submit |
+| TransparentUpgradeableProxy    | 0xc9d2ff9d | requestUnlock |
 
 
 ## Build

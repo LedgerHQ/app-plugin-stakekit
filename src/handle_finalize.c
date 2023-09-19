@@ -101,6 +101,10 @@ void handle_finalize(void *parameters) {
                 msg->numScreens = 2;
                 strlcpy(context->ticker_sent, GRT_TICKER, sizeof(context->ticker_sent));
                 break;
+            case AVALANCHE_REQUEST_UNLOCK:
+                msg->numScreens = 1;
+                strlcpy(context->ticker_sent, STAKED_AVAX_TICKER, sizeof(context->ticker_sent));
+                break;
             default:
                 msg->numScreens = 1;
                 break;
