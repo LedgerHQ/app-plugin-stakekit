@@ -177,9 +177,7 @@ static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_paramete
         case RECIPIENT_3:  // Put the greater group address in amount_received
             copy_address(context->amount_received, msg->parameter, ADDRESS_LENGTH);
             if (ADDRESS_IS_NULL(context->amount_received)) {
-                copy_address(context->amount_received,
-                             context->recipient,
-                             ADDRESS_LENGTH);
+                copy_address(context->amount_received, context->recipient, ADDRESS_LENGTH);
             }
             context->next_param = NONE;
             break;
@@ -259,6 +257,16 @@ void handle_provide_parameter(void *parameters) {
             case SUBMIT_ETH_LIDO:
                 copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 break;
+            case GRT_WITHDRAW_DELEGATED:
+                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+                context->skip = 1;
+                break;
+            case UNSTAKE_CLAIM_TOKENS_NEW:
+                if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
+                    msg->result = ETH_PLUGIN_RESULT_ERROR;
+                    break;
+                }
+                break;
             case CLAIM_SELF_APECOIN:
             case STAKE:
             case CREATE_ACCOUNT:
@@ -300,10 +308,6 @@ void handle_provide_parameter(void *parameters) {
             case GRT_UNDELEGATE:
                 handle_recipient_amount_sent(msg, context);
                 break;
-            case GRT_WITHDRAW_DELEGATED:
-                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
-                context->skip = 1;
-                break;
             case COMET_CLAIM:
                 handle_comet_claim(msg, context);
                 break;
@@ -313,12 +317,6 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case AAVE_SUPPLY:
                 handle_aave_supply(msg, context);
-                break;
-            case UNSTAKE_CLAIM_TOKENS_NEW:
-                if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
-                    msg->result = ETH_PLUGIN_RESULT_ERROR;
-                    break;
-                }
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

@@ -106,6 +106,24 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
     PRINTF("AMOUNT RECEIVED: %s\n", msg->msg);
 }
 
+static void print_address(ethQueryContractUI_t *msg, uint8_t *address) {
+    // Prefix the address with `0x`.
+    msg->msg[0] = '0';
+    msg->msg[1] = 'x';
+
+    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
+    // Setting it to `0` will make it work with every chainID :)
+    uint64_t chainid = 0;
+
+    // Get the string representation of the address stored in `context->beneficiary`. Put it in
+    // `msg->msg`.
+    getEthAddressStringFromBinary(
+        address,
+        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
+        msg->pluginSharedRW->sha3,
+        chainid);
+}
+
 // Set UI for "Recipient" screen.
 static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
@@ -147,21 +165,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             return;
     }
 
-    // Prefix the address with `0x`.
-    msg->msg[0] = '0';
-    msg->msg[1] = 'x';
-
-    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
-    // Setting it to `0` will make it work with every chainID :)
-    uint64_t chainid = 0;
-
-    // Get the string representation of the address stored in `context->beneficiary`. Put it in
-    // `msg->msg`.
-    getEthAddressStringFromBinary(
-        context->recipient,
-        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
-        msg->pluginSharedRW->sha3,
-        chainid);
+    print_address(msg, context->recipient);
 }
 
 static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
@@ -179,21 +183,7 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
             return;
     }
 
-    // Prefix the address with `0x`.
-    msg->msg[0] = '0';
-    msg->msg[1] = 'x';
-
-    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
-    // Setting it to `0` will make it work with every chainID :)
-    uint64_t chainid = 0;
-
-    // Get the string representation of the address stored in `context->beneficiary`. Put it in
-    // `msg->msg`.
-    getEthAddressStringFromBinary(
-        context->contract_address,
-        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
-        msg->pluginSharedRW->sha3,
-        chainid);
+    print_address(msg, context->contract_address);
 }
 
 static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
@@ -208,21 +198,7 @@ static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
             return;
     }
 
-    // Prefix the address with `0x`.
-    msg->msg[0] = '0';
-    msg->msg[1] = 'x';
-
-    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
-    // Setting it to `0` will make it work with every chainID :)
-    uint64_t chainid = 0;
-
-    // Get the string representation of the address stored in `context->beneficiary`. Put it in
-    // `msg->msg`.
-    getEthAddressStringFromBinary(
-        context->amount_received,
-        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
-        msg->pluginSharedRW->sha3,
-        chainid);
+    print_address(msg, context->amount_received);
 }
 
 // Set UI for smart contract address screen.
@@ -245,21 +221,7 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
             return;
     }
 
-    // Prefix the address with `0x`.
-    msg->msg[0] = '0';
-    msg->msg[1] = 'x';
-
-    // We need a random chainID for legacy reasons with `getEthAddressStringFromBinary`.
-    // Setting it to `0` will make it work with every chainID :)
-    uint64_t chainid = 0;
-
-    // Get the string representation of the address stored in `context->beneficiary`. Put it in
-    // `msg->msg`.
-    getEthAddressStringFromBinary(
-        msg->pluginSharedRO->txContent->destination,
-        msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
-        msg->pluginSharedRW->sha3,
-        chainid);
+    print_address(msg, msg->pluginSharedRO->txContent->destination);
 }
 
 // Set UI for unbound nonce boolean screen.

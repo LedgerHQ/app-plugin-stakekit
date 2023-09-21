@@ -35,7 +35,7 @@ void handle_provide_token(void *parameters) {
         strlcpy(context->ticker_sent, DEFAULT_TICKER, sizeof(context->ticker_sent));
         // // We will need an additional screen to display a warning message.
         msg->additionalScreens++;
-    }  else {
+    } else {
         // CAL did not find the token and token is not ETH.
         context->decimals_received = DEFAULT_DECIMAL;
         strlcpy(context->ticker_received, DEFAULT_TICKER, sizeof(context->ticker_sent));
