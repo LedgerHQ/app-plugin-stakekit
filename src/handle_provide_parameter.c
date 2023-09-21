@@ -54,7 +54,8 @@ static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
-            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->is_token_sent = true;
             context->next_param = RECIPIENT;
             break;
         case RECIPIENT:
@@ -77,7 +78,8 @@ static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
 static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
-            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->is_token_sent = true;
             context->next_param = AMOUNT_SENT;
             break;
         case AMOUNT_SENT:
@@ -94,7 +96,8 @@ static void handle_morpho_withdraw_1(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_RECEIVED:
-            copy_address(context->contract_address_received, msg->parameter, ADDRESS_LENGTH);
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->is_token_sent = false;
             context->next_param = AMOUNT_RECEIVED;
             break;
         case AMOUNT_RECEIVED:
@@ -114,7 +117,8 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_RECEIVED:
-            copy_address(context->contract_address_received, msg->parameter, ADDRESS_LENGTH);
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->is_token_sent = false;
             context->next_param = AMOUNT_RECEIVED;
             break;
         case AMOUNT_RECEIVED:
@@ -136,8 +140,8 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
 
 static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
-        case RECIPIENT:  // Put the Comet protocol address in contract_address_sent
-            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
+        case RECIPIENT:  // Put the Comet protocol address in contract_address
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
             context->next_param = RECIPIENT_2;
             break;
         case RECIPIENT_2:
@@ -163,19 +167,17 @@ static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_paramete
             copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
             context->next_param = RECIPIENT_2;
             break;
-        case RECIPIENT_2:  // Put the lesser group address in contract_address_sent
-            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
-            if (ADDRESS_IS_NULL(context->contract_address_sent)) {
-                copy_address(context->contract_address_sent, context->recipient, ADDRESS_LENGTH);
+        case RECIPIENT_2:  // Put the lesser group address in contract_address
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            if (ADDRESS_IS_NULL(context->contract_address)) {
+                copy_address(context->contract_address, context->recipient, ADDRESS_LENGTH);
             }
             context->next_param = RECIPIENT_3;
             break;
-        case RECIPIENT_3:  // Put the greater group address in contract_address_received
-            copy_address(context->contract_address_received, msg->parameter, ADDRESS_LENGTH);
-            if (ADDRESS_IS_NULL(context->contract_address_received)) {
-                copy_address(context->contract_address_received,
-                             context->recipient,
-                             ADDRESS_LENGTH);
+        case RECIPIENT_3:  // Put the greater group address in amount_received
+            copy_address(context->amount_received, msg->parameter, ADDRESS_LENGTH);
+            if (ADDRESS_IS_NULL(context->amount_received)) {
+                copy_address(context->amount_received, context->recipient, ADDRESS_LENGTH);
             }
             context->next_param = NONE;
             break;
@@ -191,7 +193,8 @@ static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_paramete
 static void handle_aave_supply(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
-            copy_address(context->contract_address_sent, msg->parameter, ADDRESS_LENGTH);
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->is_token_sent = true;
             context->next_param = AMOUNT_SENT;
             break;
         case AMOUNT_SENT:
@@ -254,6 +257,16 @@ void handle_provide_parameter(void *parameters) {
             case SUBMIT_ETH_LIDO:
                 copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 break;
+            case GRT_WITHDRAW_DELEGATED:
+                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+                context->skip = 1;
+                break;
+            case UNSTAKE_CLAIM_TOKENS_NEW:
+                if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
+                    msg->result = ETH_PLUGIN_RESULT_ERROR;
+                    break;
+                }
+                break;
             case CLAIM_SELF_APECOIN:
             case STAKE:
             case CREATE_ACCOUNT:
@@ -295,10 +308,6 @@ void handle_provide_parameter(void *parameters) {
             case GRT_UNDELEGATE:
                 handle_recipient_amount_sent(msg, context);
                 break;
-            case GRT_WITHDRAW_DELEGATED:
-                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
-                context->skip = 1;
-                break;
             case COMET_CLAIM:
                 handle_comet_claim(msg, context);
                 break;
@@ -308,12 +317,6 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case AAVE_SUPPLY:
                 handle_aave_supply(msg, context);
-                break;
-            case UNSTAKE_CLAIM_TOKENS_NEW:
-                if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
-                    msg->result = ETH_PLUGIN_RESULT_ERROR;
-                    break;
-                }
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

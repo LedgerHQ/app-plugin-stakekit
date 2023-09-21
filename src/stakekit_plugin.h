@@ -4,18 +4,20 @@
 #include "eth_internals.h"
 #include "eth_plugin_interface.h"
 
-#define NUM_STAKEKIT_SELECTORS 48
-
 #define PLUGIN_NAME "StakeKit"
 
-#define TOKEN_SENT_FOUND     1       // REMOVE IF NOT USED
-#define TOKEN_RECEIVED_FOUND 1 << 1  // REMOVE IF NOT USED
+#define NUM_STAKEKIT_SELECTORS 48
 
-#define NUM_SUPPORTED_SMART_CONTRACT 2
+#define TICKER_LEN 30
+
+#define TOKEN_SENT_FOUND     1
+#define TOKEN_RECEIVED_FOUND 1 << 1
+
+#define NUM_SUPPORTED_SMART_CONTRACT 320
 typedef struct tokenSymbolAndDecimals_t {
     uint8_t smart_contract[ADDRESS_LENGTH];
-    char token_symbol_deposit[MAX_TICKER_LEN];
-    char token_symbol_withdraw[MAX_TICKER_LEN];
+    char token_symbol_deposit[TICKER_LEN];
+    char token_symbol_withdraw[TICKER_LEN];
     uint8_t decimals_sent;
 } tokenSymbolAndDecimals_t;
 extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMART_CONTRACT];
@@ -99,9 +101,9 @@ typedef enum {
 } screens_t;
 
 #define AMOUNT_SENT     0  // Amount sent by the user to the contract.
-#define AMOUNT_RECEIVED 1  // Amount sent by the contract to the user.
-#define TOKEN_SENT      2  // Amount sent by the contract to the user.
-#define TOKEN_RECEIVED  3  // Amount sent by the contract to the user.
+#define AMOUNT_RECEIVED 1  // Amount received by the contract to the user.
+#define TOKEN_SENT      2  // Token sent by the contract to the user.
+#define TOKEN_RECEIVED  3  // Token received by the contract to the user.
 #define RECIPIENT       4  // Recipient address receiving the funds.
 #define RECIPIENT_2     5  // Recipient address receiving the funds.
 #define RECIPIENT_3     6  // Recipient address receiving the funds.
@@ -151,10 +153,9 @@ typedef enum {
 typedef struct plugin_parameters_t {
     uint8_t amount_sent[INT256_LENGTH];
     uint8_t amount_received[INT256_LENGTH];
-    uint8_t contract_address_sent[ADDRESS_LENGTH];
-    uint8_t contract_address_received[ADDRESS_LENGTH];
+    uint8_t contract_address[ADDRESS_LENGTH];
     uint8_t recipient[ADDRESS_LENGTH];
-    char ticker_sent[MAX_TICKER_LEN];
+    char ticker_sent[TICKER_LEN];
     char ticker_received[MAX_TICKER_LEN];
 
     uint16_t unbound_nonce;
@@ -165,10 +166,11 @@ typedef struct plugin_parameters_t {
     uint8_t decimals_received;
     uint8_t selectorIndex;
     uint8_t skip;
-} plugin_parameters_t;  // Remove any variable not used
-// 32*2 + 3*20 + 12*2 = 148
-// 1*7 + 1*2 = 9
-// 9+148 = 157
+    bool is_token_sent;
+} plugin_parameters_t;
+// 32*2 + 2*20 + 11*1 + 30*1 = 145
+// 1*8 + 1*2 = 10
+// 10+145 = 155
 
 // Piece of code that will check that the above structure is not bigger than 5 * 32.
 // Do not remove this check.

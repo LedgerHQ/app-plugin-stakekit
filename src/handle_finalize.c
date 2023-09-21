@@ -7,7 +7,7 @@ static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
         if (!memcmp(msg->pluginSharedRO->txContent->destination,
                     STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
                     ADDRESS_LENGTH)) {
-            char ticker[MAX_TICKER_LEN];
+            char ticker[TICKER_LEN];
             strlcpy(ticker,
                     (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_deposit,
                     sizeof(ticker));
@@ -27,7 +27,7 @@ static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
         if (!memcmp(msg->pluginSharedRO->txContent->destination,
                     STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
                     ADDRESS_LENGTH)) {
-            char ticker[MAX_TICKER_LEN];
+            char ticker[TICKER_LEN];
             strlcpy(ticker,
                     (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_withdraw,
                     sizeof(ticker));
@@ -70,21 +70,21 @@ void handle_finalize(void *parameters) {
             case TRANSFER_OUT:
             case AAVE_SUPPLY:
                 msg->numScreens = 2;
-                msg->tokenLookup1 = context->contract_address_sent;
+                msg->tokenLookup1 = context->contract_address;
                 break;
             case MORPHO_SUPPLY_2:
             case COMET_SUPPLY:
                 msg->numScreens = 1;
-                msg->tokenLookup1 = context->contract_address_sent;
+                msg->tokenLookup1 = context->contract_address;
                 break;
             case MORPHO_WITHDRAW_1:
             case COMET_WITHDRAW:
                 msg->numScreens = 1;
-                msg->tokenLookup2 = context->contract_address_received;
+                msg->tokenLookup2 = context->contract_address;
                 break;
             case MORPHO_WITHDRAW_2:
                 msg->numScreens = 2;
-                msg->tokenLookup2 = context->contract_address_received;
+                msg->tokenLookup2 = context->contract_address;
                 break;
             case CLAIM_TOKENS:
             case SELL_VOUCHER_NEW:
