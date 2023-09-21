@@ -190,7 +190,7 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
     // Get the string representation of the address stored in `context->beneficiary`. Put it in
     // `msg->msg`.
     getEthAddressStringFromBinary(
-        context->contract_address_sent,
+        context->contract_address,
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
         msg->pluginSharedRW->sha3,
         chainid);
@@ -219,7 +219,7 @@ static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
     // Get the string representation of the address stored in `context->beneficiary`. Put it in
     // `msg->msg`.
     getEthAddressStringFromBinary(
-        context->contract_address_received,
+        context->amount_received,
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
         msg->pluginSharedRW->sha3,
         chainid);

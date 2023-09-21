@@ -8,8 +8,7 @@
 
 #define NUM_STAKEKIT_SELECTORS 48
 
-#define TICKER_LEN     22
-#define MIN_TICKER_LEN 4
+#define TICKER_LEN 30
 
 #define TOKEN_SENT_FOUND     1
 #define TOKEN_RECEIVED_FOUND 1 << 1
@@ -154,11 +153,10 @@ typedef enum {
 typedef struct plugin_parameters_t {
     uint8_t amount_sent[INT256_LENGTH];
     uint8_t amount_received[INT256_LENGTH];
-    uint8_t contract_address_sent[ADDRESS_LENGTH];
-    uint8_t contract_address_received[ADDRESS_LENGTH];
+    uint8_t contract_address[ADDRESS_LENGTH];
     uint8_t recipient[ADDRESS_LENGTH];
     char ticker_sent[TICKER_LEN];
-    char ticker_received[MIN_TICKER_LEN];
+    char ticker_received[MAX_TICKER_LEN];
 
     uint16_t unbound_nonce;
     uint8_t next_param;
@@ -168,10 +166,11 @@ typedef struct plugin_parameters_t {
     uint8_t decimals_received;
     uint8_t selectorIndex;
     uint8_t skip;
+    bool is_token_sent;
 } plugin_parameters_t;
-// 32*2 + 3*20 + 4*1 + 22*1 = 150
-// 1*7 + 1*2 = 9
-// 9+150 = 159
+// 32*2 + 2*20 + 11*1 + 30*1 = 145
+// 1*8 + 1*2 = 10
+// 10+145 = 155
 
 // Piece of code that will check that the above structure is not bigger than 5 * 32.
 // Do not remove this check.

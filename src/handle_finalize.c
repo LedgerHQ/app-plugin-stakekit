@@ -70,21 +70,21 @@ void handle_finalize(void *parameters) {
             case TRANSFER_OUT:
             case AAVE_SUPPLY:
                 msg->numScreens = 2;
-                msg->tokenLookup1 = context->contract_address_sent;
+                msg->tokenLookup1 = context->contract_address;
                 break;
             case MORPHO_SUPPLY_2:
             case COMET_SUPPLY:
                 msg->numScreens = 1;
-                msg->tokenLookup1 = context->contract_address_sent;
+                msg->tokenLookup1 = context->contract_address;
                 break;
             case MORPHO_WITHDRAW_1:
             case COMET_WITHDRAW:
                 msg->numScreens = 1;
-                msg->tokenLookup2 = context->contract_address_received;
+                msg->tokenLookup2 = context->contract_address;
                 break;
             case MORPHO_WITHDRAW_2:
                 msg->numScreens = 2;
-                msg->tokenLookup2 = context->contract_address_received;
+                msg->tokenLookup2 = context->contract_address;
                 break;
             case CLAIM_TOKENS:
             case SELL_VOUCHER_NEW:
