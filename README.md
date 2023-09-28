@@ -40,7 +40,7 @@ Smart contracts covered by this plugin are:
 | Ethereum  | SushiBar | 0x8798249c2e607446efb7ad49ec89dd1865ff4272| X | X |
 | Ethereum  | TransparentUpgradeableProxy | 0xc3d688b66703497daa19211eedff47f25384cdc3| Comet | 0xBFC4FeEc175996C08C8F3a0469793a7979526065 |
 | Ethereum  | CometRewards | 0x1b0e765f6224c21223aea2af16c1c46e38885a40| X | X |
-| Ethereum  | Yearn Vault | TODO |
+| Ethereum  | Yearn Vault | [Token json](./tokens.json) |
 | Polygon  | TransparentUpgradeableProxy | 0xf25212e676d1f7f89cd72ffee66158f541246445| Comet | 0x4149BF3b11a90817B138b1D25BE640Ac4925a175 |
 | Polygon  | CometRewards | 0x45939657d1ca34a8fa39a924b71d28fe8431e581| X | X |
 | Polygon  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad| Pool | 0xb77fc84a549ecc0b410d6fa15159C2df207545a3 |
@@ -51,9 +51,9 @@ Smart contracts covered by this plugin are:
 | Avalanche  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad| Pool | 0xCf85FF1c37c594a10195F7A9Ab85CBb0a03f69dE
 | Avalanche  | TransparentUpgradeableProxy | 0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be| StakedAvax | 0x0CE7F620Eb645a4FbF688a1C1937bC6CB0CbDd29 |
 | Optimism  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad| L2Pool | 0x764594F8e9757edE877B75716f8077162B251460 |
-| Optimism  | Yearn Vault | TODO |
+| Optimism  | Yearn Vault | [Token json](./tokens.json) |
 | Arbitrum  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad| L2Pool | 0xbCb167bDCF14a8F791d6f4A6EDd964aed2F8813B |
-| Fantom  | Yearn Vault | TODO |
+| Fantom  | Yearn Vault | [Token json](./tokens.json) |
 
 
 ## Methods
