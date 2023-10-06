@@ -23,7 +23,6 @@ git clone --recurse-submodules https://github.com/LedgerHQ/app-ethereum.git     
 Need more information about the interface, the architecture, or general stuff about ethereum plugins? You can find more about them in the [ethereum-app documentation](https://github.com/LedgerHQ/app-ethereum/blob/master/doc/ethapp_plugins.asc).
 
 ## Smart Contracts
-<table>  <tbody>  <tr> <td><code>Ethereum</code></td></tr> <tr><td><code>Ethereum</code></td></tr></tbody> </table>
 
 Smart contracts covered by this plugin are:
 
