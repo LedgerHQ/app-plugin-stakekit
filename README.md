@@ -23,94 +23,52 @@ git clone --recurse-submodules https://github.com/LedgerHQ/app-ethereum.git     
 Need more information about the interface, the architecture, or general stuff about ethereum plugins? You can find more about them in the [ethereum-app documentation](https://github.com/LedgerHQ/app-ethereum/blob/master/doc/ethapp_plugins.asc).
 
 ## Smart Contracts
+<table>  <tbody>  <tr> <td><code>Ethereum</code></td></tr> <tr><td><code>Ethereum</code></td></tr></tbody> </table>
 
 Smart contracts covered by this plugin are:
 
-| Network | Smart Contract Name | Smart Contract Address| Proxy Name | Proxy smart contract |
-| ---       | --- | --- | --- | --- |
-| Ethereum  | ApeCoinStaking | 0x5954ab967bc958940b7eb73ee84797dc8a2afbb9| X | X |
-| Ethereum  | AppProxyUpgradeable | 0xae7ab96520de3a18e5e111b5eaab095312d7fe84| Lido | 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb |
-| Ethereum  | RocketSwapRouter | 0x16d5a408e807db8ef7c578279beeee6b228f1c1c| X | X |
-| Ethereum  | AdminUpgradeabilityProxy | 0xc874b064f465bdd6411d45734b56fac750cda29a| Pool | 0x61975c09207c5DFe794b0A652C8CAf8458159AAe |
-| Ethereum  | TransparentUpgradeableProxy | 0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599| StMATIC | 0x6c25AEbD494a9984A3d7C8CF395c8713E0C74D98 |
-| Ethereum  | ValidatorShareProxy | 0x857679d69fe50e7b722f94acd2629d80c355163d| ValidatorShare | 0xf98864DA30a5bd657B13e70A57f5718aBf7BAB31 |
-| Ethereum  | TransparentUpgradeableProxy | 0x777777c9898d384f785ee44acfe945efdff5f3e0| Morpho | 0xFBc7693f114273739C74a3FF028C13769C49F2d0 |
-| Ethereum  | InitializableAdminUpgradeabilityProxy | 0xc5c9fb6223a989208df27dcee33fc59ff5c26fff| AutoCompoundApe | 0x1Ba6891D74b3B1f84b3EdFa6538D99eE979E8B63 |
-| Ethereum  | GraphProxy | 0xf55041e37e12cd407ad00ce2910b8269b01263b9| L1Staking | 0x20a14D78848BC8B3F3d4B77239F2adC3C0259A10 |
-| Ethereum  | SushiBar | 0x8798249c2e607446efb7ad49ec89dd1865ff4272| X | X |
-| Ethereum  | TransparentUpgradeableProxy | 0xc3d688b66703497daa19211eedff47f25384cdc3| Comet | 0xBFC4FeEc175996C08C8F3a0469793a7979526065 |
-| Ethereum  | CometRewards | 0x1b0e765f6224c21223aea2af16c1c46e38885a40| X | X |
-| Ethereum  | Yearn Vault | [Token json](./tokens.json) |
-| Polygon  | TransparentUpgradeableProxy | 0xf25212e676d1f7f89cd72ffee66158f541246445| Comet | 0x4149BF3b11a90817B138b1D25BE640Ac4925a175 |
-| Polygon  | CometRewards | 0x45939657d1ca34a8fa39a924b71d28fe8431e581| X | X |
-| Polygon  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad| Pool | 0xb77fc84a549ecc0b410d6fa15159C2df207545a3 |
-| BSC  | TokenHub | 0x0000000000000000000000000000000000001004| X | X |
-| Celo  | AccountsProxy | 0x7d21685c17607338b313a7174bab6620bad0aab7| Accounts | X | 0x75Ec00c4B09574945F7d407797f8b61ca5AD9Cef |
-| Celo  | LockedGoldProxy | 0x6cc083aed9e3ebe302a6336dbc7c921c9f03349e| LockedGold | 0xdEBe38061Db542E8c2AF2427a312f70816965E93 |
-| Celo  | ElectionProxy | 0x8d6677192144292870907e3fa8a5527fe55a7ff6| Election | 0xCdE5039e3AcB3483aEebEBd59Cf6936056c455D4 |
-| Avalanche  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad| Pool | 0xCf85FF1c37c594a10195F7A9Ab85CBb0a03f69dE
-| Avalanche  | TransparentUpgradeableProxy | 0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be| StakedAvax | 0x0CE7F620Eb645a4FbF688a1C1937bC6CB0CbDd29 |
-| Optimism  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad| L2Pool | 0x764594F8e9757edE877B75716f8077162B251460 |
-| Optimism  | Yearn Vault | [Token json](./tokens.json) |
-| Arbitrum  | InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad| L2Pool | 0xbCb167bDCF14a8F791d6f4A6EDd964aed2F8813B |
-| Fantom  | Yearn Vault | [Token json](./tokens.json) |
+| Module | Network | Smart Contract Name | Smart Contract Address| Proxy Name | Proxy smart contract |
+| ---     | ---       | --- | --- | --- | --- |
+| APE Native Staking | Ethereum | ApeCoinStaking | 0x5954ab967bc958940b7eb73ee84797dc8a2afbb9| X | X |
+| ETH Lido Staking | Ethereum  | AppProxyUpgradeable | 0xae7ab96520de3a18e5e111b5eaab095312d7fe84| Lido | 0x17144556fd3424EDC8Fc8A4C940B2D04936d17eb |
+| ETH rETH Staking | Ethereum  | RocketSwapRouter | 0x16d5a408e807db8ef7c578279beeee6b228f1c1c| X | X |
+| ETH Stakewise Liquid Staking | Ethereum  | AdminUpgradeabilityProxy | 0xc874b064f465bdd6411d45734b56fac750cda29a| Pool | 0x61975c09207c5DFe794b0A652C8CAf8458159AAe |
+| MATIC Lido Liquid | Ethereum  | TransparentUpgradeableProxy | 0x9ee91f9f426fa633d227f7a9b000e28b9dfd8599| StMATIC | 0x6c25AEbD494a9984A3d7C8CF395c8713E0C74D98 |
+| MATIC Native Staking | Ethereum  | ValidatorShareProxy | 0x857679d69fe50e7b722f94acd2629d80c355163d| ValidatorShare | 0xf98864DA30a5bd657B13e70A57f5718aBf7BAB31 |
+| Morpho Lending | Ethereum  | TransparentUpgradeableProxy | 0x777777c9898d384f785ee44acfe945efdff5f3e0| Morpho | 0xFBc7693f114273739C74a3FF028C13769C49F2d0 |
+| Paraspace cAPE Staking | Ethereum  | InitializableAdminUpgradeabilityProxy | 0xc5c9fb6223a989208df27dcee33fc59ff5c26fff| AutoCompoundApe | 0x1Ba6891D74b3B1f84b3EdFa6538D99eE979E8B63 |
+| GRT Native Staking | Ethereum  | GraphProxy | 0xf55041e37e12cd407ad00ce2910b8269b01263b9| L1Staking | 0x20a14D78848BC8B3F3d4B77239F2adC3C0259A10 |
+| SUSHI xSUSHI Staking | Ethereum  | SushiBar | 0x8798249c2e607446efb7ad49ec89dd1865ff4272| X | X |
+| Compound V3 USDC | <table>  <tbody>  <tr> <td><code>Ethereum</code></td></tr> <tr><td><code>Ethereum</code></td></tr> <tr><td><code>Polygon</code></td></tr> <tr><td><code>Polygon</code></td></tr></tbody> </table>  | <table>  <tbody>  <tr> <td><code>TransparentUpgradeableProxy</code></td></tr> <tr><td><code>CometRewards</code></td></tr> <tr><td><code>TransparentUpgradeableProxy</code></td></tr> <tr><td><code>CometRewards</code></td></tr> </tbody> </table> |  <table>  <tbody>  <tr> <td><code>0xc3d688b66703497daa19211eedff47f25384cdc3</code></td></tr> <tr><td><code>0x1b0e765f6224c21223aea2af16c1c46e38885a40</code></td></tr> <tr><td><code>0xf25212e676d1f7f89cd72ffee66158f541246445</code></td></tr> <tr><td><code>0x45939657d1ca34a8fa39a924b71d28fe8431e581</code></td></tr></tbody> </table> | <table>  <tbody>  <tr> <td><code>Comet</code></td></tr> <tr><td><code>X</code></td></tr></tbody> <tr><td><code>Comet</code></td></tr> <tr><td><code>X</code></td></tr></table> | <table>  <tbody>  <tr> <td><code>0xBFC4FeEc175996C08C8F3a0469793a7979526065</code></td></tr> <tr><td><code>X</code></td></tr> <tr><td><code>0x4149BF3b11a90817B138b1D25BE640Ac4925a175</code></td></tr> <tr><td><code>X</code></td></tr></tbody> </table> |
+| BNB Native Staking | BSC  | TokenHub | 0x0000000000000000000000000000000000001004| X | X |
+| Celo Native Staking | Celo  | <table> <tbody> <tr> <td><code>AccountsProxy</code></td></tr> <tr><td><code>LockedGoldProxy</code></td></tr> <tr><td><code>ElectionProxy</code></td></tr></tbody> </table> | <table> <tbody> <tr> <td><code>0x7d21685c17607338b313a7174bab6620bad0aab7</code></td></tr> <tr><td><code>0x6cc083aed9e3ebe302a6336dbc7c921c9f03349e</code></td></tr> <tr><td><code>0x8d6677192144292870907e3fa8a5527fe55a7ff6</code></td></tr></tbody> </table>| <table> <tbody> <tr> <td><code>Accounts</code></td></tr> <tr><td><code>LockedGold</code></td></tr> <tr><td><code>Election</code></td></tr></tbody> </table> |<table> <tbody> <tr> <td><code>0x75Ec00c4B09574945F7d407797f8b61ca5AD9Cef</code></td></tr> <tr><td><code>0xdEBe38061Db542E8c2AF2427a312f70816965E93</code></td></tr> <tr><td><code>0xCdE5039e3AcB3483aEebEBd59Cf6936056c455D4</code></td></tr></tbody> </table>  |
+| Avalanche Liquid Staking | Avalanche  | TransparentUpgradeableProxy | 0x2b2c81e08f1af8835a78bb2a90ae924ace0ea4be| StakedAvax | 0x0CE7F620Eb645a4FbF688a1C1937bC6CB0CbDd29 |
+|Aave v3 Lending DAI | <table>  <tbody>  <tr> <td><code>Optimism</code></td></tr> <tr><td><code>Polygon</code></td></tr> <tr><td><code>Arbitrum</code></td></tr> <tr><td><code>Avalanche</code></td></tr> </tbody> </table>   |InitializableImmutableAdminUpgradeabilityProxy | 0x794a61358d6845594f94dc1db02a252b5b4814ad | <table>  <tbody>  <tr> <td><code>Pool</code></td></tr> <tr><td><code>Pool</code></td></tr> <tr><td><code>L2Pool</code></td></tr> <tr><td><code>L2Pool</code></td></tr> </tbody> </table> | <table>  <tbody>  <tr> <td><code>0xb77fc84a549ecc0b410d6fa15159C2df207545a3</code></td></tr> <tr><td><code>0xCf85FF1c37c594a10195F7A9Ab85CBb0a03f69dE</code></td></tr> <tr><td><code>0x764594F8e9757edE877B75716f8077162B251460</code></td></tr> <tr><td><code>0xbCb167bDCF14a8F791d6f4A6EDd964aed2F8813B</code></td></tr> </tbody> </table>
+|Yearn Vault | <table>  <tbody>  <tr> <td><code>Ethereum</code></td></tr> <tr><td><code>Optimism</code></td></tr> <tr><td><code>Fantom</code></td></tr> </tbody> </table>   | Yearn Vault | [Token json](./tokens.json) |
 
 
 ## Methods
 
 Methods covered by this plugin are:
 
-| Conrtact Name | Selector | Method Name |
-|      ---      |    ---   |     ---     |
-| ApeCoinStaking    | 0x9dcaafb4 | depositSelfApeCoin |
-| ApeCoinStaking    | 0x7f60d338 | withdrawSelfApeCoin |
-| ApeCoinStaking    | 0x8279e760 | claimSelfApeCoin |
-| Lido    | 0xa1903eab | submit |
-| RocketSwapRouter    | 0x55362f4d | swapTo |
-| RocketSwapRouter    | 0xa824ae8b | swapFrom |
-| Pool    | 0x3a4b66f1 | stake |
-| StMATIC    | 0xf532e86a | submit |
-| StMATIC    | 0xccc143b8 | requestWithdraw |
-| StMATIC    | 0x46e04a2f | claimTokens |
-| ValidatorShare    | 0x6ab15071 | buyVoucher |
-| ValidatorShare    | 0xc83ec04d | sellVoucher_new |
-| ValidatorShare    | 0xc7b8981c | withdrawRewards |
-| ValidatorShare    | 0xe97fddc2 | unstakeClaimTokens_new |
-| Morpho    | 0x0c0a769b | supply |
-| Morpho    | 0xf2b9fdb8 | supply |
-| Morpho    | 0xf62256c7 | supply |
-| Morpho    | 0xf3fef3a3 | withdraw |
-| Morpho    | 0x69328dec | withdraw |
-| AutoCompoundApe    | 0x47e7ef24 | deposit |
-| AutoCompoundApe    | 0x2e1a7d4d | withdraw |
-| L1Staking    | 0x026e402b | delegate |
-| L1Staking    | 0x4d99dd16 | undelegate |
-| L1Staking    | 0x51a60b02 | withdrawDelegated |
-| SushiBar    | 0xa59f3e0c | enter |
-| SushiBar    | 0x67dfd4c9 | leave |
-| Comet    | 0xf2b9fdb8 | supply |
-| Comet    | 0xf3fef3a3 | withdraw |
-| CometRewards    | 0xb7034f7e | claim |
-| TokenHub    | 0xaa7415f5 | transferOut |
-| Accounts    | 0x9dca362f | createAccount |
-| LockedGold    | 0xf83d08ba | lock |
-| LockedGold    | 0x6198e339 | unlock |
-| Election    | 0x580d747a | vote |
-| Election    | 0x6e198475 | revokeActive |
-| L2Pool / Pool | 0x617ba037 | supply |
-| L2Pool / Pool | 0x69328dec | withdraw |
-| StakedAvax    | 0x5bcb2fc6 | submit |
-| StakedAvax    | 0xc9d2ff9d | requestUnlock |
-| StakedAvax    | 0xdb006a75 | redeem |
-| StakedAvax    | 0xbe040fb0 | redeem |
-| StakedAvax    | 0x0d10d32c | redeemOverdueShares |
-| StakedAvax    | 0x0f7e2048 | redeemOverdueShares |
-| Yearn Vault    | 0xd0e30db0 | deposit |
-| Yearn Vault    | 0xb6b55f25 | deposit |
-| Yearn Vault    | 0x6e553f65 | deposit |
-| Yearn Vault    | 0x3ccfd60b | withdraw |
-| Yearn Vault    | 0x2e1a7d4d | withdraw |
-| Yearn Vault    | 0x00f714ce | withdraw |
+| Module | Conrtact Name | Selector | Method Name |
+|   ---  |      ---      |    ---   |     ---     |
+| APE Native Staking | ApeCoinStaking    | <table><tbody>  <tr><td><code>0x9dcaafb4</code></td></tr> <tr><td><code>0x7f60d338</code></td></tr> <tr><td><code>0x8279e760</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>depositSelfApeCoin</code></td></tr> <tr><td><code>withdrawSelfApeCoin</code></td></tr> <tr><td><code>claimSelfApeCoin</code></td></tr> </tbody></table> |
+| ETH Lido Staking | Lido    | 0xa1903eab | submit |
+| ETH rETH Staking | RocketSwapRouter    | <table><tbody>  <tr><td><code>0x55362f4d</code></td></tr> <tr><td><code>0xa824ae8b</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>swapTo</code></td></tr> <tr><td><code>swapFrom</code></td></tr> </tbody></table> |
+| ETH stakewise Liquid Staking | Pool    | 0x3a4b66f1 | stake |
+| MATIC Lido Liquid | StMATIC    | <table><tbody>  <tr><td><code>0xf532e86a</code></td></tr> <tr><td><code>0xccc143b8</code></td></tr> <tr><td><code>0x46e04a2f</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>submit</code></td></tr> <tr><td><code>requestWithdraw</code></td></tr> <tr><td><code>claimTokens</code></td></tr> </tbody></table> |
+| MATIC Native Staking | ValidatorShare    | <table><tbody>  <tr><td><code>0x6ab15071</code></td></tr> <tr><td><code>0xc83ec04d</code></td></tr> <tr><td><code>0xc7b8981c</code></td></tr> <tr><td><code>0xe97fddc2</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>buyVoucher</code></td></tr> <tr><td><code>sellVoucher_new</code></td></tr> <tr><td><code>withdrawRewards</code></td></tr> <tr><td><code>unstakeClaimTokens_new</code></td></tr> </tbody></table> |
+| Morpho lending | Morpho    | <table><tbody>  <tr><td><code>0x0c0a769b</code></td></tr> <tr><td><code>0xf2b9fdb8</code></td></tr> <tr><td><code>0xf62256c7</code></td></tr> <tr><td><code>0xf3fef3a3</code></td></tr> <tr><td><code>0x69328dec</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>supply</code></td></tr> <tr><td><code>supply</code></td></tr> <tr><td><code>supply</code></td></tr> <tr><td><code>withdraw</code></td></tr> <tr><td><code>withdraw</code></td></tr> </tbody></table> |
+| Paraspace cAPE Staking | AutoCompoundApe    | <table><tbody>  <tr><td><code>0x47e7ef24</code></td></tr> <tr><td><code>0x2e1a7d4d</code></td></tr> </tbody></table>  | <table><tbody>  <tr><td><code>deposit</code></td></tr> <tr><td><code>withdraw</code></td></tr> </tbody></table> |
+| GRT Native Staking | L1Staking    | <table><tbody>  <tr><td><code>0x026e402b</code></td></tr> <tr><td><code>0x4d99dd16</code></td></tr> <tr><td><code>0x51a60b02</code></td></tr> </tbody></table>  | <table><tbody> <tr><td><code>delegate</code></td></tr> <tr><td><code>undelegate</code></td></tr> <tr><td><code>withdrawDelegated</code></td></tr> </tbody></table> |
+| SUSHI xSUSHI Staking | SushiBar    | <table><tbody>  <tr><td><code>0xa59f3e0c</code></td></tr> <tr><td><code>0x67dfd4c9</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>enter</code></td></tr> <tr><td><code>leave</code></td></tr> </tbody></table> |
+|Compound V3 USDC | <table><tbody>  <tr><td><code>Comet</code></td></tr> <tr><td><code>Comet</code></td></tr> <tr><td><code>CometRewards</code></td></tr> </tbody></table>    | <table><tbody>  <tr><td><code>0xf2b9fdb8</code></td></tr> <tr><td><code>0xf3fef3a3</code></td></tr> <tr><td><code>0xb7034f7e</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>supply</code></td></tr> <tr><td><code>withdraw</code></td></tr> <tr><td><code>claim</code></td></tr> </tbody></table> |
+| BNB Native Staking | TokenHub    | 0xaa7415f5 | transferOut |
+| Celo Native Staking | <table><tbody>  <tr><td><code>Accounts</code></td></tr> <tr><td><code>LockedGold</code></td></tr> <tr><td><code>LockedGold</code></td></tr> <tr><td><code>LockedGold</code></td></tr> <tr><td><code>Election</code></td></tr> <tr><td><code>Election</code></td></tr> </tbody></table>    | <table><tbody>  <tr><td><code>0x9dca362f</code></td></tr> <tr><td><code>0xf83d08ba</code></td></tr> <tr><td><code>0x6198e339</code></td></tr> <tr><td><code>0x2e1a7d4d</code></td></tr> <tr><td><code>0x580d747a</code></td></tr> <tr><td><code>0x6e198475</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>createAccount</code></td></tr> <tr><td><code>lock</code></td></tr> <tr><td><code>unlock</code></td></tr> <tr><td><code>withdraw</code></td></tr> <tr><td><code>vote</code></td></tr> <tr><td><code>revokeActive</code></td></tr> </tbody></table> |
+| Aave v3 Lending DAI | <table><tbody>  <tr><td><code>L2Pool</code></td></tr> <tr><td><code>Pool</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>0x617ba037</code></td></tr> <tr><td><code>0x69328dec</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>supply</code></td></tr> <tr><td><code>withdraw</code></td></tr> </tbody></table> |
+| Avalanche Liquid Staking | StakedAvax    | <table><tbody>  <tr><td><code>0x5bcb2fc6</code></td></tr> <tr><td><code>0xc9d2ff9d</code></td></tr> <tr><td><code>0xdb006a75</code></td></tr> <tr><td><code>0xbe040fb0</code></td></tr> <tr><td><code>0x0d10d32c</code></td></tr> <tr><td><code>0x0f7e2048</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>submit</code></td></tr> <tr><td><code>requestUnlock</code></td></tr> <tr><td><code>redeem</code></td></tr> <tr><td><code>redeem</code></td></tr> <tr><td><code>redeemOverdueShares</code></td></tr> <tr><td><code>redeemOverdueShares</code></td></tr> </tbody></table> |
+| Yearn Vault | Yearn Vault    | <table><tbody>  <tr><td><code>0xd0e30db0</code></td></tr> <tr><td><code>0xb6b55f25</code></td></tr> <tr><td><code>0x6e553f65</code></td></tr> <tr><td><code>0x3ccfd60b</code></td></tr> <tr><td><code>0x2e1a7d4d</code></td></tr> <tr><td><code>0x00f714ce</code></td></tr> </tbody></table> | <table><tbody>  <tr><td><code>deposit</code></td></tr> <tr><td><code>deposit</code></td></tr> <tr><td><code>deposit</code></td></tr> <tr><td><code>withdraw</code></td></tr> <tr><td><code>withdraw</code></td></tr> <tr><td><code>withdraw</code></td></tr> </tbody></table> |
 
 
 ## Build

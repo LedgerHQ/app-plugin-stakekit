@@ -25,6 +25,11 @@
                   "erc20OfInterest": [],
                   "method": "unlock",
                   "plugin": "StakeKit"
+              },
+              "0x2e1a7d4d": {
+                  "erc20OfInterest": [],
+                  "method": "withdraw",
+                  "plugin": "StakeKit"
               }
           }
       },
