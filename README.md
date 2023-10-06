@@ -95,6 +95,7 @@ Methods covered by this plugin are:
 | Accounts    | 0x9dca362f | createAccount |
 | LockedGold    | 0xf83d08ba | lock |
 | LockedGold    | 0x6198e339 | unlock |
+| LockedGold    | 0x2e1a7d4d | withdraw |
 | Election    | 0x580d747a | vote |
 | Election    | 0x6e198475 | revokeActive |
 | L2Pool / Pool | 0x617ba037 | supply |

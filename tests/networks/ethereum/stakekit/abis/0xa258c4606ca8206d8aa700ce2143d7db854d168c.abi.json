@@ -851,7 +851,7 @@
                 "type": "uint256"
             }
         ],
-        "gas": 1576655
+        "gas": 830798
     },
     {
         "stateMutability": "nonpayable",
@@ -939,7 +939,7 @@
                 "type": "uint256"
             }
         ],
-        "gas": 77734
+        "gas": 43519
     },
     {
         "stateMutability": "nonpayable",
@@ -1224,7 +1224,7 @@
                 "type": "uint256"
             }
         ],
-        "gas": 1239256
+        "gas": 1170904
     },
     {
         "stateMutability": "nonpayable",
