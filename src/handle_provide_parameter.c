@@ -188,7 +188,7 @@ static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_paramete
 // The first param is the second recipient saved in recipient.
 // The second param is the amount sent saved in amount_sent.
 // The third and fourth param are the recipients as we have 3 recipient and the storage has a
-//  limitation, we need to save it in other variables which are contract_address and amount_received.
+// limitation, we need to save it in other variables which are contract_address and amount_received.
 static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:
