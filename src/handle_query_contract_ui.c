@@ -511,8 +511,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
 void handle_query_contract_ui(void *parameters) {
     ethQueryContractUI_t *msg = (ethQueryContractUI_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
-    (void)memset(msg->title, 0, msg->titleLength);
-    (void)memset(msg->msg, 0, msg->msgLength);
+    (void) memset(msg->title, 0, msg->titleLength);
+    (void) memset(msg->msg, 0, msg->msgLength);
 
     screens_t screen = get_screen(msg, context);
     switch (screen) {
