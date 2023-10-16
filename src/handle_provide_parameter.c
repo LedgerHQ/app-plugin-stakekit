@@ -162,8 +162,8 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
 }
 
 // Save 2 recipients in the context.
-// The first param is the recipient as we have 2 recipient and the storage has a limitation,
-// we need to save it in another variable which is contract_address.
+// The first param is the recipient as we have 2 recipient and the storage has a
+// limitation, we need to save it in another variable which is contract_address.
 // The second param is the second recipient saved in recipient.
 static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
