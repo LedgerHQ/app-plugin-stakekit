@@ -142,12 +142,6 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR,
 };
 
-// Indicate the Ethereum chain ID
-const uint8_t ETH_CHAIN_ID[CHAIN_ID_LENGTH] = {0x01};
-
-// Indicate the BSC chain ID
-const uint8_t BSC_CHAIN_ID[CHAIN_ID_LENGTH] = {0x38};
-
 // Null address
 const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

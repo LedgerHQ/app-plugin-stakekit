@@ -25,8 +25,6 @@ extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORT
 #define CHAIN_ID_LENGTH 1
 
 extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];
-extern const uint8_t ETH_CHAIN_ID[CHAIN_ID_LENGTH];
-extern const uint8_t BSC_CHAIN_ID[CHAIN_ID_LENGTH];
 
 // Returns 1 if corresponding address is the address for the chain token (ETH, BNB, MATIC,...)
 #define ADDRESS_IS_NETWORK_TOKEN(_addr) !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH)
