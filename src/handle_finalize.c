@@ -1,6 +1,9 @@
 #include "stakekit_plugin.h"
 
 // Sets the deposit ticker as the token symbol
+// Look into the STAKEKIT_SUPPORTED_YEARN_VAULT array to find the corresponding token symbol.
+// If found, set the ticker and decimals. Then return true.
+// If not found, return false.
 static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
                                                 ethPluginFinalize_t *msg) {
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
@@ -21,6 +24,9 @@ static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
     return false;
 }
 // Sets the withdraw ticker as the token symbol
+// Look into the STAKEKIT_SUPPORTED_YEARN_VAULT array to find the corresponding token symbol.
+// If found, set the ticker and decimals. Then return true.
+// If not found, return false.
 static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
                                                  ethPluginFinalize_t *msg) {
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {

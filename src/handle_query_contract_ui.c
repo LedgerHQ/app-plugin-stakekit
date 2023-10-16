@@ -1,6 +1,7 @@
 #include "stakekit_plugin.h"
 
 // Set UI for the "Send" screen.
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
@@ -59,7 +60,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
     PRINTF("AMOUNT SENT: %s\n", msg->msg);
 }
 
-// Same as the "set_send_ui" function. Howerver the value is extracted from the pluginSharedRO.
+// Same as the "set_send_ui" function. However the value is extracted from the pluginSharedRO.
 static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case STAKE:
@@ -82,6 +83,7 @@ static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
 }
 
 // Set UI for "Receive" screen.
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case WITHDRAW_SELF_APECOIN:
@@ -128,6 +130,7 @@ static void print_address(ethQueryContractUI_t *msg, uint8_t *address) {
 }
 
 // Set UI for "Recipient" screen.
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case SUBMIT_MATIC_LIDO:
@@ -173,6 +176,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
 
 // Set UI for "Recipient 2" screen. When having more than one recipient.
 // The recipient address is saved in the contract_address
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case COMET_CLAIM:
@@ -193,6 +197,7 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
 
 // Set UI for "Recipient 2" screen. When having more than two recipients.
 // The recipient address is saved in the amount_received
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case VOTE:
@@ -209,6 +214,7 @@ static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
 }
 
 // Set UI for smart contract address screen.
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case CLAIM_SELF_APECOIN:
@@ -232,6 +238,7 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
 }
 
 // Set UI for unbound nonce boolean screen.
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_unbound_nonce_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case UNSTAKE_CLAIM_TOKENS_NEW:
@@ -256,6 +263,7 @@ static void set_warning_ui(ethQueryContractUI_t *msg,
     strlcpy(msg->msg, "Unknown token", msg->msgLength);
 }
 
+// Set UI for the methods needing a send screen.
 static screens_t get_screen_amount_sent(ethQueryContractUI_t *msg,
                                         plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -266,6 +274,7 @@ static screens_t get_screen_amount_sent(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the methods needing a receive screen.
 static screens_t get_screen_receive(ethQueryContractUI_t *msg,
                                     plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -276,16 +285,7 @@ static screens_t get_screen_receive(ethQueryContractUI_t *msg,
     }
 }
 
-static screens_t get_screen_submit_eth_lido(ethQueryContractUI_t *msg,
-                                            plugin_parameters_t *context __attribute__((unused))) {
-    switch (msg->screenIndex) {
-        case 0:
-            return RECIPIENT_SCREEN;
-        default:
-            return ERROR;
-    }
-}
-
+// Set UI for the methods needing a send and recipient screens.
 static screens_t get_screen_amount_sent_recipient(ethQueryContractUI_t *msg,
                                                   plugin_parameters_t *context
                                                   __attribute__((unused))) {
@@ -299,6 +299,8 @@ static screens_t get_screen_amount_sent_recipient(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the methods needing a send and recipient screens.
+// If the token is not found, we need an additional screen to display a warning message.
 static screens_t get_screen_supply(ethQueryContractUI_t *msg,
                                    plugin_parameters_t *context __attribute__((unused))) {
     bool token_sent_found = context->tokens_found & TOKEN_SENT_FOUND;
@@ -327,6 +329,8 @@ static screens_t get_screen_supply(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the methods needing a receive and recipient screens.
+// If the token is not found, we need an additional screen to display a warning message.
 static screens_t get_screen_morpho_withdraw(ethQueryContractUI_t *msg,
                                             plugin_parameters_t *context __attribute__((unused))) {
     bool token_received_found = context->tokens_found & TOKEN_RECEIVED_FOUND;
@@ -355,6 +359,7 @@ static screens_t get_screen_morpho_withdraw(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the methods needing 2 recipients screens.
 static screens_t get_screen_comet_claim(ethQueryContractUI_t *msg,
                                         plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -367,6 +372,7 @@ static screens_t get_screen_comet_claim(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the methods needing a send and receive screens.
 static screens_t get_screen_amount_sent_receive(ethQueryContractUI_t *msg,
                                                 plugin_parameters_t *context
                                                 __attribute__((unused))) {
@@ -380,6 +386,7 @@ static screens_t get_screen_amount_sent_receive(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the methods needing a send Value screen.
 static screens_t get_screen_value_sent(ethQueryContractUI_t *msg,
                                        plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -390,6 +397,7 @@ static screens_t get_screen_value_sent(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the methods needing a recipient screen.
 static screens_t get_screen_recipient(ethQueryContractUI_t *msg,
                                       plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -400,6 +408,7 @@ static screens_t get_screen_recipient(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the methods needing a smart contract screen.
 static screens_t get_screen_smart_contract_address(ethQueryContractUI_t *msg,
                                                    plugin_parameters_t *context
                                                    __attribute__((unused))) {
@@ -411,6 +420,8 @@ static screens_t get_screen_smart_contract_address(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the Vote and Revoke methods.
+// These methods need 4 screens.
 static screens_t get_screen_vote_revoke(ethQueryContractUI_t *msg,
                                         plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -427,6 +438,8 @@ static screens_t get_screen_vote_revoke(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the UnstakeClaim method.
+// This method needs to display the unbound nonce boolean.
 static screens_t get_screen_unstake_claim(ethQueryContractUI_t *msg,
                                           plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -458,9 +471,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_receive(msg, context);
         case GRT_UNDELEGATE:
         case GRT_WITHDRAW_DELEGATED:
-            return get_screen_recipient(msg, context);
         case SUBMIT_ETH_LIDO:
-            return get_screen_submit_eth_lido(msg, context);
+            return get_screen_recipient(msg, context);
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
         case PARASPACE_DEPOSIT:
@@ -508,6 +520,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
     return ERROR;
 }
 
+// Set the UI according to the screen that needs to be displayed.
 void handle_query_contract_ui(void *parameters) {
     ethQueryContractUI_t *msg = (ethQueryContractUI_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;

@@ -1,6 +1,8 @@
 #include "stakekit_plugin.h"
 
 // Save two amounts in the context.
+// The first amount is the amount received saved in amount_received.
+// The second amount is the amount sent saved in amount_sent.
 static void handle_swap_from(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case AMOUNT_RECEIVED:
@@ -18,6 +20,8 @@ static void handle_swap_from(ethPluginProvideParameter_t *msg, plugin_parameters
 }
 
 // Save 1 amount and 1 recipient in the context.
+// The amount is the amount sent saved in amount_sent.
+// The second param is the recipient saved in recipient.
 static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
                                     plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -36,6 +40,8 @@ static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
 }
 
 // Save 1 amount and 1 recipient in the context.
+// The first param is the recipient saved in recipient.
+// The second param is the amount sent saved in amount_sent.
 static void handle_recipient_amount_sent(ethPluginProvideParameter_t *msg,
                                          plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -54,6 +60,9 @@ static void handle_recipient_amount_sent(ethPluginProvideParameter_t *msg,
 }
 
 // Save 1 amount and 1 recipient and 1 token address in the context.
+// The first param is the token address which help to fetch the token info later.
+// The second param is the recipient saved in recipient.
+// The third param is the amount sent saved in amount_sent.
 static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -80,6 +89,8 @@ static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
 }
 
 // Save 1 amount and 1 token address in the context.
+// The first param is the token address which help to fetch the token info later.
+// The second param is the amount sent saved in amount_sent.
 static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
@@ -98,6 +109,8 @@ static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg, plugin_para
 }
 
 // Save 1 amount and 1 token address in the context.
+// The first param is the token address which help to fetch the token info later.
+// The second param is the amount received saved in amount_received.
 static void handle_morpho_withdraw_1(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -120,6 +133,9 @@ static void handle_morpho_withdraw_1(ethPluginProvideParameter_t *msg,
 }
 
 // Save 1 amount and 1 recipient and 1 token address in the context.
+// The first param is the token address which help to fetch the token info later.
+// The second param is the amount received saved in amount_received.
+// The third param is the recipient saved in recipient.
 static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -146,6 +162,9 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
 }
 
 // Save 2 recipients in the context.
+// The first param is the recipient as we have 2 recipient and the storage has a limitation,
+// we need to save it in another variable which is contract_address.
+// The second param is the second recipient saved in recipient.
 static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:  // Put the Comet protocol address in contract_address
@@ -166,6 +185,10 @@ static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_paramete
 }
 
 // Save 1 amount and 3 recipients in the context.
+// The first param is the second recipient saved in recipient.
+// The second param is the amount sent saved in amount_sent.
+// The third and fourth param are the recipients as we have 3 recipient and the storage has a limitation,
+// we need to save it in other variables which are contract_address and amount_received.
 static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:
@@ -200,6 +223,9 @@ static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_paramete
 }
 
 // Save 1 amount and 1 recipient and 1 token address in the context.
+// The first param is the token address which help to fetch the token info later.
+// The second param is the amount sent saved in amount_sent.
+// The third param is the recipient saved in recipient.
 static void handle_aave_supply(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
