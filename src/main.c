@@ -64,7 +64,7 @@ void handle_query_ui_exception(unsigned int *args) {
 }
 
 // Calls the ethereum app.
-void call_app_ethereum() {
+void call_app_ethereum(void) {
     unsigned int libcall_params[5];
     libcall_params[0] = (unsigned int) "Ethereum";
     libcall_params[1] = 0x100;

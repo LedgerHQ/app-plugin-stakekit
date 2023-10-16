@@ -58,6 +58,8 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
                    msg->msgLength);
     PRINTF("AMOUNT SENT: %s\n", msg->msg);
 }
+
+// Same as the "set_send_ui" function. Howerver the value is extracted from the pluginSharedRO.
 static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case STAKE:
@@ -106,6 +108,7 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
     PRINTF("AMOUNT RECEIVED: %s\n", msg->msg);
 }
 
+// Utility function to print an address to the UI.
 static void print_address(ethQueryContractUI_t *msg, uint8_t *address) {
     // Prefix the address with `0x`.
     msg->msg[0] = '0';
@@ -168,6 +171,8 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
     print_address(msg, context->recipient);
 }
 
+// Set UI for "Recipient 2" screen. When having more than one recipient.
+// The recipient address is saved in the contract_address
 static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case COMET_CLAIM:
@@ -186,6 +191,8 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
     print_address(msg, context->contract_address);
 }
 
+// Set UI for "Recipient 2" screen. When having more than two recipients.
+// The recipient address is saved in the amount_received
 static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case VOTE:
@@ -504,9 +511,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
 void handle_query_contract_ui(void *parameters) {
     ethQueryContractUI_t *msg = (ethQueryContractUI_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
-    memset(msg->title, 0, msg->titleLength);
-    memset(msg->msg, 0, msg->msgLength);
-    msg->result = ETH_PLUGIN_RESULT_OK;
+    (void)memset(msg->title, 0, msg->titleLength);
+    (void)memset(msg->msg, 0, msg->msgLength);
 
     screens_t screen = get_screen(msg, context);
     switch (screen) {
@@ -542,4 +548,5 @@ void handle_query_contract_ui(void *parameters) {
             msg->result = ETH_PLUGIN_RESULT_ERROR;
             return;
     }
+    msg->result = ETH_PLUGIN_RESULT_OK;
 }
