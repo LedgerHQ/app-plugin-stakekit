@@ -1,5 +1,6 @@
 #include "stakekit_plugin.h"
 
+// Save two amounts in the context.
 static void handle_swap_from(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case AMOUNT_RECEIVED:
@@ -16,6 +17,7 @@ static void handle_swap_from(ethPluginProvideParameter_t *msg, plugin_parameters
     }
 }
 
+// Save 1 amount and 1 recipient in the context.
 static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
                                     plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -33,6 +35,7 @@ static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
     }
 }
 
+// Save 1 amount and 1 recipient in the context.
 static void handle_recipient_amount_sent(ethPluginProvideParameter_t *msg,
                                          plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -50,6 +53,7 @@ static void handle_recipient_amount_sent(ethPluginProvideParameter_t *msg,
     }
 }
 
+// Save 1 amount and 1 recipient and 1 token address in the context.
 static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -75,6 +79,7 @@ static void handle_morpho_supply_1_3(ethPluginProvideParameter_t *msg,
     }
 }
 
+// Save 1 amount and 1 token address in the context.
 static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
@@ -92,6 +97,7 @@ static void handle_morpho_supply_2(ethPluginProvideParameter_t *msg, plugin_para
     }
 }
 
+// Save 1 amount and 1 token address in the context.
 static void handle_morpho_withdraw_1(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -113,6 +119,7 @@ static void handle_morpho_withdraw_1(ethPluginProvideParameter_t *msg,
     }
 }
 
+// Save 1 amount and 1 recipient and 1 token address in the context.
 static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
                                      plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -138,6 +145,7 @@ static void handle_morpho_withdraw_2(ethPluginProvideParameter_t *msg,
     }
 }
 
+// Save 2 recipients in the context.
 static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:  // Put the Comet protocol address in contract_address
@@ -157,6 +165,7 @@ static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_paramete
     }
 }
 
+// Save 1 amount and 3 recipients in the context.
 static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:
@@ -190,6 +199,7 @@ static void handle_vote_revoke(ethPluginProvideParameter_t *msg, plugin_paramete
     }
 }
 
+// Save 1 amount and 1 recipient and 1 token address in the context.
 static void handle_aave_supply(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case TOKEN_SENT:
@@ -226,7 +236,6 @@ void handle_provide_parameter(void *parameters) {
            PARAMETER_LENGTH,
            msg->parameter);
 
-    msg->result = ETH_PLUGIN_RESULT_OK;
     if (context->skip) {
         // Skip this step and decrease skipping counter.
         context->skip--;
@@ -243,25 +252,31 @@ void handle_provide_parameter(void *parameters) {
             case PARASPACE_WITHDRAW:
             case YEARN_VAULT_DEPOSIT_2:
             case YEARN_VAULT_WITHDRAW_2:
+                // Save the amount sent to the context.
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
             case BUY_VOUCHER:
             case SELL_VOUCHER_NEW:
+                // Save the amount sent to the context and skip.
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 context->skip = 1;
                 break;
             case WITHDRAW_SELF_APECOIN:
             case SWAP_TO:
+                // Save the amount received to the context.
                 copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
                 break;
             case SUBMIT_ETH_LIDO:
+                // Save the recipient to the context.
                 copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 break;
             case GRT_WITHDRAW_DELEGATED:
+                // Save the recipient to the context and skip.
                 copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 context->skip = 1;
                 break;
             case UNSTAKE_CLAIM_TOKENS_NEW:
+                // Save the Unbound nonce boolean to the context.
                 if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
                     break;
@@ -277,6 +292,7 @@ void handle_provide_parameter(void *parameters) {
             case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
             case YEARN_VAULT_DEPOSIT_1:
             case YEARN_VAULT_WITHDRAW_1:
+                // No parameters to save.
                 break;
             case SUBMIT_MATIC_LIDO:
             case REQUEST_WITHDRAW:
@@ -324,4 +340,5 @@ void handle_provide_parameter(void *parameters) {
                 break;
         }
     }
+    msg->result = ETH_PLUGIN_RESULT_OK;
 }
