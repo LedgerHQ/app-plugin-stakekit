@@ -1,8 +1,9 @@
+#include <stdbool.h>
 #include "stakekit_plugin.h"
 
 // Set UI for the "Send" screen.
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case DEPOSIT_SELF_APECOIN:
         case SWAP_FROM:
@@ -46,45 +47,49 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
     // Convert to string.
-    amountToString(context->amount_sent,
-                   INT256_LENGTH,
-                   context->decimals_sent,
-                   context->ticker_sent,
-                   msg->msg,
-                   msg->msgLength);
+    if (!amountToString(context->amount_sent,
+                        INT256_LENGTH,
+                        context->decimals_sent,
+                        context->ticker_sent,
+                        msg->msg,
+                        msg->msgLength)) {
+        return false;
+    }
     PRINTF("AMOUNT SENT: %s\n", msg->msg);
+    return true;
 }
 
 // Same as the "set_send_ui" function. However the value is extracted from the pluginSharedRO.
-static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case STAKE:
             strlcpy(msg->title, "Send", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
     // Convert to string.
-    amountToString(msg->pluginSharedRO->txContent->value.value,
-                   msg->pluginSharedRO->txContent->value.length,
-                   context->decimals_sent,
-                   context->ticker_sent,
-                   msg->msg,
-                   msg->msgLength);
+    if (!amountToString(msg->pluginSharedRO->txContent->value.value,
+                        msg->pluginSharedRO->txContent->value.length,
+                        context->decimals_sent,
+                        context->ticker_sent,
+                        msg->msg,
+                        msg->msgLength)) {
+        return false;
+    }
     PRINTF("AMOUNT SENT: %s\n", msg->msg);
+    return true;
 }
 
 // Set UI for "Receive" screen.
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
@@ -96,22 +101,24 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
     // Convert to string.
-    amountToString(context->amount_received,
-                   INT256_LENGTH,
-                   context->decimals_received,
-                   context->ticker_received,
-                   msg->msg,
-                   msg->msgLength);
+    if (!amountToString(context->amount_received,
+                        INT256_LENGTH,
+                        context->decimals_received,
+                        context->ticker_received,
+                        msg->msg,
+                        msg->msgLength)) {
+        return false;
+    }
     PRINTF("AMOUNT RECEIVED: %s\n", msg->msg);
+    return true;
 }
 
 // Utility function to print an address to the UI.
-static void print_address(ethQueryContractUI_t *msg, uint8_t *address) {
+static bool print_address(ethQueryContractUI_t *msg, uint8_t *address) {
     // Prefix the address with `0x`.
     msg->msg[0] = '0';
     msg->msg[1] = 'x';
@@ -122,7 +129,7 @@ static void print_address(ethQueryContractUI_t *msg, uint8_t *address) {
 
     // Get the string representation of the address stored in `context->beneficiary`. Put it in
     // `msg->msg`.
-    getEthAddressStringFromBinary(
+    return getEthAddressStringFromBinary(
         address,
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
         msg->pluginSharedRW->sha3,
@@ -131,7 +138,7 @@ static void print_address(ethQueryContractUI_t *msg, uint8_t *address) {
 
 // Set UI for "Recipient" screen.
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
@@ -167,17 +174,16 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
-    print_address(msg, context->recipient);
+    return print_address(msg, context->recipient);
 }
 
 // Set UI for "Recipient 2" screen. When having more than one recipient.
 // The recipient address is saved in the contract_address
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case COMET_CLAIM:
             strlcpy(msg->title, "Comet Protocol", msg->titleLength);
@@ -188,17 +194,16 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
-    print_address(msg, context->contract_address);
+    return print_address(msg, context->contract_address);
 }
 
 // Set UI for "Recipient 2" screen. When having more than two recipients.
 // The recipient address is saved in the amount_received
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case VOTE:
         case REVOKE_ACTIVE:
@@ -206,16 +211,15 @@ static void set_recipient_3_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
-    print_address(msg, context->amount_received);
+    return print_address(msg, context->amount_received);
 }
 
 // Set UI for smart contract address screen.
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case CLAIM_SELF_APECOIN:
         case CREATE_ACCOUNT:
@@ -230,37 +234,37 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
-    print_address(msg, msg->pluginSharedRO->txContent->destination);
+    return print_address(msg, msg->pluginSharedRO->txContent->destination);
 }
 
 // Set UI for unbound nonce boolean screen.
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_unbound_nonce_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_unbound_nonce_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case UNSTAKE_CLAIM_TOKENS_NEW:
             strlcpy(msg->title, "Unbound Nonce", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
     if (context->unbound_nonce == 0) {
         strlcpy(msg->msg, "False", msg->msgLength);
     } else {
         strlcpy(msg->msg, "True", msg->msgLength);
     }
+    return true;
 }
 
 // Set UI for "Warning" screen.
-static void set_warning_ui(ethQueryContractUI_t *msg,
+static bool set_warning_ui(ethQueryContractUI_t *msg,
                            const plugin_parameters_t *context __attribute__((unused))) {
     strlcpy(msg->title, "WARNING", msg->titleLength);
     strlcpy(msg->msg, "Unknown token", msg->msgLength);
+    return true;
 }
 
 // Set UI for the methods needing a send screen.
@@ -521,45 +525,44 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
 }
 
 // Set the UI according to the screen that needs to be displayed.
-void handle_query_contract_ui(void *parameters) {
-    ethQueryContractUI_t *msg = (ethQueryContractUI_t *) parameters;
+void handle_query_contract_ui(ethQueryContractUI_t *msg) {
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
+    bool ret = false;
+
     (void) memset(msg->title, 0, msg->titleLength);
     (void) memset(msg->msg, 0, msg->msgLength);
-
     screens_t screen = get_screen(msg, context);
     switch (screen) {
         case SEND_SCREEN:
-            set_send_ui(msg, context);
+            ret = set_send_ui(msg, context);
             break;
         case SEND_VALUE_SCREEN:
-            set_send_value_ui(msg, context);
+            ret = set_send_value_ui(msg, context);
             break;
         case RECEIVE_SCREEN:
-            set_receive_ui(msg, context);
+            ret = set_receive_ui(msg, context);
             break;
         case RECIPIENT_SCREEN:
-            set_recipient_ui(msg, context);
+            ret = set_recipient_ui(msg, context);
             break;
         case RECIPIENT_2_SCREEN:
-            set_recipient_2_ui(msg, context);
+            ret = set_recipient_2_ui(msg, context);
             break;
         case RECIPIENT_3_SCREEN:
-            set_recipient_3_ui(msg, context);
+            ret = set_recipient_3_ui(msg, context);
             break;
         case SMART_CONTRACT_SCREEN:
-            set_smart_contract_ui(msg, context);
+            ret = set_smart_contract_ui(msg, context);
             break;
         case UNBOUND_NONCE_SCREEN:
-            set_unbound_nonce_ui(msg, context);
+            ret = set_unbound_nonce_ui(msg, context);
             break;
         case WARN_SCREEN:
-            set_warning_ui(msg, context);
+            ret = set_warning_ui(msg, context);
             break;
         default:
             PRINTF("Received an invalid screenIndex %d\n", screen);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            break;
     }
-    msg->result = ETH_PLUGIN_RESULT_OK;
+    msg->result = ret ? ETH_PLUGIN_RESULT_OK : ETH_PLUGIN_RESULT_ERROR;
 }
