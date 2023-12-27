@@ -84,7 +84,9 @@ VARIANT_PARAM = COIN
 VARIANT_VALUES = stakekit
 
 # Enabling DEBUG flag will enable PRINTF and disable optimizations
-#DEBUG = 1
+# DEBUG = 1
+# DISABLE_DEBUG_LEDGER_ASSERT = 1
+# DISABLE_DEBUG_THROW = 1
 
 ########################################
 #     Application custom permissions   #

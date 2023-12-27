@@ -13,7 +13,7 @@
 #define TOKEN_SENT_FOUND     1u
 #define TOKEN_RECEIVED_FOUND 1u << 1u
 
-#define NUM_SUPPORTED_SMART_CONTRACT 320u
+#define NUM_SUPPORTED_SMART_CONTRACT 321u
 typedef struct tokenSymbolAndDecimals_t {
     uint8_t smart_contract[ADDRESS_LENGTH];
     char token_symbol_deposit[TICKER_LEN];

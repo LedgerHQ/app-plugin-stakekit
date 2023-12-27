@@ -112,27 +112,37 @@
             "contractName": "TransparentUpgradeableProxy",
             "selectors": {
                 "0x0c0a769b": {
-                    "erc20OfInterest": ["_poolToken"],
+                    "erc20OfInterest": [
+                        "_poolToken"
+                    ],
                     "method": "supply",
                     "plugin": "StakeKit"
                 },
                 "0xf2b9fdb8": {
-                    "erc20OfInterest": ["_poolToken"],
+                    "erc20OfInterest": [
+                        "_poolToken"
+                    ],
                     "method": "supply",
                     "plugin": "StakeKit"
                 },
                 "0xf62256c7": {
-                    "erc20OfInterest": ["_poolToken"],
+                    "erc20OfInterest": [
+                        "_poolToken"
+                    ],
                     "method": "supply",
                     "plugin": "StakeKit"
                 },
                 "0xf3fef3a3": {
-                    "erc20OfInterest": ["_poolToken"],
+                    "erc20OfInterest": [
+                        "_poolToken"
+                    ],
                     "method": "withdraw",
                     "plugin": "StakeKit"
                 },
                 "0x69328dec": {
-                    "erc20OfInterest": ["_poolToken"],
+                    "erc20OfInterest": [
+                        "_poolToken"
+                    ],
                     "method": "withdraw",
                     "plugin": "StakeKit"
                 }
@@ -196,12 +206,16 @@
             "contractName": "TransparentUpgradeableProxy",
             "selectors": {
                 "0xf2b9fdb8": {
-                    "erc20OfInterest": ["asset"],
+                    "erc20OfInterest": [
+                        "asset"
+                    ],
                     "method": "supply",
                     "plugin": "StakeKit"
                 },
                 "0xf3fef3a3": {
-                    "erc20OfInterest": ["to"],
+                    "erc20OfInterest": [
+                        "to"
+                    ],
                     "method": "withdraw",
                     "plugin": "StakeKit"
                 }
@@ -8062,6 +8076,17 @@
                 "0x00f714ce": {
                     "erc20OfInterest": [],
                     "method": "withdraw",
+                    "plugin": "StakeKit"
+                }
+            }
+        },
+        {
+            "address": "0x004626a008b1acdc4c74ab51644093b155e59a23",
+            "contractName": "TransparentUpgradeableProxy",
+            "selectors": {
+                "0x6e553f65": {
+                    "erc20OfInterest": [],
+                    "method": "deposit",
                     "plugin": "StakeKit"
                 }
             }
