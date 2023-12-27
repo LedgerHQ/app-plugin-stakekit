@@ -39,6 +39,32 @@ static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
     }
 }
 
+// Save 1 amount and 2 addresses in the context.
+// The amount_sent param is the asset amount saved in amount_sent.
+// The recipient param is the recipient saved in recipient.
+// The recipient_2 param is the owner saved in contract_address.
+static void handle_angle_withdraw(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->next_param = RECIPIENT;
+            break;
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = RECIPIENT_2;
+            break;
+        case RECIPIENT_2:
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 // Save 1 amount and 1 recipient in the context.
 // The first param is the recipient saved in recipient.
 // The second param is the amount sent saved in amount_sent.
@@ -359,6 +385,9 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case AAVE_SUPPLY:
                 handle_aave_supply(msg, context);
+                break;
+            case ANGLE_WITHDRAW:
+                handle_angle_withdraw(msg, context);
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

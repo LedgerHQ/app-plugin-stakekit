@@ -6,7 +6,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 48u
+#define NUM_STAKEKIT_SELECTORS 49u
 
 #define TICKER_LEN 30u
 
@@ -81,6 +81,7 @@ typedef enum {
     YEARN_VAULT_WITHDRAW_1,
     YEARN_VAULT_WITHDRAW_2,
     YEARN_VAULT_WITHDRAW_3,
+    ANGLE_WITHDRAW,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];

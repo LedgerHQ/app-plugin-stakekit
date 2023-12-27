@@ -118,6 +118,9 @@ void handle_query_contract_id(void *parameters) {
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
             strlcpy(msg->version, "Redeem Overdue Shares", msg->versionLength);
             break;
+        case ANGLE_WITHDRAW:
+            strlcpy(msg->version, "Withdraw", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

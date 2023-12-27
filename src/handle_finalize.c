@@ -188,9 +188,13 @@ void handle_finalize(void *parameters) {
             case PARASPACE_WITHDRAW:
             case YEARN_VAULT_WITHDRAW_2:
             case YEARN_VAULT_WITHDRAW_3:
+            case ANGLE_WITHDRAW:
                 msg->numScreens = 1;
                 if (context->selectorIndex == YEARN_VAULT_WITHDRAW_3) {
                     msg->numScreens++;
+                }
+                if (context->selectorIndex == ANGLE_WITHDRAW) {
+                    msg->numScreens += 2;
                 }
                 if (set_ticker_withdraw_for_mapped_token(context, msg)) {
                     msg->result = ETH_PLUGIN_RESULT_OK;

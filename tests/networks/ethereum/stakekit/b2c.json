@@ -8088,6 +8088,11 @@
                     "erc20OfInterest": [],
                     "method": "deposit",
                     "plugin": "StakeKit"
+                },
+                "0xb460af94": {
+                    "erc20OfInterest": [],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
                 }
             }
         }

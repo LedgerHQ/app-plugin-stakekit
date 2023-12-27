@@ -89,6 +89,7 @@ static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR[SELECTOR_SIZE] = {
                                                                                 0xf7,
                                                                                 0x14,
                                                                                 0xce};
+static const uint8_t STAKEKIT_ANGLE_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xb4, 0x60, 0xaf, 0x94};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -140,6 +141,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_YEARN_VAULT_WITHDRAW_1_SELECTOR,
     STAKEKIT_YEARN_VAULT_WITHDRAW_2_SELECTOR,
     STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR,
+    STAKEKIT_ANGLE_WITHDRAW_SELECTOR,
 };
 
 // Null address

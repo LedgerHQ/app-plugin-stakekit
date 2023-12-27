@@ -52,6 +52,7 @@ void handle_init_contract(void *parameters) {
         case YEARN_VAULT_DEPOSIT_3:
         case YEARN_VAULT_WITHDRAW_2:
         case YEARN_VAULT_WITHDRAW_3:
+        case ANGLE_WITHDRAW:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:

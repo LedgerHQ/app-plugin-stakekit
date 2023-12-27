@@ -44,6 +44,9 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
             strlcpy(msg->title, "Index", msg->titleLength);
             break;
+        case ANGLE_WITHDRAW:
+            strlcpy(msg->title, "Assets", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -142,6 +145,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case AAVE_SUPPLY:
         case YEARN_VAULT_DEPOSIT_3:
         case YEARN_VAULT_WITHDRAW_3:
+        case ANGLE_WITHDRAW:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -185,6 +189,9 @@ static void set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
         case VOTE:
         case REVOKE_ACTIVE:
             strlcpy(msg->title, "Lesser Group", msg->titleLength);
+            break;
+        case ANGLE_WITHDRAW:
+            strlcpy(msg->title, "Owner", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -450,6 +457,20 @@ static screens_t get_screen_unstake_claim(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_angle_withdraw(ethQueryContractUI_t *msg,
+                                           plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SEND_SCREEN;
+        case 1:
+            return RECIPIENT_SCREEN;
+        case 2:
+            return RECIPIENT_2_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -514,6 +535,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_vote_revoke(msg, context);
         case UNSTAKE_CLAIM_TOKENS_NEW:
             return get_screen_unstake_claim(msg, context);
+        case ANGLE_WITHDRAW:
+            return get_screen_angle_withdraw(msg, context);
         default:
             return ERROR;
     }
