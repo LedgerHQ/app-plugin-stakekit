@@ -47,6 +47,13 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case ANGLE_WITHDRAW:
             strlcpy(msg->title, "Assets", msg->titleLength);
             break;
+        case LIDO_REQUEST_WITHDRAWALS:
+            if (context->is_multiple_amounts) {
+                strlcpy(msg->title, "Total Amounts", msg->titleLength);
+            } else {
+                strlcpy(msg->title, "Amount", msg->titleLength);
+            }
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -163,6 +170,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             strlcpy(msg->title, "From", msg->titleLength);
             break;
         case COMET_CLAIM:
+        case LIDO_REQUEST_WITHDRAWALS:
             strlcpy(msg->title, "Owner", msg->titleLength);
             break;
         case VOTE:
@@ -471,6 +479,19 @@ static screens_t get_screen_angle_withdraw(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_lido_request_withdrawal(ethQueryContractUI_t *msg,
+                                                    plugin_parameters_t *context
+                                                    __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SEND_SCREEN;
+        case 1:
+            return RECIPIENT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -537,6 +558,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_unstake_claim(msg, context);
         case ANGLE_WITHDRAW:
             return get_screen_angle_withdraw(msg, context);
+        case LIDO_REQUEST_WITHDRAWALS:
+            return get_screen_lido_request_withdrawal(msg, context);
         default:
             return ERROR;
     }

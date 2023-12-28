@@ -1,5 +1,15 @@
 #include "stakekit_plugin.h"
 
+// Add two hex numbers and save the result in the first number.
+static void hex_addition(uint8_t a[INT256_LENGTH], const uint8_t b[INT256_LENGTH]) {
+    uint16_t carry = 0;
+    for (int i = INT256_LENGTH - 1; i >= 0; i--) {
+        uint16_t sum = a[i] + b[i] + carry;
+        a[i] = (uint8_t)(sum & 0xFF);  // Keep only the lower 8 bits
+        carry = (sum > 0xFF) ? 1 : 0;  // Update carry for the next iteration
+    }
+}
+
 // Save two amounts in the context.
 // The first amount is the amount received saved in amount_received.
 // The second amount is the amount sent saved in amount_sent.
@@ -276,6 +286,51 @@ static void handle_aave_supply(ethPluginProvideParameter_t *msg, plugin_paramete
     }
 }
 
+static void handle_lido_request_withdrawal(ethPluginProvideParameter_t *msg,
+                                           plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = ARRAY_LENGTH;
+            break;
+        case ARRAY_LENGTH:
+            // Storing the number of elements in _amounts[] in unbound_nonce.
+            if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
+                msg->result = ETH_PLUGIN_RESULT_ERROR;
+                break;
+            }
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->unbound_nonce--;
+            if (context->unbound_nonce >= 1) {
+                context->is_multiple_amounts = true;
+                context->next_param = ADD_AMOUNT;
+            } else {
+                context->next_param = NONE;
+            }
+            break;
+        // saves the following amounts in amount received and add it to the amount sent
+        case ADD_AMOUNT:
+            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+            hex_addition(context->amount_sent, context->amount_received);
+            context->unbound_nonce--;
+            if (context->unbound_nonce >= 1) {
+                context->next_param = ADD_AMOUNT;
+            } else {
+                context->next_param = NONE;
+            }
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 void handle_provide_parameter(void *parameters) {
     ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
@@ -388,6 +443,9 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case ANGLE_WITHDRAW:
                 handle_angle_withdraw(msg, context);
+                break;
+            case LIDO_REQUEST_WITHDRAWALS:
+                handle_lido_request_withdrawal(msg, context);
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

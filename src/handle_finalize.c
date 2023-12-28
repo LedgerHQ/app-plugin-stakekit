@@ -202,6 +202,14 @@ void handle_finalize(void *parameters) {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
                 }
                 break;
+            case LIDO_REQUEST_WITHDRAWALS:
+                msg->numScreens = 2;
+                if (set_ticker_withdraw_for_mapped_token(context, msg)) {
+                    msg->result = ETH_PLUGIN_RESULT_OK;
+                } else {
+                    msg->result = ETH_PLUGIN_RESULT_ERROR;
+                }
+                break;
             default:
                 msg->numScreens = 1;
                 msg->result = ETH_PLUGIN_RESULT_OK;

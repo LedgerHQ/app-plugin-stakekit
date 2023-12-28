@@ -90,6 +90,10 @@ static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR[SELECTOR_SIZE] = {
                                                                                 0x14,
                                                                                 0xce};
 static const uint8_t STAKEKIT_ANGLE_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xb4, 0x60, 0xaf, 0x94};
+static const uint8_t STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {0xd6,
+                                                                                  0x68,
+                                                                                  0x10,
+                                                                                  0x42};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -142,6 +146,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_YEARN_VAULT_WITHDRAW_2_SELECTOR,
     STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR,
     STAKEKIT_ANGLE_WITHDRAW_SELECTOR,
+    STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR,
 };
 
 // Null address
@@ -1756,5 +1761,10 @@ const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMAR
       0xab, 0x51, 0x64, 0x40, 0x93, 0xb1, 0x55, 0xe5, 0x9A, 0x23},
      "stEUR",
      "stEUR",
+     18},
+    {{0x88, 0x9e, 0xdC, 0x2e, 0xDa, 0xb5, 0xf4, 0x0e, 0x90, 0x2b,
+      0x86, 0x4a, 0xD4, 0xd7, 0xAd, 0xE8, 0xE4, 0x12, 0xF9, 0xB1},
+     "stETH",
+     "stETH",
      18},
 };

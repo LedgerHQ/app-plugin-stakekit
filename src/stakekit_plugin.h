@@ -6,14 +6,14 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 49u
+#define NUM_STAKEKIT_SELECTORS 50u
 
 #define TICKER_LEN 30u
 
 #define TOKEN_SENT_FOUND     1u
 #define TOKEN_RECEIVED_FOUND 1u << 1u
 
-#define NUM_SUPPORTED_SMART_CONTRACT 321u
+#define NUM_SUPPORTED_SMART_CONTRACT 322u
 typedef struct tokenSymbolAndDecimals_t {
     uint8_t smart_contract[ADDRESS_LENGTH];
     char token_symbol_deposit[TICKER_LEN];
@@ -82,6 +82,7 @@ typedef enum {
     YEARN_VAULT_WITHDRAW_2,
     YEARN_VAULT_WITHDRAW_3,
     ANGLE_WITHDRAW,
+    LIDO_REQUEST_WITHDRAWALS,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -99,15 +100,17 @@ typedef enum {
     ERROR,
 } screens_t;
 
-#define AMOUNT_SENT     0  // Amount sent by the user to the contract.
-#define AMOUNT_RECEIVED 1  // Amount received by the contract to the user.
-#define TOKEN_SENT      2  // Token sent by the contract to the user.
-#define TOKEN_RECEIVED  3  // Token received by the contract to the user.
-#define RECIPIENT       4  // Recipient address receiving the funds.
-#define RECIPIENT_2     5  // Recipient address receiving the funds.
-#define RECIPIENT_3     6  // Recipient address receiving the funds.
-#define UNBOUND_NONCE   7  // Unbond nonce.
-#define NONE            8  // Placeholder variant to be set when parsing is done.
+#define AMOUNT_SENT     0   // Amount sent by the user to the contract.
+#define AMOUNT_RECEIVED 1   // Amount received by the contract to the user.
+#define TOKEN_SENT      2   // Token sent by the contract to the user.
+#define TOKEN_RECEIVED  3   // Token received by the contract to the user.
+#define RECIPIENT       4   // Recipient address receiving the funds.
+#define RECIPIENT_2     5   // Recipient address receiving the funds.
+#define RECIPIENT_3     6   // Recipient address receiving the funds.
+#define UNBOUND_NONCE   7   // Unbond nonce.
+#define ARRAY_LENGTH    8   // Length of the array parameter.
+#define ADD_AMOUNT      9   // Amount to add to the current amount.
+#define NONE            10  // Placeholder variant to be set when parsing is done.
 
 // Number of decimals used when the token wasn't found in the CAL.
 #define DEFAULT_DECIMAL WEI_TO_ETHER
@@ -166,10 +169,11 @@ typedef struct plugin_parameters_t {
     uint8_t selectorIndex;
     uint8_t skip;
     bool is_token_sent;
+    bool is_multiple_amounts;
 } plugin_parameters_t;
 // 32*2 + 2*20 + 11*1 + 30*1 = 145
-// 1*8 + 1*2 = 10
-// 10+145 = 155
+// 1*9 + 1*2 = 11
+// 11+145 = 156
 
 // Piece of code that will check that the above structure is not bigger than 5 * 32.
 // Do not remove this check.

@@ -101,6 +101,11 @@ void handle_init_contract(void *parameters) {
         case UNSTAKE_CLAIM_TOKENS_NEW:
             context->next_param = UNBOUND_NONCE;
             break;
+        case LIDO_REQUEST_WITHDRAWALS:
+            // Skipping the _amounts parameter offset (constant)
+            context->skip = 1;
+            context->next_param = RECIPIENT;
+            break;
         default:
             PRINTF("Missing selectorIndex\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;

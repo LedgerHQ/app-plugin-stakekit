@@ -8095,6 +8095,17 @@
                     "plugin": "StakeKit"
                 }
             }
+        },
+        {
+            "address": "0x889edc2edab5f40e902b864ad4d7ade8e412f9b1",
+            "contractName": "OssifiableProxy",
+            "selectors": {
+                "0xd6681042": {
+                    "erc20OfInterest": [],
+                    "method": "requestWithdrawals",
+                    "plugin": "StakeKit"
+                }
+            }
         }
     ],
     "name": "StakeKit"
