@@ -6,7 +6,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 51u
+#define NUM_STAKEKIT_SELECTORS 52u
 
 #define TICKER_LEN 30u
 
@@ -84,6 +84,7 @@ typedef enum {
     ANGLE_WITHDRAW,
     LIDO_REQUEST_WITHDRAWALS,
     LIDO_CLAIM_WITHDRAWALS,
+    VIC_VOTE,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -158,6 +159,9 @@ typedef enum {
 
 // Ticker used for Staked AVAX.
 #define STAKED_AVAX_TICKER "sAVAX"
+
+// Ticker used for Viction native token.
+#define VIC_TICKER "VIC"
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 typedef struct plugin_parameters_t {

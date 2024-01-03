@@ -521,6 +521,10 @@ void handle_provide_parameter(void *parameters) {
             case LIDO_CLAIM_WITHDRAWALS:
                 handle_lido_claim_withdrawal(msg, context);
                 break;
+            case VIC_VOTE:
+                // Only save the recipient to the context.
+                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+                break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);
                 msg->result = ETH_PLUGIN_RESULT_ERROR;

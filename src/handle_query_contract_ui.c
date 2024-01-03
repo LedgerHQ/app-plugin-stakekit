@@ -221,6 +221,9 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case REVOKE_ACTIVE:
             strlcpy(msg->title, "Validator Group", msg->titleLength);
             break;
+        case VIC_VOTE:
+            strlcpy(msg->title, "Candicate", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -575,6 +578,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case GRT_UNDELEGATE:
         case GRT_WITHDRAW_DELEGATED:
         case SUBMIT_ETH_LIDO:
+        case VIC_VOTE:
             return get_screen_recipient(msg, context);
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:

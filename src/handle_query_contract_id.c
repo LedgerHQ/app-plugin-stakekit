@@ -96,6 +96,7 @@ void handle_query_contract_id(void *parameters) {
             strlcpy(msg->version, "Unlock", msg->versionLength);
             break;
         case VOTE:
+        case VIC_VOTE:
             strlcpy(msg->version, "Vote", msg->versionLength);
             break;
         case REVOKE_ACTIVE:

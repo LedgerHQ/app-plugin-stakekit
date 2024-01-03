@@ -220,6 +220,11 @@ void handle_finalize(void *parameters) {
                 // No ticker to display
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
+            case VIC_VOTE:
+                msg->numScreens = 1;
+                strlcpy(context->ticker_sent, VIC_TICKER, sizeof(context->ticker_sent));
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
             default:
                 msg->numScreens = 1;
                 msg->result = ETH_PLUGIN_RESULT_OK;

@@ -1,0 +1,17 @@
+{
+    "chainId": 88,
+    "contracts": [
+        {
+            "address": "0x0000000000000000000000000000000000000088",
+            "contractName": "TomoValidator",
+            "selectors": {
+                "0x6dd7d8ea": {
+                    "erc20OfInterest": [],
+                    "method": "vote",
+                    "plugin": "StakeKit"
+                }
+            }
+        }
+    ],
+    "name": "StakeKit"
+}

@@ -68,6 +68,7 @@ void handle_init_contract(void *parameters) {
         case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
         case YEARN_VAULT_DEPOSIT_1:
         case YEARN_VAULT_WITHDRAW_1:
+        case VIC_VOTE:
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:
