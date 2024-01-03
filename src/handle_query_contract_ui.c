@@ -48,11 +48,14 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             strlcpy(msg->title, "Assets", msg->titleLength);
             break;
         case LIDO_REQUEST_WITHDRAWALS:
-            if (context->is_multiple_amounts) {
+            if (context->nb_requests >= 2) {
                 strlcpy(msg->title, "Total Amounts", msg->titleLength);
             } else {
                 strlcpy(msg->title, "Amount", msg->titleLength);
             }
+            break;
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->title, "Request ID", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -92,6 +95,25 @@ static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
     PRINTF("AMOUNT SENT: %s\n", msg->msg);
 }
 
+static void set_send_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->title, "Request ID", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+
+    amountToString(context->contract_address,  // Location of the 2nd request ID.
+                   ADDRESS_LENGTH,
+                   context->decimals_sent,
+                   context->ticker_sent,
+                   msg->msg,
+                   msg->msgLength);
+}
+
 // Set UI for "Receive" screen.
 // Each methods sets the title and the message to be displayed on the screen.
 static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
@@ -103,6 +125,9 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
         case MORPHO_WITHDRAW_2:
         case COMET_WITHDRAW:
             strlcpy(msg->title, "Receive", msg->titleLength);
+            break;
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->title, "Hint", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -118,6 +143,25 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
                    msg->msg,
                    msg->msgLength);
     PRINTF("AMOUNT RECEIVED: %s\n", msg->msg);
+}
+
+static void set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->title, "Hint", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return;
+    }
+
+    amountToString(context->recipient,  // Location of the 2nd hint.
+                   ADDRESS_LENGTH,
+                   context->decimals_sent,
+                   context->ticker_sent,
+                   msg->msg,
+                   msg->msgLength);
 }
 
 // Utility function to print an address to the UI.
@@ -492,6 +536,23 @@ static screens_t get_screen_lido_request_withdrawal(ethQueryContractUI_t *msg,
     }
 }
 
+static screens_t get_screen_lido_claim_withdrawal(ethQueryContractUI_t *msg,
+                                                  plugin_parameters_t *context
+                                                  __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SEND_SCREEN;
+        case 1:
+            return RECEIVE_SCREEN;
+        case 2:
+            return SEND_2_SCREEN;
+        case 3:
+            return RECEIVE_2_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -560,6 +621,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_angle_withdraw(msg, context);
         case LIDO_REQUEST_WITHDRAWALS:
             return get_screen_lido_request_withdrawal(msg, context);
+        case LIDO_CLAIM_WITHDRAWALS:
+            return get_screen_lido_claim_withdrawal(msg, context);
         default:
             return ERROR;
     }
@@ -598,6 +661,12 @@ void handle_query_contract_ui(void *parameters) {
             break;
         case UNBOUND_NONCE_SCREEN:
             set_unbound_nonce_ui(msg, context);
+            break;
+        case SEND_2_SCREEN:
+            set_send_2_ui(msg, context);
+            break;
+        case RECEIVE_2_SCREEN:
+            set_receive_2_ui(msg, context);
             break;
         case WARN_SCREEN:
             set_warning_ui(msg, context);

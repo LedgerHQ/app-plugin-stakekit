@@ -210,6 +210,16 @@ void handle_finalize(void *parameters) {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
                 }
                 break;
+            case LIDO_CLAIM_WITHDRAWALS:
+                msg->numScreens = 2;
+                if (context->nb_requests >= 2) {
+                    msg->numScreens += 2;
+                }
+                context->decimals_sent = 0;
+                context->decimals_received = 0;
+                // No ticker to display
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
             default:
                 msg->numScreens = 1;
                 msg->result = ETH_PLUGIN_RESULT_OK;

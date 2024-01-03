@@ -294,18 +294,18 @@ static void handle_lido_request_withdrawal(ethPluginProvideParameter_t *msg,
             context->next_param = ARRAY_LENGTH;
             break;
         case ARRAY_LENGTH:
-            // Storing the number of elements in _amounts[] in unbound_nonce.
+            // Storing the number of elements in _amounts[] in nb_requests and unbound_nonce.
             if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
                 msg->result = ETH_PLUGIN_RESULT_ERROR;
                 break;
             }
+            context->nb_requests = context->unbound_nonce;
             context->next_param = AMOUNT_SENT;
             break;
         case AMOUNT_SENT:
             copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
             context->unbound_nonce--;
             if (context->unbound_nonce >= 1) {
-                context->is_multiple_amounts = true;
                 context->next_param = ADD_AMOUNT;
             } else {
                 context->next_param = NONE;
@@ -321,6 +321,72 @@ static void handle_lido_request_withdrawal(ethPluginProvideParameter_t *msg,
             } else {
                 context->next_param = NONE;
             }
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+static void handle_lido_claim_withdrawal(ethPluginProvideParameter_t *msg,
+                                         plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case SAVE_OFFSET:
+            // Storing the offset of the _hints[] array in unbound_nonce.
+            if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
+                msg->result = ETH_PLUGIN_RESULT_ERROR;
+                break;
+            }
+            context->next_param = ARRAY_LENGTH;
+            break;
+        case ARRAY_LENGTH:
+            // Storing the number of elements in _hints[] array in nb_requests.
+            context->nb_requests = msg->parameter[PARAMETER_LENGTH - sizeof(uint8_t)];
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            // Saving the first requestId in amount_sent.
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            // If there are more than 1 requestId, we need to parse the next one. (max 2)
+            if (context->nb_requests >= 2) {
+                context->next_param = AMOUNT_SENT_2;
+            } else {
+                // Else go to _hints[] array.
+                context->next_param = SKIP;
+                context->offset = context->unbound_nonce;
+            }
+            break;
+        case AMOUNT_SENT_2:
+            // Saving the second requestId in contract_address.
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            // Go to _hints[] array.
+            context->next_param = SKIP;
+            context->offset = context->unbound_nonce;
+            break;
+        case SKIP:
+            // Skipping the number of elements in _hints[] array
+            // The tx is reverted if _requestIds[] length is not the same as _hints[] length.
+            context->next_param = AMOUNT_RECEIVED;
+            break;
+        case AMOUNT_RECEIVED:
+            // Saving the first hint in amount_received.
+            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+            // If there are more than 1 hint, we need to parse the next one. (max 2)
+            if (context->nb_requests >= 2) {
+                context->next_param = AMOUNT_RECEIVED_2;
+            } else {
+                // Else go to NONE.
+                context->next_param = NONE;
+            }
+            break;
+        case AMOUNT_RECEIVED_2:
+            // Saving the second hint in recipient.
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            // Ignore the next hints
+            context->next_param = NONE;
             break;
         case NONE:
             break;
@@ -347,6 +413,11 @@ void handle_provide_parameter(void *parameters) {
         // Skip this step and decrease skipping counter.
         context->skip--;
     } else {
+        if ((context->offset) && msg->parameterOffset != context->offset + SELECTOR_SIZE) {
+            PRINTF("offset: %d, parameterOffset: %d\n", context->offset, msg->parameterOffset);
+            return;
+        }
+        context->offset = 0;
         switch (context->selectorIndex) {
             case DEPOSIT_SELF_APECOIN:
             case CLAIM_TOKENS:
@@ -446,6 +517,9 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case LIDO_REQUEST_WITHDRAWALS:
                 handle_lido_request_withdrawal(msg, context);
+                break;
+            case LIDO_CLAIM_WITHDRAWALS:
+                handle_lido_claim_withdrawal(msg, context);
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

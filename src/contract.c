@@ -94,6 +94,10 @@ static const uint8_t STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] =
                                                                                   0x68,
                                                                                   0x10,
                                                                                   0x42};
+static const uint8_t STAKEKIT_LIDO_CLAIM_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {0xe3,
+                                                                                0xaf,
+                                                                                0xe0,
+                                                                                0xa3};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -147,6 +151,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR,
     STAKEKIT_ANGLE_WITHDRAW_SELECTOR,
     STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR,
+    STAKEKIT_LIDO_CLAIM_WITHDRAWALS_SELECTOR,
 };
 
 // Null address

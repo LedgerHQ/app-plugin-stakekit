@@ -106,6 +106,11 @@ void handle_init_contract(void *parameters) {
             context->skip = 1;
             context->next_param = RECIPIENT;
             break;
+        case LIDO_CLAIM_WITHDRAWALS:
+            // Skipping the _requestIds parameter offset (constant)
+            context->skip = 1;
+            context->next_param = SAVE_OFFSET;
+            break;
         default:
             PRINTF("Missing selectorIndex\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;

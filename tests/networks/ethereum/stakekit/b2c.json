@@ -8104,6 +8104,11 @@
                     "erc20OfInterest": [],
                     "method": "requestWithdrawals",
                     "plugin": "StakeKit"
+                },
+                "0xe3afe0a3": {
+                    "erc20OfInterest": [],
+                    "method": "claimWithdrawals",
+                    "plugin": "StakeKit"
                 }
             }
         }
