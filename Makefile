@@ -84,9 +84,18 @@ VARIANT_PARAM = COIN
 VARIANT_VALUES = stakekit
 
 # Enabling DEBUG flag will enable PRINTF and disable optimizations
-# DEBUG = 1
-# DISABLE_DEBUG_LEDGER_ASSERT = 1
-# DISABLE_DEBUG_THROW = 1
+DEBUG := 0
+DISABLE_DEBUG_LEDGER_ASSERT = 1
+DISABLE_DEBUG_THROW = 1
+ifneq ($(DEBUG),0)
+    ifneq ($(TARGET_NAME),TARGET_NANOS)
+        DEFINES   += HAVE_PRINTF PRINTF=mcu_usb_printf
+    else
+		DEFINES   += HAVE_PRINTF PRINTF=screen_printf
+    endif
+else
+    DEFINES   += PRINTF\(...\)=
+endif
 
 ########################################
 #     Application custom permissions   #
