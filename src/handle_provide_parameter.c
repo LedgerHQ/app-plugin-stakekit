@@ -500,6 +500,7 @@ void handle_provide_parameter(void *parameters) {
             case PARASPACE_DEPOSIT:
             case GRT_DELEGATE:
             case GRT_UNDELEGATE:
+            case VIC_UNVOTE:
                 handle_recipient_amount_sent(msg, context);
                 break;
             case COMET_CLAIM:

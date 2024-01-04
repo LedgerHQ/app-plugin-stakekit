@@ -6,7 +6,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 53u
+#define NUM_STAKEKIT_SELECTORS 54u
 
 #define TICKER_LEN 30u
 
@@ -86,6 +86,7 @@ typedef enum {
     LIDO_CLAIM_WITHDRAWALS,
     VIC_VOTE,
     VIC_RESIGN,
+    VIC_UNVOTE,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];

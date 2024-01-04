@@ -57,6 +57,9 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case LIDO_CLAIM_WITHDRAWALS:
             strlcpy(msg->title, "Request ID", msg->titleLength);
             break;
+        case VIC_UNVOTE:
+            strlcpy(msg->title, "Cap", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -223,7 +226,8 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             break;
         case VIC_VOTE:
         case VIC_RESIGN:
-            strlcpy(msg->title, "Candicate", msg->titleLength);
+        case VIC_UNVOTE:
+            strlcpy(msg->title, "Candidate", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -527,19 +531,6 @@ static screens_t get_screen_angle_withdraw(ethQueryContractUI_t *msg,
     }
 }
 
-static screens_t get_screen_lido_request_withdrawal(ethQueryContractUI_t *msg,
-                                                    plugin_parameters_t *context
-                                                    __attribute__((unused))) {
-    switch (msg->screenIndex) {
-        case 0:
-            return SEND_SCREEN;
-        case 1:
-            return RECIPIENT_SCREEN;
-        default:
-            return ERROR;
-    }
-}
-
 static screens_t get_screen_lido_claim_withdrawal(ethQueryContractUI_t *msg,
                                                   plugin_parameters_t *context
                                                   __attribute__((unused))) {
@@ -591,6 +582,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case YEARN_VAULT_DEPOSIT_3:
         case YEARN_VAULT_WITHDRAW_2:
         case YEARN_VAULT_WITHDRAW_3:
+        case LIDO_REQUEST_WITHDRAWALS:
+        case VIC_UNVOTE:
             return get_screen_amount_sent_recipient(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
@@ -625,8 +618,6 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_unstake_claim(msg, context);
         case ANGLE_WITHDRAW:
             return get_screen_angle_withdraw(msg, context);
-        case LIDO_REQUEST_WITHDRAWALS:
-            return get_screen_lido_request_withdrawal(msg, context);
         case LIDO_CLAIM_WITHDRAWALS:
             return get_screen_lido_claim_withdrawal(msg, context);
         default:

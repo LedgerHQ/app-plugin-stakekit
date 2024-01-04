@@ -80,6 +80,7 @@ void handle_init_contract(void *parameters) {
         case COMET_CLAIM:
         case VOTE:
         case REVOKE_ACTIVE:
+        case VIC_UNVOTE:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:

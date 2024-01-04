@@ -131,6 +131,9 @@ void handle_query_contract_id(void *parameters) {
         case VIC_RESIGN:
             strlcpy(msg->version, "Resign", msg->versionLength);
             break;
+        case VIC_UNVOTE:
+            strlcpy(msg->version, "Unvote", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
