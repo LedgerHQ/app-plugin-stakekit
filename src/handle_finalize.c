@@ -221,6 +221,7 @@ void handle_finalize(void *parameters) {
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             case VIC_VOTE:
+            case VIC_RESIGN:
                 msg->numScreens = 1;
                 strlcpy(context->ticker_sent, VIC_TICKER, sizeof(context->ticker_sent));
                 msg->result = ETH_PLUGIN_RESULT_OK;

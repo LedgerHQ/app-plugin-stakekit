@@ -69,6 +69,7 @@ void handle_init_contract(void *parameters) {
         case YEARN_VAULT_DEPOSIT_1:
         case YEARN_VAULT_WITHDRAW_1:
         case VIC_VOTE:
+        case VIC_RESIGN:
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:

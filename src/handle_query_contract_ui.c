@@ -222,6 +222,7 @@ static void set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             strlcpy(msg->title, "Validator Group", msg->titleLength);
             break;
         case VIC_VOTE:
+        case VIC_RESIGN:
             strlcpy(msg->title, "Candicate", msg->titleLength);
             break;
         default:
@@ -579,6 +580,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case GRT_WITHDRAW_DELEGATED:
         case SUBMIT_ETH_LIDO:
         case VIC_VOTE:
+        case VIC_RESIGN:
             return get_screen_recipient(msg, context);
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:

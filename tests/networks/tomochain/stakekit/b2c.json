@@ -9,6 +9,11 @@
                     "erc20OfInterest": [],
                     "method": "vote",
                     "plugin": "StakeKit"
+                },
+                "0xae6e43f5": {
+                    "erc20OfInterest": [],
+                    "method": "resign",
+                    "plugin": "StakeKit"
                 }
             }
         }

@@ -522,6 +522,7 @@ void handle_provide_parameter(void *parameters) {
                 handle_lido_claim_withdrawal(msg, context);
                 break;
             case VIC_VOTE:
+            case VIC_RESIGN:
                 // Only save the recipient to the context.
                 copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 break;

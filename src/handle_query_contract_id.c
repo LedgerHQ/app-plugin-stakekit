@@ -128,6 +128,9 @@ void handle_query_contract_id(void *parameters) {
         case LIDO_CLAIM_WITHDRAWALS:
             strlcpy(msg->version, "Claim Withdrawals", msg->versionLength);
             break;
+        case VIC_RESIGN:
+            strlcpy(msg->version, "Resign", msg->versionLength);
+            break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;

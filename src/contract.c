@@ -100,6 +100,8 @@ static const uint8_t STAKEKIT_LIDO_CLAIM_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {
                                                                                 0xa3};
 static const uint8_t STAKEKIT_VIC_VOTE_SELECTOR[SELECTOR_SIZE] = {0x6d, 0xd7, 0xd8, 0xea};
 
+static const uint8_t STAKEKIT_VIC_RESIGN_SELECTOR[SELECTOR_SIZE] = {0xae, 0x6e, 0x43, 0xf5};
+
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_DEPOSIT_SELF_APECOIN_SELECTOR,
@@ -154,6 +156,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR,
     STAKEKIT_LIDO_CLAIM_WITHDRAWALS_SELECTOR,
     STAKEKIT_VIC_VOTE_SELECTOR,
+    STAKEKIT_VIC_RESIGN_SELECTOR,
 };
 
 // Null address
