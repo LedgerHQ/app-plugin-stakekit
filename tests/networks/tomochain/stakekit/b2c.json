@@ -19,6 +19,11 @@
                     "erc20OfInterest": [],
                     "method": "unvote",
                     "plugin": "StakeKit"
+                },
+                "0x441a3e70": {
+                    "erc20OfInterest": [],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
                 }
             }
         }

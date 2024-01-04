@@ -479,6 +479,7 @@ void handle_provide_parameter(void *parameters) {
                 handle_amount_recipient(msg, context);
                 break;
             case SWAP_FROM:
+            case VIC_WITHDRAW:
                 handle_swap_from(msg, context);
                 break;
             case MORPHO_SUPPLY_1:

@@ -102,6 +102,7 @@ static const uint8_t STAKEKIT_VIC_VOTE_SELECTOR[SELECTOR_SIZE] = {0x6d, 0xd7, 0x
 
 static const uint8_t STAKEKIT_VIC_RESIGN_SELECTOR[SELECTOR_SIZE] = {0xae, 0x6e, 0x43, 0xf5};
 static const uint8_t STAKEKIT_VIC_UNVOTE_SELECTOR[SELECTOR_SIZE] = {0x02, 0xaa, 0x9b, 0xe2};
+static const uint8_t STAKEKIT_VIC_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0x44, 0x1a, 0x3e, 0x70};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -159,6 +160,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_VIC_VOTE_SELECTOR,
     STAKEKIT_VIC_RESIGN_SELECTOR,
     STAKEKIT_VIC_UNVOTE_SELECTOR,
+    STAKEKIT_VIC_WITHDRAW_SELECTOR,
 };
 
 // Null address

@@ -230,6 +230,12 @@ void handle_finalize(void *parameters) {
                 strlcpy(context->ticker_sent, VIC_TICKER, sizeof(context->ticker_sent));
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
+            case VIC_WITHDRAW:
+                msg->numScreens = 2;
+                context->decimals_sent = 0;
+                context->decimals_received = 0;
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
             default:
                 msg->numScreens = 1;
                 msg->result = ETH_PLUGIN_RESULT_OK;

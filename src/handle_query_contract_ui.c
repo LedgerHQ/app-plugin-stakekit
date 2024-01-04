@@ -42,6 +42,7 @@ static void set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             break;
         case AVALANCHE_REDEEM_2:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
+        case VIC_WITHDRAW:
             strlcpy(msg->title, "Index", msg->titleLength);
             break;
         case ANGLE_WITHDRAW:
@@ -131,6 +132,9 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
             break;
         case LIDO_CLAIM_WITHDRAWALS:
             strlcpy(msg->title, "Hint", msg->titleLength);
+            break;
+        case VIC_WITHDRAW:
+            strlcpy(msg->title, "Block Number", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -593,6 +597,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case AAVE_SUPPLY:
             return get_screen_supply(msg, context);
         case SWAP_FROM:
+        case VIC_WITHDRAW:
             return get_screen_amount_sent_receive(msg, context);
         case STAKE:
             return get_screen_value_sent(msg, context);
