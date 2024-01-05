@@ -52,9 +52,11 @@ void handle_init_contract(void *parameters) {
         case YEARN_VAULT_DEPOSIT_3:
         case YEARN_VAULT_WITHDRAW_2:
         case YEARN_VAULT_WITHDRAW_3:
+        case ANGLE_WITHDRAW:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:
+        case VIC_WITHDRAW:
             context->next_param = AMOUNT_RECEIVED;
             break;
         case CLAIM_SELF_APECOIN:
@@ -67,6 +69,8 @@ void handle_init_contract(void *parameters) {
         case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
         case YEARN_VAULT_DEPOSIT_1:
         case YEARN_VAULT_WITHDRAW_1:
+        case VIC_VOTE:
+        case VIC_RESIGN:
             context->next_param = NONE;
             break;
         case SUBMIT_ETH_LIDO:
@@ -77,6 +81,7 @@ void handle_init_contract(void *parameters) {
         case COMET_CLAIM:
         case VOTE:
         case REVOKE_ACTIVE:
+        case VIC_UNVOTE:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:
@@ -99,6 +104,16 @@ void handle_init_contract(void *parameters) {
             break;
         case UNSTAKE_CLAIM_TOKENS_NEW:
             context->next_param = UNBOUND_NONCE;
+            break;
+        case LIDO_REQUEST_WITHDRAWALS:
+            // Skipping the _amounts parameter offset (constant)
+            context->skip = 1;
+            context->next_param = RECIPIENT;
+            break;
+        case LIDO_CLAIM_WITHDRAWALS:
+            // Skipping the _requestIds parameter offset (constant)
+            context->skip = 1;
+            context->next_param = SAVE_OFFSET;
             break;
         default:
             PRINTF("Missing selectorIndex\n");

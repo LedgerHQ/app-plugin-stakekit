@@ -89,6 +89,20 @@ static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR[SELECTOR_SIZE] = {
                                                                                 0xf7,
                                                                                 0x14,
                                                                                 0xce};
+static const uint8_t STAKEKIT_ANGLE_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xb4, 0x60, 0xaf, 0x94};
+static const uint8_t STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {0xd6,
+                                                                                  0x68,
+                                                                                  0x10,
+                                                                                  0x42};
+static const uint8_t STAKEKIT_LIDO_CLAIM_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {0xe3,
+                                                                                0xaf,
+                                                                                0xe0,
+                                                                                0xa3};
+static const uint8_t STAKEKIT_VIC_VOTE_SELECTOR[SELECTOR_SIZE] = {0x6d, 0xd7, 0xd8, 0xea};
+
+static const uint8_t STAKEKIT_VIC_RESIGN_SELECTOR[SELECTOR_SIZE] = {0xae, 0x6e, 0x43, 0xf5};
+static const uint8_t STAKEKIT_VIC_UNVOTE_SELECTOR[SELECTOR_SIZE] = {0x02, 0xaa, 0x9b, 0xe2};
+static const uint8_t STAKEKIT_VIC_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0x44, 0x1a, 0x3e, 0x70};
 
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
@@ -140,6 +154,13 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_YEARN_VAULT_WITHDRAW_1_SELECTOR,
     STAKEKIT_YEARN_VAULT_WITHDRAW_2_SELECTOR,
     STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR,
+    STAKEKIT_ANGLE_WITHDRAW_SELECTOR,
+    STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR,
+    STAKEKIT_LIDO_CLAIM_WITHDRAWALS_SELECTOR,
+    STAKEKIT_VIC_VOTE_SELECTOR,
+    STAKEKIT_VIC_RESIGN_SELECTOR,
+    STAKEKIT_VIC_UNVOTE_SELECTOR,
+    STAKEKIT_VIC_WITHDRAW_SELECTOR,
 };
 
 // Null address
@@ -1749,5 +1770,15 @@ const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMAR
       0x89, 0x4c, 0x99, 0xbe, 0x8c, 0x83, 0x22, 0x27, 0xa8, 0xbc},
      "3poolV2-f",
      "yvCurve-MIM",
+     18},
+    {{0x00, 0x46, 0x26, 0xA0, 0x08, 0xB1, 0xaC, 0xdC, 0x4c, 0x74,
+      0xab, 0x51, 0x64, 0x40, 0x93, 0xb1, 0x55, 0xe5, 0x9A, 0x23},
+     "stEUR",
+     "stEUR",
+     18},
+    {{0x88, 0x9e, 0xdC, 0x2e, 0xDa, 0xb5, 0xf4, 0x0e, 0x90, 0x2b,
+      0x86, 0x4a, 0xD4, 0xd7, 0xAd, 0xE8, 0xE4, 0x12, 0xF9, 0xB1},
+     "unstETH",
+     "unstETH",
      18},
 };

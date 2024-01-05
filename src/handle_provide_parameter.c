@@ -1,5 +1,15 @@
 #include "stakekit_plugin.h"
 
+// Add two hex numbers and save the result in the first number.
+static void hex_addition(uint8_t a[INT256_LENGTH], const uint8_t b[INT256_LENGTH]) {
+    uint16_t carry = 0;
+    for (int i = INT256_LENGTH - 1; i >= 0; i--) {
+        uint16_t sum = a[i] + b[i] + carry;
+        a[i] = (uint8_t) (sum & 0xFF);  // Keep only the lower 8 bits
+        carry = (sum > 0xFF) ? 1 : 0;   // Update carry for the next iteration
+    }
+}
+
 // Save two amounts in the context.
 // The first amount is the amount received saved in amount_received.
 // The second amount is the amount sent saved in amount_sent.
@@ -32,6 +42,32 @@ static void handle_amount_recipient(ethPluginProvideParameter_t *msg,
         case RECIPIENT:
             copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
             break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+// Save 1 amount and 2 addresses in the context.
+// The amount_sent param is the asset amount saved in amount_sent.
+// The recipient param is the recipient saved in recipient.
+// The recipient_2 param is the owner saved in contract_address.
+static void handle_angle_withdraw(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->next_param = RECIPIENT;
+            break;
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = RECIPIENT_2;
+            break;
+        case RECIPIENT_2:
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
         default:
             PRINTF("Param not supported\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -250,6 +286,117 @@ static void handle_aave_supply(ethPluginProvideParameter_t *msg, plugin_paramete
     }
 }
 
+static void handle_lido_request_withdrawal(ethPluginProvideParameter_t *msg,
+                                           plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT:
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = ARRAY_LENGTH;
+            break;
+        case ARRAY_LENGTH:
+            // Storing the number of elements in _amounts[] in nb_requests and unbound_nonce.
+            if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
+                msg->result = ETH_PLUGIN_RESULT_ERROR;
+                break;
+            }
+            context->nb_requests = context->unbound_nonce;
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->unbound_nonce--;
+            if (context->unbound_nonce >= 1) {
+                context->next_param = ADD_AMOUNT;
+            } else {
+                context->next_param = NONE;
+            }
+            break;
+        // saves the following amounts in amount received and add it to the amount sent
+        case ADD_AMOUNT:
+            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+            hex_addition(context->amount_sent, context->amount_received);
+            context->unbound_nonce--;
+            if (context->unbound_nonce >= 1) {
+                context->next_param = ADD_AMOUNT;
+            } else {
+                context->next_param = NONE;
+            }
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+static void handle_lido_claim_withdrawal(ethPluginProvideParameter_t *msg,
+                                         plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case SAVE_OFFSET:
+            // Storing the offset of the _hints[] array in unbound_nonce.
+            if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
+                msg->result = ETH_PLUGIN_RESULT_ERROR;
+                break;
+            }
+            context->next_param = ARRAY_LENGTH;
+            break;
+        case ARRAY_LENGTH:
+            // Storing the number of elements in _hints[] array in nb_requests.
+            context->nb_requests = msg->parameter[PARAMETER_LENGTH - sizeof(uint8_t)];
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            // Saving the first requestId in amount_sent.
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            // If there are more than 1 requestId, we need to parse the next one. (max 2)
+            if (context->nb_requests >= 2) {
+                context->next_param = AMOUNT_SENT_2;
+            } else {
+                // Else go to _hints[] array.
+                context->next_param = SKIP;
+                context->offset = context->unbound_nonce;
+            }
+            break;
+        case AMOUNT_SENT_2:
+            // Saving the second requestId in contract_address.
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            // Go to _hints[] array.
+            context->next_param = SKIP;
+            context->offset = context->unbound_nonce;
+            break;
+        case SKIP:
+            // Skipping the number of elements in _hints[] array
+            // The tx is reverted if _requestIds[] length is not the same as _hints[] length.
+            context->next_param = AMOUNT_RECEIVED;
+            break;
+        case AMOUNT_RECEIVED:
+            // Saving the first hint in amount_received.
+            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
+            // If there are more than 1 hint, we need to parse the next one. (max 2)
+            if (context->nb_requests >= 2) {
+                context->next_param = AMOUNT_RECEIVED_2;
+            } else {
+                // Else go to NONE.
+                context->next_param = NONE;
+            }
+            break;
+        case AMOUNT_RECEIVED_2:
+            // Saving the second hint in recipient.
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            // Ignore the next hints
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 void handle_provide_parameter(void *parameters) {
     ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
@@ -266,6 +413,11 @@ void handle_provide_parameter(void *parameters) {
         // Skip this step and decrease skipping counter.
         context->skip--;
     } else {
+        if ((context->offset) && msg->parameterOffset != context->offset + SELECTOR_SIZE) {
+            PRINTF("offset: %d, parameterOffset: %d\n", context->offset, msg->parameterOffset);
+            return;
+        }
+        context->offset = 0;
         switch (context->selectorIndex) {
             case DEPOSIT_SELF_APECOIN:
             case CLAIM_TOKENS:
@@ -327,6 +479,7 @@ void handle_provide_parameter(void *parameters) {
                 handle_amount_recipient(msg, context);
                 break;
             case SWAP_FROM:
+            case VIC_WITHDRAW:
                 handle_swap_from(msg, context);
                 break;
             case MORPHO_SUPPLY_1:
@@ -348,6 +501,7 @@ void handle_provide_parameter(void *parameters) {
             case PARASPACE_DEPOSIT:
             case GRT_DELEGATE:
             case GRT_UNDELEGATE:
+            case VIC_UNVOTE:
                 handle_recipient_amount_sent(msg, context);
                 break;
             case COMET_CLAIM:
@@ -359,6 +513,20 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case AAVE_SUPPLY:
                 handle_aave_supply(msg, context);
+                break;
+            case ANGLE_WITHDRAW:
+                handle_angle_withdraw(msg, context);
+                break;
+            case LIDO_REQUEST_WITHDRAWALS:
+                handle_lido_request_withdrawal(msg, context);
+                break;
+            case LIDO_CLAIM_WITHDRAWALS:
+                handle_lido_claim_withdrawal(msg, context);
+                break;
+            case VIC_VOTE:
+            case VIC_RESIGN:
+                // Only save the recipient to the context.
+                copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 break;
             default:
                 PRINTF("Selector Index %d not supported\n", context->selectorIndex);

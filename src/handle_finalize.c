@@ -188,15 +188,53 @@ void handle_finalize(void *parameters) {
             case PARASPACE_WITHDRAW:
             case YEARN_VAULT_WITHDRAW_2:
             case YEARN_VAULT_WITHDRAW_3:
+            case ANGLE_WITHDRAW:
                 msg->numScreens = 1;
                 if (context->selectorIndex == YEARN_VAULT_WITHDRAW_3) {
                     msg->numScreens++;
+                }
+                if (context->selectorIndex == ANGLE_WITHDRAW) {
+                    msg->numScreens += 2;
                 }
                 if (set_ticker_withdraw_for_mapped_token(context, msg)) {
                     msg->result = ETH_PLUGIN_RESULT_OK;
                 } else {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
                 }
+                break;
+            case LIDO_REQUEST_WITHDRAWALS:
+                msg->numScreens = 2;
+                if (set_ticker_withdraw_for_mapped_token(context, msg)) {
+                    msg->result = ETH_PLUGIN_RESULT_OK;
+                } else {
+                    msg->result = ETH_PLUGIN_RESULT_ERROR;
+                }
+                break;
+            case LIDO_CLAIM_WITHDRAWALS:
+                msg->numScreens = 2;
+                if (context->nb_requests >= 2) {
+                    msg->numScreens += 2;
+                }
+                context->decimals_sent = 0;
+                context->decimals_received = 0;
+                // No ticker to display
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case VIC_VOTE:
+            case VIC_RESIGN:
+                msg->numScreens = 1;
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case VIC_UNVOTE:
+                msg->numScreens = 2;
+                strlcpy(context->ticker_sent, VIC_TICKER, sizeof(context->ticker_sent));
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case VIC_WITHDRAW:
+                msg->numScreens = 2;
+                context->decimals_sent = 0;
+                context->decimals_received = 0;
+                msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             default:
                 msg->numScreens = 1;

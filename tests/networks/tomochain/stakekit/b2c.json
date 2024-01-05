@@ -1,0 +1,32 @@
+{
+    "chainId": 88,
+    "contracts": [
+        {
+            "address": "0x0000000000000000000000000000000000000088",
+            "contractName": "TomoValidator",
+            "selectors": {
+                "0x6dd7d8ea": {
+                    "erc20OfInterest": [],
+                    "method": "vote",
+                    "plugin": "StakeKit"
+                },
+                "0xae6e43f5": {
+                    "erc20OfInterest": [],
+                    "method": "resign",
+                    "plugin": "StakeKit"
+                },
+                "0x02aa9be2": {
+                    "erc20OfInterest": [],
+                    "method": "unvote",
+                    "plugin": "StakeKit"
+                },
+                "0x441a3e70": {
+                    "erc20OfInterest": [],
+                    "method": "withdraw",
+                    "plugin": "StakeKit"
+                }
+            }
+        }
+    ],
+    "name": "StakeKit"
+}
