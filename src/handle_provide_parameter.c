@@ -1,12 +1,13 @@
 #include "stakekit_plugin.h"
 
-// Add two hex numbers and save the result in the first number.
+// Adds two 256-bit numbers represented as arrays of uint8_t, 'a' and 'b'.
+// The result of the addition is stored in 'a'.
 static void hex_addition(uint8_t a[INT256_LENGTH], const uint8_t b[INT256_LENGTH]) {
     uint16_t carry = 0;
     for (int i = INT256_LENGTH - 1; i >= 0; i--) {
         uint16_t sum = a[i] + b[i] + carry;
-        a[i] = (uint8_t) (sum & 0xFF);  // Keep only the lower 8 bits
-        carry = (sum > 0xFF) ? 1 : 0;   // Update carry for the next iteration
+        a[i] = (uint8_t)(sum & 0xFF);  // Keep only the lower 8 bits
+        carry = (sum > 0xFF) ? 1 : 0;  // Update carry for the next iteration
     }
 }
 
@@ -286,6 +287,12 @@ static void handle_aave_supply(ethPluginProvideParameter_t *msg, plugin_paramete
     }
 }
 
+// Saves the sum of multiple amounts and 1 recipient in the context.
+// The first param is the owner saved in recipient.
+// The second param is the number of amounts in the amounts[] array
+// The third param is the first amount requested saved in amount_sent.
+// The fourth param is for all the following amounts in the amounts[] array, each time added to
+// amount_sent.
 static void handle_lido_request_withdrawal(ethPluginProvideParameter_t *msg,
                                            plugin_parameters_t *context) {
     switch (context->next_param) {
@@ -331,6 +338,13 @@ static void handle_lido_request_withdrawal(ethPluginProvideParameter_t *msg,
     }
 }
 
+// Saves between 1 and 2 requestIds and hint pairs in the context.
+// The first param is the offset of the _hints[] array saved temporarly in unbound_nonce.
+// The second param is the number of elements in _hints[] array saved in nb_requests.
+// The third param is the first requestId saved in amount_sent.
+// The fourth param is the second requestId saved in contract_address (if any)
+// The fifth param is the first hint saved in amount_received.
+// The sixth param is the second hint saved in recipient (if any)
 static void handle_lido_claim_withdrawal(ethPluginProvideParameter_t *msg,
                                          plugin_parameters_t *context) {
     switch (context->next_param) {
