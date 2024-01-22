@@ -6,8 +6,8 @@ static void hex_addition(uint8_t a[INT256_LENGTH], const uint8_t b[INT256_LENGTH
     uint16_t carry = 0;
     for (int i = INT256_LENGTH - 1; i >= 0; i--) {
         uint16_t sum = a[i] + b[i] + carry;
-        a[i] = (uint8_t)(sum & 0xFF);  // Keep only the lower 8 bits
-        carry = (sum > 0xFF) ? 1 : 0;  // Update carry for the next iteration
+        a[i] = (uint8_t) (sum & 0xFF);  // Keep only the lower 8 bits
+        carry = (sum > 0xFF) ? 1 : 0;   // Update carry for the next iteration
     }
 }
 
