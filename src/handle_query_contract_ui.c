@@ -99,6 +99,8 @@ static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
     PRINTF("AMOUNT SENT: %s\n", msg->msg);
 }
 
+// Set UI for "Send 2" screen.
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_send_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case LIDO_CLAIM_WITHDRAWALS:
@@ -152,6 +154,8 @@ static void set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
     PRINTF("AMOUNT RECEIVED: %s\n", msg->msg);
 }
 
+// Set UI for "Receive 2" screen.
+// Each methods sets the title and the message to be displayed on the screen.
 static void set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case LIDO_CLAIM_WITHDRAWALS:
@@ -521,6 +525,7 @@ static screens_t get_screen_unstake_claim(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the Angle Protocol Withdraw method.
 static screens_t get_screen_angle_withdraw(ethQueryContractUI_t *msg,
                                            plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
@@ -535,6 +540,7 @@ static screens_t get_screen_angle_withdraw(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the Lido ClaimWithdrawals method.
 static screens_t get_screen_lido_claim_withdrawal(ethQueryContractUI_t *msg,
                                                   plugin_parameters_t *context
                                                   __attribute__((unused))) {
