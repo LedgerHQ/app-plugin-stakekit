@@ -1,7 +1,8 @@
 #pragma once
 
 #include <string.h>
-#include "eth_internals.h"
+#include "common_utils.h"
+
 #include "eth_plugin_interface.h"
 
 #define PLUGIN_NAME "StakeKit"
@@ -194,13 +195,6 @@ typedef struct plugin_parameters_t {
 // Piece of code that will check that the above structure is not bigger than 5 * 32.
 // Do not remove this check.
 _Static_assert(sizeof(plugin_parameters_t) <= (5 * 32), "Structure of parameters too big.");
-
-void handle_provide_parameter(void *parameters);
-void handle_query_contract_ui(void *parameters);
-void handle_finalize(void *parameters);
-void handle_init_contract(void *parameters);
-void handle_provide_token(void *parameters);
-void handle_query_contract_id(void *parameters);
 
 static inline void printf_hex_array(const char *title __attribute__((unused)),
                                     size_t len __attribute__((unused)),
