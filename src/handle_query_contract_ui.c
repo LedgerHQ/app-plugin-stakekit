@@ -190,7 +190,6 @@ static void print_address(ethQueryContractUI_t *msg, uint8_t *address) {
     getEthAddressStringFromBinary(
         address,
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
-        msg->pluginSharedRW->sha3,
         chainid);
 }
 
