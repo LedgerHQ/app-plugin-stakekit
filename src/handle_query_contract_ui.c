@@ -178,7 +178,7 @@ static void set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
 // Utility function to print an address to the UI.
 static void print_address(ethQueryContractUI_t *msg, uint8_t *address) {
     if (msg == NULL || msg->msgLength <= MIN_MSG_LENGTH) {
-        return false;
+        return;
     }
     // Prefix the address with `0x`.
     msg->msg[0] = '0';
