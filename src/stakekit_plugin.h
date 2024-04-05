@@ -25,6 +25,8 @@ extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORT
 
 #define CHAIN_ID_LENGTH 1
 
+#define MIN_MSG_LENGTH 42
+
 extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];
 
 // Returns 1 if corresponding address is the address for the chain token (ETH, BNB, MATIC,...)

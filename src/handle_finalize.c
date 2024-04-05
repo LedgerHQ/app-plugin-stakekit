@@ -7,18 +7,20 @@
 static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
                                                 ethPluginFinalize_t *msg) {
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
-        if (!memcmp(msg->pluginSharedRO->txContent->destination,
-                    STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
-                    ADDRESS_LENGTH)) {
-            char ticker[TICKER_LEN];
-            strlcpy(ticker,
-                    (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_deposit,
-                    sizeof(ticker));
-            strlcat(ticker, " ", sizeof(ticker));
-            strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
-            context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
-            context->tokens_found |= TOKEN_SENT_FOUND;
-            return true;
+        if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
+            if (!memcmp(msg->pluginSharedRO->txContent->destination,
+                        STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
+                        ADDRESS_LENGTH)) {
+                char ticker[TICKER_LEN];
+                strlcpy(ticker,
+                        (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_deposit,
+                        sizeof(ticker));
+                strlcat(ticker, " ", sizeof(ticker));
+                strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
+                context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
+                context->tokens_found |= TOKEN_SENT_FOUND;
+                return true;
+            }
         }
     }
     return false;
@@ -30,18 +32,20 @@ static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
 static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
                                                  ethPluginFinalize_t *msg) {
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
-        if (!memcmp(msg->pluginSharedRO->txContent->destination,
-                    STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
-                    ADDRESS_LENGTH)) {
-            char ticker[TICKER_LEN];
-            strlcpy(ticker,
-                    (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_withdraw,
-                    sizeof(ticker));
-            strlcat(ticker, " ", sizeof(ticker));
-            strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
-            context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
-            context->tokens_found |= TOKEN_SENT_FOUND;
-            return true;
+        if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
+            if (!memcmp(msg->pluginSharedRO->txContent->destination,
+                        STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
+                        ADDRESS_LENGTH)) {
+                char ticker[TICKER_LEN];
+                strlcpy(ticker,
+                        (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_withdraw,
+                        sizeof(ticker));
+                strlcat(ticker, " ", sizeof(ticker));
+                strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
+                context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
+                context->tokens_found |= TOKEN_SENT_FOUND;
+                return true;
+            }
         }
     }
     return false;
