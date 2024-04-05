@@ -51,7 +51,7 @@ static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
     return false;
 }
 
-void handle_finalize(ethPluginFinalize_t *msg) {
+void handle_finalize(void *parameters) {
     ethPluginFinalize_t *msg = (ethPluginFinalize_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
 
