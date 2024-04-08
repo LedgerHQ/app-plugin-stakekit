@@ -89,11 +89,11 @@ static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
             return;
     }
 
-    if(msg->pluginSharedRO == NULL) {
+    if (msg->pluginSharedRO == NULL) {
         PRINTF("Error: msg->pluginSharedRO is NULL\n");
         return;
     }
-    if(msg->pluginSharedRO->txContent == NULL) {
+    if (msg->pluginSharedRO->txContent == NULL) {
         PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
         return;
     }
@@ -320,11 +320,11 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
             return;
     }
 
-    if(msg->pluginSharedRO == NULL) {
+    if (msg->pluginSharedRO == NULL) {
         PRINTF("Error: msg->pluginSharedRO is NULL\n");
         return;
     }
-    if(msg->pluginSharedRO->txContent == NULL) {
+    if (msg->pluginSharedRO->txContent == NULL) {
         PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
         return;
     }
