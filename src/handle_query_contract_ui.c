@@ -89,6 +89,15 @@ static void set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
             return;
     }
 
+    if (msg->pluginSharedRO == NULL) {
+        PRINTF("Error: msg->pluginSharedRO is NULL\n");
+        return;
+    }
+    if (msg->pluginSharedRO->txContent == NULL) {
+        PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
+        return;
+    }
+
     // Convert to string.
     amountToString(msg->pluginSharedRO->txContent->value.value,
                    msg->pluginSharedRO->txContent->value.length,
@@ -309,6 +318,15 @@ static void set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
             return;
+    }
+
+    if (msg->pluginSharedRO == NULL) {
+        PRINTF("Error: msg->pluginSharedRO is NULL\n");
+        return;
+    }
+    if (msg->pluginSharedRO->txContent == NULL) {
+        PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
+        return;
     }
 
     print_address(msg, msg->pluginSharedRO->txContent->destination);
