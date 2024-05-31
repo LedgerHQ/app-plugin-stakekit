@@ -1,4 +1,5 @@
 #include "stakekit_plugin.h"
+#include "utils.h"
 
 // Called once to init.
 void handle_init_contract(void *parameters) {
