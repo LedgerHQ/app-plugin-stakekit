@@ -697,10 +697,10 @@ void handle_query_contract_ui(ethQueryContractUI_t *msg) {
             ret = set_unbound_nonce_ui(msg, context);
             break;
         case SEND_2_SCREEN:
-            set_send_2_ui(msg, context);
+            ret = set_send_2_ui(msg, context);
             break;
         case RECEIVE_2_SCREEN:
-            set_receive_2_ui(msg, context);
+            ret = set_receive_2_ui(msg, context);
             break;
         case WARN_SCREEN:
             ret = set_warning_ui(msg, context);
