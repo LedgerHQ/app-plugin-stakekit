@@ -21,6 +21,6 @@ APPNAME = "StakeKit"
 # Application version
 APPVERSION_M = 1
 APPVERSION_N = 2
-APPVERSION_P = 1
+APPVERSION_P = 2
 
 include ethereum-plugin-sdk/standard_plugin.mk
