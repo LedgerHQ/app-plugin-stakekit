@@ -93,11 +93,11 @@ static bool set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
 
     if (msg->pluginSharedRO == NULL) {
         PRINTF("Error: msg->pluginSharedRO is NULL\n");
-        return;
+        return false;
     }
     if (msg->pluginSharedRO->txContent == NULL) {
         PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
-        return;
+        return false;
     }
 
     // Convert to string.
@@ -194,7 +194,7 @@ static void set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
 // Utility function to print an address to the UI.
 static bool print_address(ethQueryContractUI_t *msg, uint8_t *address) {
     if (msg == NULL || msg->msgLength <= MIN_MSG_LENGTH) {
-        return;
+        return false;
     }
     // Prefix the address with `0x`.
     msg->msg[0] = '0';
@@ -325,14 +325,15 @@ static bool set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
 
     if (msg->pluginSharedRO == NULL) {
         PRINTF("Error: msg->pluginSharedRO is NULL\n");
-        return;
+        return false;
     }
     if (msg->pluginSharedRO->txContent == NULL) {
         PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
-        return;
+        return false;
     }
 
     return print_address(msg, msg->pluginSharedRO->txContent->destination);
+}
 
 // Set UI for unbound nonce boolean screen.
 // Each methods sets the title and the message to be displayed on the screen.
