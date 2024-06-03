@@ -115,7 +115,7 @@ static bool set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
 
 // Set UI for "Send 2" screen.
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_send_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_send_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case LIDO_CLAIM_WITHDRAWALS:
             strlcpy(msg->title, "Request ID", msg->titleLength);
@@ -123,7 +123,7 @@ static void set_send_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *contex
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
     amountToString(context->contract_address,  // Location of the 2nd request ID.
@@ -132,6 +132,7 @@ static void set_send_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *contex
                    context->ticker_sent,
                    msg->msg,
                    msg->msgLength);
+    return true;
 }
 
 // Set UI for "Receive" screen.
@@ -172,7 +173,7 @@ static bool set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
 
 // Set UI for "Receive 2" screen.
 // Each methods sets the title and the message to be displayed on the screen.
-static void set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+static bool set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case LIDO_CLAIM_WITHDRAWALS:
             strlcpy(msg->title, "Hint", msg->titleLength);
@@ -180,7 +181,7 @@ static void set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
+            return false;
     }
 
     amountToString(context->recipient,  // Location of the 2nd hint.
@@ -189,6 +190,7 @@ static void set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
                    context->ticker_sent,
                    msg->msg,
                    msg->msgLength);
+    return true;
 }
 
 // Utility function to print an address to the UI.
