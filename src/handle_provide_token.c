@@ -10,7 +10,8 @@ static void network_token(plugin_parameters_t *context) {
     }
 }
 
-void handle_provide_token(ethPluginProvideInfo_t *msg) {
+void handle_provide_token(void *parameters) {
+    ethPluginProvideInfo_t *msg = (ethPluginProvideInfo_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
     PRINTF("Plugin provide tokens : 0x%p, 0x%p\n", msg->item1, msg->item2);
 

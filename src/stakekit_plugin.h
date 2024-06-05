@@ -1,19 +1,20 @@
 #pragma once
 
 #include <string.h>
-#include "eth_internals.h"
+#include "common_utils.h"
+
 #include "eth_plugin_interface.h"
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 48u
+#define NUM_STAKEKIT_SELECTORS 55u
 
 #define TICKER_LEN 30u
 
 #define TOKEN_SENT_FOUND     1u
 #define TOKEN_RECEIVED_FOUND 1u << 1u
 
-#define NUM_SUPPORTED_SMART_CONTRACT 320u
+#define NUM_SUPPORTED_SMART_CONTRACT 105u
 typedef struct tokenSymbolAndDecimals_t {
     uint8_t smart_contract[ADDRESS_LENGTH];
     char token_symbol_deposit[TICKER_LEN];
@@ -23,6 +24,8 @@ typedef struct tokenSymbolAndDecimals_t {
 extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMART_CONTRACT];
 
 #define CHAIN_ID_LENGTH 1
+
+#define MIN_MSG_LENGTH 42
 
 extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];
 
@@ -81,6 +84,13 @@ typedef enum {
     YEARN_VAULT_WITHDRAW_1,
     YEARN_VAULT_WITHDRAW_2,
     YEARN_VAULT_WITHDRAW_3,
+    ANGLE_WITHDRAW,
+    LIDO_REQUEST_WITHDRAWALS,
+    LIDO_CLAIM_WITHDRAWALS,
+    VIC_VOTE,
+    VIC_RESIGN,
+    VIC_UNVOTE,
+    VIC_WITHDRAW,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -95,18 +105,27 @@ typedef enum {
     SMART_CONTRACT_SCREEN,
     UNBOUND_NONCE_SCREEN,
     WARN_SCREEN,
+    SEND_2_SCREEN,
+    RECEIVE_2_SCREEN,
     ERROR,
 } screens_t;
 
-#define AMOUNT_SENT     0  // Amount sent by the user to the contract.
-#define AMOUNT_RECEIVED 1  // Amount received by the contract to the user.
-#define TOKEN_SENT      2  // Token sent by the contract to the user.
-#define TOKEN_RECEIVED  3  // Token received by the contract to the user.
-#define RECIPIENT       4  // Recipient address receiving the funds.
-#define RECIPIENT_2     5  // Recipient address receiving the funds.
-#define RECIPIENT_3     6  // Recipient address receiving the funds.
-#define UNBOUND_NONCE   7  // Unbond nonce.
-#define NONE            8  // Placeholder variant to be set when parsing is done.
+#define AMOUNT_SENT       0   // Amount sent by the user to the contract.
+#define AMOUNT_SENT_2     1   // Second amount sent by the user to the contract.
+#define AMOUNT_RECEIVED   2   // Amount received by the contract to the user.
+#define AMOUNT_RECEIVED_2 3   // Second amount received by the contract to the user.
+#define TOKEN_SENT        4   // Token sent by the contract to the user.
+#define TOKEN_RECEIVED    5   // Token received by the contract to the user.
+#define RECIPIENT         6   // Recipient address receiving the funds.
+#define RECIPIENT_2       7   // Recipient address receiving the funds.
+#define RECIPIENT_3       8   // Recipient address receiving the funds.
+#define UNBOUND_NONCE     9   // Unbond nonce.
+#define ARRAY_LENGTH      10  // Length of the array parameter.
+#define ARRAY_LENGTH_2    11  // Length of the array parameter.
+#define ADD_AMOUNT        12  // Amount to add to the current amount.
+#define SAVE_OFFSET       13  // Offset of the array parameter.
+#define SKIP              14  // To use when skipping a parameter after an offset skip.
+#define NONE              15  // Placeholder variant to be set when parsing is done.
 
 // Number of decimals used when the token wasn't found in the CAL.
 #define DEFAULT_DECIMAL WEI_TO_ETHER
@@ -147,6 +166,9 @@ typedef enum {
 // Ticker used for Staked AVAX.
 #define STAKED_AVAX_TICKER "sAVAX"
 
+// Ticker used for Viction native token.
+#define VIC_TICKER "VIC"
+
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 typedef struct plugin_parameters_t {
     uint8_t amount_sent[INT256_LENGTH];
@@ -156,6 +178,7 @@ typedef struct plugin_parameters_t {
     char ticker_sent[TICKER_LEN];
     char ticker_received[MAX_TICKER_LEN];
 
+    uint16_t offset;
     uint16_t unbound_nonce;
     uint8_t next_param;
     uint8_t tokens_found;
@@ -164,11 +187,12 @@ typedef struct plugin_parameters_t {
     uint8_t decimals_received;
     uint8_t selectorIndex;
     uint8_t skip;
+    uint8_t nb_requests;
     bool is_token_sent;
 } plugin_parameters_t;
 // 32*2 + 2*20 + 11*1 + 30*1 = 145
-// 1*8 + 1*2 = 10
-// 10+145 = 155
+// 1*9 + 2*2 = 13
+// 13+145 = 158
 
 // Piece of code that will check that the above structure is not bigger than 5 * 32.
 // Do not remove this check.

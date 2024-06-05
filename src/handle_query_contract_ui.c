@@ -43,7 +43,24 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             break;
         case AVALANCHE_REDEEM_2:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
+        case VIC_WITHDRAW:
             strlcpy(msg->title, "Index", msg->titleLength);
+            break;
+        case ANGLE_WITHDRAW:
+            strlcpy(msg->title, "Assets", msg->titleLength);
+            break;
+        case LIDO_REQUEST_WITHDRAWALS:
+            if (context->nb_requests >= 2) {
+                strlcpy(msg->title, "Total Amounts", msg->titleLength);
+            } else {
+                strlcpy(msg->title, "Amount", msg->titleLength);
+            }
+            break;
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->title, "Request ID", msg->titleLength);
+            break;
+        case VIC_UNVOTE:
+            strlcpy(msg->title, "Cap", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -74,6 +91,15 @@ static bool set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
             return false;
     }
 
+    if (msg->pluginSharedRO == NULL) {
+        PRINTF("Error: msg->pluginSharedRO is NULL\n");
+        return false;
+    }
+    if (msg->pluginSharedRO->txContent == NULL) {
+        PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
+        return false;
+    }
+
     // Convert to string.
     if (!amountToString(msg->pluginSharedRO->txContent->value.value,
                         msg->pluginSharedRO->txContent->value.length,
@@ -84,6 +110,28 @@ static bool set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
         return false;
     }
     PRINTF("AMOUNT SENT: %s\n", msg->msg);
+    return true;
+}
+
+// Set UI for "Send 2" screen.
+// Each methods sets the title and the message to be displayed on the screen.
+static bool set_send_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->title, "Request ID", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return false;
+    }
+
+    amountToString(context->contract_address,  // Location of the 2nd request ID.
+                   ADDRESS_LENGTH,
+                   context->decimals_sent,
+                   context->ticker_sent,
+                   msg->msg,
+                   msg->msgLength);
     return true;
 }
 
@@ -98,6 +146,12 @@ static bool set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
         case MORPHO_WITHDRAW_2:
         case COMET_WITHDRAW:
             strlcpy(msg->title, "Receive", msg->titleLength);
+            break;
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->title, "Hint", msg->titleLength);
+            break;
+        case VIC_WITHDRAW:
+            strlcpy(msg->title, "Block Number", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -117,8 +171,33 @@ static bool set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
     return true;
 }
 
+// Set UI for "Receive 2" screen.
+// Each methods sets the title and the message to be displayed on the screen.
+static bool set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
+    switch (context->selectorIndex) {
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->title, "Hint", msg->titleLength);
+            break;
+        default:
+            PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            return false;
+    }
+
+    amountToString(context->recipient,  // Location of the 2nd hint.
+                   ADDRESS_LENGTH,
+                   context->decimals_sent,
+                   context->ticker_sent,
+                   msg->msg,
+                   msg->msgLength);
+    return true;
+}
+
 // Utility function to print an address to the UI.
 static bool print_address(ethQueryContractUI_t *msg, uint8_t *address) {
+    if (msg == NULL || msg->msgLength <= MIN_MSG_LENGTH) {
+        return false;
+    }
     // Prefix the address with `0x`.
     msg->msg[0] = '0';
     msg->msg[1] = 'x';
@@ -132,7 +211,6 @@ static bool print_address(ethQueryContractUI_t *msg, uint8_t *address) {
     return getEthAddressStringFromBinary(
         address,
         msg->msg + 2,  // +2 here because we've already prefixed with '0x'.
-        msg->pluginSharedRW->sha3,
         chainid);
 }
 
@@ -149,6 +227,7 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case AAVE_SUPPLY:
         case YEARN_VAULT_DEPOSIT_3:
         case YEARN_VAULT_WITHDRAW_3:
+        case ANGLE_WITHDRAW:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -166,11 +245,17 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             strlcpy(msg->title, "From", msg->titleLength);
             break;
         case COMET_CLAIM:
+        case LIDO_REQUEST_WITHDRAWALS:
             strlcpy(msg->title, "Owner", msg->titleLength);
             break;
         case VOTE:
         case REVOKE_ACTIVE:
             strlcpy(msg->title, "Validator Group", msg->titleLength);
+            break;
+        case VIC_VOTE:
+        case VIC_RESIGN:
+        case VIC_UNVOTE:
+            strlcpy(msg->title, "Candidate", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -191,6 +276,9 @@ static bool set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
         case VOTE:
         case REVOKE_ACTIVE:
             strlcpy(msg->title, "Lesser Group", msg->titleLength);
+            break;
+        case ANGLE_WITHDRAW:
+            strlcpy(msg->title, "Owner", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -235,6 +323,15 @@ static bool set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             return false;
+    }
+
+    if (msg->pluginSharedRO == NULL) {
+        PRINTF("Error: msg->pluginSharedRO is NULL\n");
+        return false;
+    }
+    if (msg->pluginSharedRO->txContent == NULL) {
+        PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
+        return false;
     }
 
     return print_address(msg, msg->pluginSharedRO->txContent->destination);
@@ -454,6 +551,39 @@ static screens_t get_screen_unstake_claim(ethQueryContractUI_t *msg,
     }
 }
 
+// Set UI for the Angle Protocol Withdraw method.
+static screens_t get_screen_angle_withdraw(ethQueryContractUI_t *msg,
+                                           plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SEND_SCREEN;
+        case 1:
+            return RECIPIENT_SCREEN;
+        case 2:
+            return RECIPIENT_2_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
+// Set UI for the Lido ClaimWithdrawals method.
+static screens_t get_screen_lido_claim_withdrawal(ethQueryContractUI_t *msg,
+                                                  plugin_parameters_t *context
+                                                  __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return SEND_SCREEN;
+        case 1:
+            return RECEIVE_SCREEN;
+        case 2:
+            return SEND_2_SCREEN;
+        case 3:
+            return RECEIVE_2_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
 // Helper function that returns the enum corresponding to the screen that should be displayed.
 static screens_t get_screen(ethQueryContractUI_t *msg,
                             plugin_parameters_t *context __attribute__((unused))) {
@@ -476,6 +606,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case GRT_UNDELEGATE:
         case GRT_WITHDRAW_DELEGATED:
         case SUBMIT_ETH_LIDO:
+        case VIC_VOTE:
+        case VIC_RESIGN:
             return get_screen_recipient(msg, context);
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
@@ -486,6 +618,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case YEARN_VAULT_DEPOSIT_3:
         case YEARN_VAULT_WITHDRAW_2:
         case YEARN_VAULT_WITHDRAW_3:
+        case LIDO_REQUEST_WITHDRAWALS:
+        case VIC_UNVOTE:
             return get_screen_amount_sent_recipient(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
@@ -495,6 +629,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case AAVE_SUPPLY:
             return get_screen_supply(msg, context);
         case SWAP_FROM:
+        case VIC_WITHDRAW:
             return get_screen_amount_sent_receive(msg, context);
         case STAKE:
             return get_screen_value_sent(msg, context);
@@ -518,6 +653,10 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
             return get_screen_vote_revoke(msg, context);
         case UNSTAKE_CLAIM_TOKENS_NEW:
             return get_screen_unstake_claim(msg, context);
+        case ANGLE_WITHDRAW:
+            return get_screen_angle_withdraw(msg, context);
+        case LIDO_CLAIM_WITHDRAWALS:
+            return get_screen_lido_claim_withdrawal(msg, context);
         default:
             return ERROR;
     }
@@ -556,6 +695,12 @@ void handle_query_contract_ui(ethQueryContractUI_t *msg) {
             break;
         case UNBOUND_NONCE_SCREEN:
             ret = set_unbound_nonce_ui(msg, context);
+            break;
+        case SEND_2_SCREEN:
+            ret = set_send_2_ui(msg, context);
+            break;
+        case RECEIVE_2_SCREEN:
+            ret = set_receive_2_ui(msg, context);
             break;
         case WARN_SCREEN:
             ret = set_warning_ui(msg, context);

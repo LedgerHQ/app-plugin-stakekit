@@ -1,7 +1,8 @@
 #include "stakekit_plugin.h"
 
 // Function to display the method name on the device.
-void handle_query_contract_id(ethQueryContractID_t *msg) {
+void handle_query_contract_id(void *parameters) {
+    ethQueryContractID_t *msg = (ethQueryContractID_t *) parameters;
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
 
     strlcpy(msg->name, PLUGIN_NAME, msg->nameLength);
@@ -56,6 +57,7 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case YEARN_VAULT_WITHDRAW_1:
         case YEARN_VAULT_WITHDRAW_2:
         case YEARN_VAULT_WITHDRAW_3:
+        case VIC_WITHDRAW:
             strlcpy(msg->version, "Withdraw", msg->versionLength);
             break;
         case PARASPACE_DEPOSIT:
@@ -95,6 +97,7 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
             strlcpy(msg->version, "Unlock", msg->versionLength);
             break;
         case VOTE:
+        case VIC_VOTE:
             strlcpy(msg->version, "Vote", msg->versionLength);
             break;
         case REVOKE_ACTIVE:
@@ -116,6 +119,21 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
             strlcpy(msg->version, "Redeem Overdue Shares", msg->versionLength);
+            break;
+        case ANGLE_WITHDRAW:
+            strlcpy(msg->version, "Withdraw", msg->versionLength);
+            break;
+        case LIDO_REQUEST_WITHDRAWALS:
+            strlcpy(msg->version, "Request Withdrawals", msg->versionLength);
+            break;
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->version, "Claim Withdrawals", msg->versionLength);
+            break;
+        case VIC_RESIGN:
+            strlcpy(msg->version, "Resign", msg->versionLength);
+            break;
+        case VIC_UNVOTE:
+            strlcpy(msg->version, "Unvote", msg->versionLength);
             break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
