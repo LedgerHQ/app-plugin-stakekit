@@ -62,6 +62,9 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case VIC_UNVOTE:
             strlcpy(msg->title, "Cap", msg->titleLength);
             break;
+        case CLAIM:
+            strlcpy(msg->title, "Request Number", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             return false;
@@ -256,6 +259,9 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case VIC_RESIGN:
         case VIC_UNVOTE:
             strlcpy(msg->title, "Candidate", msg->titleLength);
+            break;
+        case CLAIM:
+            strlcpy(msg->title, "Operator", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -620,6 +626,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case YEARN_VAULT_WITHDRAW_3:
         case LIDO_REQUEST_WITHDRAWALS:
         case VIC_UNVOTE:
+        case CLAIM:
             return get_screen_amount_sent_recipient(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:

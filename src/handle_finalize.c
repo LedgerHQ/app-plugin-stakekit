@@ -65,6 +65,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
     if (context->valid) {
         switch (context->selectorIndex) {
             case COMET_CLAIM:
+            case CLAIM:
                 msg->numScreens = 2;
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
