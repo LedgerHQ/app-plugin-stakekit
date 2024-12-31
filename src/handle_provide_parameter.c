@@ -411,8 +411,7 @@ static void handle_lido_claim_withdrawal(ethPluginProvideParameter_t *msg,
     }
 }
 
-void handle_provide_parameter(void *parameters) {
-    ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
+void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
 
     // We use `%.*H`: it's a utility function to print bytes. You first give
