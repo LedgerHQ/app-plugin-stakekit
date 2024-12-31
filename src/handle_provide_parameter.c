@@ -246,8 +246,7 @@ static void handle_claim_and_delegate(ethPluginProvideParameter_t *msg, plugin_p
 // Save 2 operator and 1 amount in the context.
 // The first param is the old operator address saved in recipient.
 // The second param is the new operator address saved in contract_address.
-// The third param is the shares saved in amount_sent.
-// The fourth param is the delegateVotePower saved in amount_received.
+// The third param is the delegateVotePower saved in amount_received.
 static void handle_redelegate(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:  // Put the old operator address in recipient
@@ -257,14 +256,11 @@ static void handle_redelegate(ethPluginProvideParameter_t *msg, plugin_parameter
         case RECIPIENT_2:  // Put the new operator address in contract_address
             copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
             context->next_param = AMOUNT_SENT;
+            context->skip = 1;
             break;
-        case AMOUNT_SENT:  // Put the shares in amount_sent
+        case AMOUNT_SENT:  // Skip shares and put the delegateVotePower in amount_sent
             copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
             context->next_param = AMOUNT_RECEIVED;
-            break;
-        case AMOUNT_RECEIVED:  // Put the delegateVotePower in amount_received
-            copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
-            context->next_param = NONE;
             break;
         case NONE:
             break;
@@ -592,7 +588,6 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 break;
             case CLAIM:
             case DELEGATE:
-            case UNDELEGATE:
                 handle_claim_and_delegate(msg, context);
                 break;
             case REDELEGATE:

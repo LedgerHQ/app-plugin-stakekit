@@ -39,7 +39,6 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             strlcpy(msg->title, "Votes", msg->titleLength);
             break;
         case AVALANCHE_REQUEST_UNLOCK:
-        case UNDELEGATE:
             strlcpy(msg->title, "Shares", msg->titleLength);
             break;
         case AVALANCHE_REDEEM_2:
@@ -160,9 +159,6 @@ static bool set_receive_ui(ethQueryContractUI_t *msg, plugin_parameters_t *conte
         case VIC_WITHDRAW:
             strlcpy(msg->title, "Block Number", msg->titleLength);
             break;
-        case REDELEGATE:
-            strlcpy(msg->title, "Shares", msg->titleLength);
-            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             return false;
@@ -269,7 +265,6 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             break;
         case CLAIM:
         case DELEGATE:
-        case UNDELEGATE:
             strlcpy(msg->title, "Operator", msg->titleLength);
             break;
         case REDELEGATE:
@@ -455,10 +450,8 @@ static screens_t get_screen_redelegate(ethQueryContractUI_t *msg,
         case 0:
             return DELEGATE_VOTE_POWER_SCREEN;
         case 1:
-            return RECEIVE_SCREEN;
-        case 2:
             return RECIPIENT_SCREEN;
-        case 3:
+        case 2:
             return RECIPIENT_2_SCREEN;
         default:
             return ERROR;
@@ -686,7 +679,6 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case LIDO_REQUEST_WITHDRAWALS:
         case VIC_UNVOTE:
         case CLAIM:
-        case UNDELEGATE:
             return get_screen_amount_sent_recipient(msg, context);
         case DELEGATE:
             return get_screen_delegate(msg, context);

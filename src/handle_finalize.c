@@ -67,8 +67,11 @@ void handle_finalize(ethPluginFinalize_t *msg) {
             case COMET_CLAIM:
             case CLAIM:
             case DELEGATE:
-            case UNDELEGATE:
                 msg->numScreens = 2;
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case REDELEGATE:
+                msg->numScreens = 3;
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             case VOTE:
@@ -76,7 +79,6 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             case REVOKE_ACTIVE:
-            case REDELEGATE:
                 context->decimals_sent = 0;
                 msg->numScreens = 4;
                 msg->result = ETH_PLUGIN_RESULT_OK;
