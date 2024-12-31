@@ -73,6 +73,9 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case UNDELEGATE:
             strlcpy(msg->version, "Undelegate", msg->versionLength);
             break;
+        case REDELEGATE:
+            strlcpy(msg->version, "Redelegate", msg->versionLength);
+            break;
         case GRT_WITHDRAW_DELEGATED:
             strlcpy(msg->version, "Withdraw Delegated", msg->versionLength);
             break;

@@ -76,6 +76,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             case REVOKE_ACTIVE:
+            case REDELEGATE:
                 context->decimals_sent = 0;
                 msg->numScreens = 4;
                 msg->result = ETH_PLUGIN_RESULT_OK;
