@@ -81,6 +81,7 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
             strlcpy(msg->version, "Leave", msg->versionLength);
             break;
         case COMET_CLAIM:
+        case CLAIM:
             strlcpy(msg->version, "Claim", msg->versionLength);
             break;
         case TRANSFER_OUT:

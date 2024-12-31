@@ -221,6 +221,28 @@ static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_paramete
     }
 }
 
+// Save 1 amount and 1 recipient in the context.
+// The first param is the operator saved in recipient.
+// The second param is the request number saved in amount_sent.
+static void handle_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT:  // Put the operator address in recipient
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
 // Save 1 amount and 3 recipients in the context.
 // The first param is the second recipient saved in recipient.
 // The second param is the amount sent saved in amount_sent.
@@ -535,6 +557,9 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 break;
             case LIDO_CLAIM_WITHDRAWALS:
                 handle_lido_claim_withdrawal(msg, context);
+                break;
+            case CLAIM:
+                handle_claim(msg, context);
                 break;
             case VIC_VOTE:
             case VIC_RESIGN:
