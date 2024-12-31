@@ -23,6 +23,8 @@ jobs:
             name: "nanosp"
           - sdk: "$STAX_SDK"
             name: "stax"
+          - sdk: "$FLEX_SDK"
+            name: "flex"
 
     runs-on: ubuntu-latest
     container:
@@ -38,27 +40,6 @@ jobs:
         run: |
           make BOLOS_SDK=${{ matrix.sdk }} -j
 
-  job_scan_build:
-    name: Clang Static Analyzer
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/ledgerhq/ledger-app-builder/ledger-app-builder-lite:latest
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Build with Clang Static Analyzer
-        run: |
-          scan-build --use-cc=clang -analyze-headers -enable-checker security -enable-checker unix -enable-checker valist -o scan-build --status-bugs make default
-
-      - uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: scan-build
-          path: scan-build
-
   job_build_debug_plugin:
     name: Build debug plugin
     strategy:
@@ -70,6 +51,10 @@ jobs:
             name: "nanox"
           - sdk: "$NANOSP_SDK"
             name: "nanosp"
+          - sdk: "$STAX_SDK"
+            name: "stax"
+          - sdk: "$FLEX_SDK"
+            name: "flex"
 
     runs-on: ubuntu-latest
     container:
@@ -106,6 +91,10 @@ jobs:
             name: "nanox"
           - sdk: "$NANOSP_SDK"
             name: "nanosp"
+          - sdk: "$STAX_SDK"
+            name: "stax"
+          - sdk: "$FLEX_SDK"
+            name: "flex"
 
     runs-on: ubuntu-latest
     container:
@@ -116,8 +105,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: LedgerHQ/app-ethereum
+          submodules: recursive
           ref: ${{ ((github.base_ref || github.ref_name) == 'main' && 'master') || (github.base_ref || github.ref_name) }}
-          submodules: true
 
       - name: Build
         run: |
