@@ -560,6 +560,7 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 break;
             case CLAIM:
             case DELEGATE:
+            case UNDELEGATE:
                 handle_claim_and_delegate(msg, context);
                 break;
             case VIC_VOTE:

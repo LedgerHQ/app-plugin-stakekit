@@ -39,6 +39,7 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             strlcpy(msg->title, "Votes", msg->titleLength);
             break;
         case AVALANCHE_REQUEST_UNLOCK:
+        case UNDELEGATE:
             strlcpy(msg->title, "Shares", msg->titleLength);
             break;
         case AVALANCHE_REDEEM_2:
@@ -265,6 +266,7 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             break;
         case CLAIM:
         case DELEGATE:
+        case UNDELEGATE:
             strlcpy(msg->title, "Operator", msg->titleLength);
             break;
         default:
@@ -632,6 +634,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case VIC_UNVOTE:
         case CLAIM:
         case DELEGATE:
+        case UNDELEGATE:
             return get_screen_amount_sent_recipient(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:

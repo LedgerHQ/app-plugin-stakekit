@@ -67,6 +67,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
             case COMET_CLAIM:
             case CLAIM:
             case DELEGATE:
+            case UNDELEGATE:
                 msg->numScreens = 2;
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;

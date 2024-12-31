@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 57u
+#define NUM_STAKEKIT_SELECTORS 58u
 
 #define TICKER_LEN 30u
 
@@ -93,6 +93,7 @@ typedef enum {
     VIC_WITHDRAW,
     CLAIM,
     DELEGATE,
+    UNDELEGATE,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
