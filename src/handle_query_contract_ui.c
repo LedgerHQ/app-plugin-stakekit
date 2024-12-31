@@ -430,8 +430,7 @@ static screens_t get_screen_amount_sent_recipient(ethQueryContractUI_t *msg,
 
 // Set UI for the methods needing a send and vote power screens.
 static screens_t get_screen_delegate(ethQueryContractUI_t *msg,
-                                     plugin_parameters_t *context
-                                     __attribute__((unused))) {
+                                     plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
         case 0:
             return DELEGATE_VOTE_POWER_SCREEN;
@@ -444,8 +443,7 @@ static screens_t get_screen_delegate(ethQueryContractUI_t *msg,
 
 // Set UI for the methods needing a send and vote power screens.
 static screens_t get_screen_redelegate(ethQueryContractUI_t *msg,
-                                       plugin_parameters_t *context
-                                       __attribute__((unused))) {
+                                       plugin_parameters_t *context __attribute__((unused))) {
     switch (msg->screenIndex) {
         case 0:
             return DELEGATE_VOTE_POWER_SCREEN;
