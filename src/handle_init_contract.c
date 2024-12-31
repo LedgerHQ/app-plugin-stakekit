@@ -81,6 +81,7 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case REVOKE_ACTIVE:
         case VIC_UNVOTE:
         case CLAIM:
+        case DELEGATE:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:

@@ -223,8 +223,8 @@ static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_paramete
 
 // Save 1 amount and 1 recipient in the context.
 // The first param is the operator saved in recipient.
-// The second param is the request number saved in amount_sent.
-static void handle_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+// The second param is the [request number | vote power | shares] saved in amount_sent.
+static void handle_claim_and_delegate(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:  // Put the operator address in recipient
             copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
@@ -559,7 +559,8 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 handle_lido_claim_withdrawal(msg, context);
                 break;
             case CLAIM:
-                handle_claim(msg, context);
+            case DELEGATE:
+                handle_claim_and_delegate(msg, context);
                 break;
             case VIC_VOTE:
             case VIC_RESIGN:

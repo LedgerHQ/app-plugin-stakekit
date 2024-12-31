@@ -65,6 +65,9 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case CLAIM:
             strlcpy(msg->title, "Request Number", msg->titleLength);
             break;
+        case DELEGATE:
+            strlcpy(msg->title, "Vote Power", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             return false;
@@ -261,6 +264,7 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
             strlcpy(msg->title, "Candidate", msg->titleLength);
             break;
         case CLAIM:
+        case DELEGATE:
             strlcpy(msg->title, "Operator", msg->titleLength);
             break;
         default:
@@ -627,6 +631,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case LIDO_REQUEST_WITHDRAWALS:
         case VIC_UNVOTE:
         case CLAIM:
+        case DELEGATE:
             return get_screen_amount_sent_recipient(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
