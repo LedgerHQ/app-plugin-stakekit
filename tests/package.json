@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@ledgerhq/hw-app-eth": "6.34.3",
-    "@zondax/zemu": "^0.44.0",
+    "@zondax/zemu": "0.53.0",
     "ethers": "^5.4.7",
     "fs-extra": "^10.0.0",
     "jest": "^29.6.4",
