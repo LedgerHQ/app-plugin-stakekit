@@ -223,8 +223,9 @@ static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_paramete
 
 // Save 1 amount and 1 recipient in the context.
 // The first param is the operator saved in recipient.
-// The second param is the request number saved in amount_sent.
-static void handle_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+// The second param is the [request number | vote power | shares] saved in amount_sent.
+static void handle_claim_and_delegate(ethPluginProvideParameter_t *msg,
+                                      plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:  // Put the operator address in recipient
             copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
@@ -233,6 +234,34 @@ static void handle_claim(ethPluginProvideParameter_t *msg, plugin_parameters_t *
         case AMOUNT_SENT:
             copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
             context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+// Save 2 operator and 1 amount in the context.
+// The first param is the old operator address saved in recipient.
+// The second param is the new operator address saved in contract_address.
+// The third param is the delegateVotePower saved in amount_received.
+static void handle_redelegate(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT:  // Put the old operator address in recipient
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = RECIPIENT_2;
+            break;
+        case RECIPIENT_2:  // Put the new operator address in contract_address
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = AMOUNT_SENT;
+            context->skip = 1;
+            break;
+        case AMOUNT_SENT:  // Skip shares and put the delegateVotePower in amount_sent
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->next_param = AMOUNT_RECEIVED;
             break;
         case NONE:
             break;
@@ -559,7 +588,11 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 handle_lido_claim_withdrawal(msg, context);
                 break;
             case CLAIM:
-                handle_claim(msg, context);
+            case DELEGATE:
+                handle_claim_and_delegate(msg, context);
+                break;
+            case REDELEGATE:
+                handle_redelegate(msg, context);
                 break;
             case VIC_VOTE:
             case VIC_RESIGN:

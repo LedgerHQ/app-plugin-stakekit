@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 56u
+#define NUM_STAKEKIT_SELECTORS 58u
 
 #define TICKER_LEN 30u
 
@@ -92,6 +92,8 @@ typedef enum {
     VIC_UNVOTE,
     VIC_WITHDRAW,
     CLAIM,
+    DELEGATE,
+    REDELEGATE,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -108,6 +110,7 @@ typedef enum {
     WARN_SCREEN,
     SEND_2_SCREEN,
     RECEIVE_2_SCREEN,
+    DELEGATE_VOTE_POWER_SCREEN,
     ERROR,
 } screens_t;
 
