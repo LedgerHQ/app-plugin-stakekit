@@ -69,6 +69,7 @@ static void handle_angle_withdraw(ethPluginProvideParameter_t *msg, plugin_param
             context->next_param = NONE;
             break;
         case NONE:
+            break;
         default:
             PRINTF("Param not supported\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -247,7 +248,7 @@ static void handle_claim_and_delegate(ethPluginProvideParameter_t *msg,
 // Save 2 operator and 1 amount in the context.
 // The first param is the old operator address saved in recipient.
 // The second param is the new operator address saved in contract_address.
-// The third param is the delegateVotePower saved in amount_received.
+// The third param is the delegateVotePower saved in amount_sent.
 static void handle_redelegate(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
     switch (context->next_param) {
         case RECIPIENT:  // Put the old operator address in recipient
@@ -261,7 +262,7 @@ static void handle_redelegate(ethPluginProvideParameter_t *msg, plugin_parameter
             break;
         case AMOUNT_SENT:  // Skip shares and put the delegateVotePower in amount_sent
             copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
-            context->next_param = AMOUNT_RECEIVED;
+            context->next_param = NONE;
             break;
         case NONE:
             break;
