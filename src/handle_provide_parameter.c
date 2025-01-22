@@ -500,6 +500,7 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 break;
             case BUY_VOUCHER:
             case SELL_VOUCHER_NEW:
+            case BUY_VOUCHER_POL:
                 // Save the amount sent to the context and skip.
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 context->skip = 1;
