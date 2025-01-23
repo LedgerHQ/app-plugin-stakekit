@@ -47,9 +47,9 @@ static const uint8_t STAKEKIT_VOTE_SELECTOR[SELECTOR_SIZE] = {0x58, 0x0d, 0x74, 
 static const uint8_t STAKEKIT_REVOKE_ACTIVE_SELECTOR[SELECTOR_SIZE] = {0x6e, 0x19, 0x84, 0x75};
 static const uint8_t STAKEKIT_AAVE_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0x61, 0x7b, 0xa0, 0x37};
 static const uint8_t STAKEKIT_WITHDRAW_REWARDS_SELECTOR[SELECTOR_SIZE] = {0xc7, 0xb8, 0x98, 0x1c};
-static const uint8_t STAKEKIT_WITHDRAW_REWARDS_POL_SELECTOR[SELECTOR_SIZE] = {0xe0, 
+static const uint8_t STAKEKIT_WITHDRAW_REWARDS_POL_SELECTOR[SELECTOR_SIZE] = {0xe0,
                                                                               0xdb,
-                                                                              0x55, 
+                                                                              0x55,
                                                                               0x6b};
 static const uint8_t STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR[SELECTOR_SIZE] = {0xe9,
                                                                                   0x7f,
