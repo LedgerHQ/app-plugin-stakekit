@@ -113,6 +113,9 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case WITHDRAW_REWARDS:
             strlcpy(msg->version, "Withdraw Rewards", msg->versionLength);
             break;
+        case WITHDRAW_REWARDS_POL:
+            strlcpy(msg->version, "Withdraw Rewards POL", msg->versionLength);
+            break;
         case UNSTAKE_CLAIM_TOKENS_NEW:
             strlcpy(msg->version, "Unstake Claim Tokens New", msg->versionLength);
             break;

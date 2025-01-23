@@ -63,6 +63,7 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case CREATE_ACCOUNT:
         case LOCK:
         case WITHDRAW_REWARDS:
+        case WITHDRAW_REWARDS_POL:
         case AVALANCHE_SUBMIT:
         case AVALANCHE_REDEEM_1:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
