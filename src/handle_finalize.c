@@ -161,6 +161,11 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
+            case BUY_VOUCHER_POL:
+                msg->numScreens = 1;
+                strlcpy(context->ticker_sent, POL_TICKER, sizeof(context->ticker_sent));
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
             case SWAP_FROM:
                 msg->numScreens = 2;
                 strlcpy(context->ticker_received, WETH_TICKER, sizeof(context->ticker_received));

@@ -10,6 +10,7 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
         case BUY_VOUCHER:
+        case BUY_VOUCHER_POL:
         case SELL_VOUCHER_NEW:
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
@@ -647,6 +648,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case DEPOSIT_SELF_APECOIN:
         case CLAIM_TOKENS:
         case BUY_VOUCHER:
+        case BUY_VOUCHER_POL:
         case SELL_VOUCHER_NEW:
         case ENTER:
         case LEAVE:

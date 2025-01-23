@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 58u
+#define NUM_STAKEKIT_SELECTORS 59u
 
 #define TICKER_LEN 30u
 
@@ -47,6 +47,7 @@ typedef enum {
     REQUEST_WITHDRAW,
     CLAIM_TOKENS,
     BUY_VOUCHER,
+    BUY_VOUCHER_POL,
     SELL_VOUCHER_NEW,
     MORPHO_SUPPLY_1,
     MORPHO_SUPPLY_2,
@@ -154,6 +155,9 @@ typedef enum {
 
 // Ticker used for rETH.
 #define MATIC_TICKER "MATIC"
+
+// Ticker used for POL.
+#define POL_TICKER "POL"
 
 // Ticker used for GRT.
 #define GRT_TICKER "GRT"

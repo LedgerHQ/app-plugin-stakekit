@@ -38,6 +38,7 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case REQUEST_WITHDRAW:
         case CLAIM_TOKENS:
         case BUY_VOUCHER:
+        case BUY_VOUCHER_POL:
         case SELL_VOUCHER_NEW:
         case ENTER:
         case LEAVE:
