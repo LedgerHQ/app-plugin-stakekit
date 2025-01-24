@@ -106,6 +106,7 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
             context->next_param = AMOUNT_RECEIVED;
             break;
         case UNSTAKE_CLAIM_TOKENS_NEW:
+        case UNSTAKE_CLAIM_TOKENS_NEW_POL:
             context->next_param = UNBOUND_NONCE;
             break;
         case LIDO_REQUEST_WITHDRAWALS:

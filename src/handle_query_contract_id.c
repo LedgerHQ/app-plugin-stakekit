@@ -119,6 +119,9 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case UNSTAKE_CLAIM_TOKENS_NEW:
             strlcpy(msg->version, "Unstake Claim Tokens New", msg->versionLength);
             break;
+        case UNSTAKE_CLAIM_TOKENS_NEW_POL:
+            strlcpy(msg->version, "Unstake Claim Tokens New POL", msg->versionLength);
+            break;
         case AVALANCHE_REQUEST_UNLOCK:
             strlcpy(msg->version, "Request Unlock", msg->versionLength);
             break;

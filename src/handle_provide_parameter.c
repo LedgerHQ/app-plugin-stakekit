@@ -520,6 +520,7 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 context->skip = 1;
                 break;
             case UNSTAKE_CLAIM_TOKENS_NEW:
+            case UNSTAKE_CLAIM_TOKENS_NEW_POL:
                 // Save the Unbound nonce boolean to the context.
                 if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
