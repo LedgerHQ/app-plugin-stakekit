@@ -360,6 +360,7 @@ static bool set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
 static bool set_unbound_nonce_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case UNSTAKE_CLAIM_TOKENS_NEW:
+        case UNSTAKE_CLAIM_TOKENS_NEW_POL:
             strlcpy(msg->title, "Unbound Nonce", msg->titleLength);
             break;
         default:
@@ -717,6 +718,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case REVOKE_ACTIVE:
             return get_screen_vote_revoke(msg, context);
         case UNSTAKE_CLAIM_TOKENS_NEW:
+        case UNSTAKE_CLAIM_TOKENS_NEW_POL:
             return get_screen_unstake_claim(msg, context);
         case ANGLE_WITHDRAW:
             return get_screen_angle_withdraw(msg, context);
