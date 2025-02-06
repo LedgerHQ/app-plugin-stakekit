@@ -1,8 +1,7 @@
 #include "stakekit_plugin.h"
 
 // Function to display the method name on the device.
-void handle_query_contract_id(void *parameters) {
-    ethQueryContractID_t *msg = (ethQueryContractID_t *) parameters;
+void handle_query_contract_id(ethQueryContractID_t *msg) {
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
 
     strlcpy(msg->name, PLUGIN_NAME, msg->nameLength);
@@ -67,10 +66,14 @@ void handle_query_contract_id(void *parameters) {
             strlcpy(msg->version, "Deposit", msg->versionLength);
             break;
         case GRT_DELEGATE:
+        case DELEGATE:
             strlcpy(msg->version, "Delegate", msg->versionLength);
             break;
         case GRT_UNDELEGATE:
             strlcpy(msg->version, "Undelegate", msg->versionLength);
+            break;
+        case REDELEGATE:
+            strlcpy(msg->version, "Redelegate", msg->versionLength);
             break;
         case GRT_WITHDRAW_DELEGATED:
             strlcpy(msg->version, "Withdraw Delegated", msg->versionLength);
@@ -82,6 +85,7 @@ void handle_query_contract_id(void *parameters) {
             strlcpy(msg->version, "Leave", msg->versionLength);
             break;
         case COMET_CLAIM:
+        case CLAIM:
             strlcpy(msg->version, "Claim", msg->versionLength);
             break;
         case TRANSFER_OUT:

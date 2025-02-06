@@ -1,4 +1,4 @@
-import Zemu from '@zondax/zemu';
+import Zemu, { DEFAULT_START_OPTIONS } from '@zondax/zemu';
 import Eth from '@ledgerhq/hw-app-eth';
 import { generate_plugin_config } from './generate_plugin_config';
 import { parseEther, parseUnits, RLP } from 'ethers/lib/utils';
@@ -12,14 +12,12 @@ export async function waitForAppScreen(sim) {
   await sim.waitUntilScreenIsNot(sim.getMainMenuSnapshot(), transactionUploadDelay);
 }
 
-const simOptions = {
+let simOptions = {
+  ...DEFAULT_START_OPTIONS,
   logging: true,
+  X11: false,
   startDelay: 15000,
-  startText: "Ready",
-  approveKeyword: "APPROVE",
-  rejectKeyword: "REJECT",
-  custom: "",
-  caseSensitive: false,
+  startText: 'is ready'
 };
 
 const Resolve = require('path').resolve;
@@ -27,27 +25,35 @@ const Resolve = require('path').resolve;
 const APP_PATH_NANOS = Resolve('elfs/ethereum_nanos.elf');
 const APP_PATH_NANOX = Resolve('elfs/ethereum_nanox.elf');
 const APP_PATH_NANOSP = Resolve('elfs/ethereum_nanosp.elf');
+const APP_PATH_STAX = Resolve('elfs/ethereum_stax.elf');
+const APP_PATH_FLEX = Resolve('elfs/ethereum_flex.elf');
 
 const PLUGIN_LIB_NANOS = { 'StakeKit': Resolve('elfs/plugin_nanos.elf') };
 const PLUGIN_LIB_NANOX = { 'StakeKit': Resolve('elfs/plugin_nanox.elf') };
 const PLUGIN_LIB_NANOSP = { 'StakeKit': Resolve('elfs/plugin_nanosp.elf') };
+const PLUGIN_LIB_STAX = { 'StakeKit': Resolve('elfs/plugin_stax.elf') };
+const PLUGIN_LIB_FLEX = { 'StakeKit': Resolve('elfs/plugin_flex.elf') };
 
 const RANDOM_ADDRESS = "0xaaaabbbbccccddddeeeeffffgggghhhhiiiijjjj";
 
-let genericTx = {
+const genericTx = {
   nonce: Number(0),
   gasLimit: Number(21000),
   gasPrice: parseUnits("1", "gwei"),
   value: parseEther("1"),
   chainId: 1,
   to: RANDOM_ADDRESS,
-  data: null,
+  data: undefined,
 };
 
 let config;
 
-const TIMEOUT = 2000000;
-jest.setTimeout(TIMEOUT);
+beforeAll(async () => {
+  await Zemu.checkAndPullImage();
+});
+
+jest.setTimeout(1000 * 60 * 60);
+
 /**
  * Generates a serializedTransaction from a rawHexTransaction copy pasted from etherscan.
  * @param {string} rawTx Raw transaction
@@ -85,33 +91,40 @@ function txFromEtherscan(rawTx) {
  * Emulation of the device using zemu
  * @param {string} device name of the device to emulate (nanos, nanox)
  * @param {function} func
- * @param {boolean} signed the plugin is already signed 
+ * @param {boolean} signed the plugin is already signed
  * @returns {Promise}
  */
 function zemu(device, func, testNetwork, signed = false) {
   return async () => {
-    let eth_path;
-    let plugin;
     let sim_options = simOptions;
+    let current_model;
+
+    const models = [
+      { dev: { name: 'nanos', prefix: 'S', path: APP_PATH_NANOS }, plugin: PLUGIN_LIB_NANOS },
+      { dev: { name: 'nanox', prefix: 'X', path: APP_PATH_NANOX }, plugin: PLUGIN_LIB_NANOX },
+      { dev: { name: 'nanosp', prefix: 'SP', path: APP_PATH_NANOSP }, plugin: PLUGIN_LIB_NANOSP },
+      { dev: { name: 'stax', prefix: 'ST', path: APP_PATH_STAX }, plugin: PLUGIN_LIB_STAX },
+      { dev: { name: 'flex', prefix: 'FL', path: APP_PATH_FLEX }, plugin: PLUGIN_LIB_FLEX }
+    ]
 
     if (device === "nanos") {
-      eth_path = APP_PATH_NANOS;
-      plugin = PLUGIN_LIB_NANOS;
-      sim_options.model = "nanos";
+      current_model = models[0]
     } else if (device === "nanox") {
-      eth_path = APP_PATH_NANOX;
-      plugin = PLUGIN_LIB_NANOX;
-      sim_options.model = "nanox";
+      current_model = models[1]
+    } else if (device === "nanosp") {
+      current_model = models[2]
+    } else if (device === "stax") {
+      current_model = models[3]
+      simOptions.startText = "Ethereum"
     } else {
-      eth_path = APP_PATH_NANOSP;
-      plugin = PLUGIN_LIB_NANOSP;
-      sim_options.model = "nanosp";
+      current_model = models[4]
+      simOptions.startText = "Ethereum"
     }
 
-    const sim = new Zemu(eth_path, plugin);
+    const sim = new Zemu(current_model.dev.path, current_model.plugin);
 
     try {
-      await sim.start(sim_options);
+      await sim.start({ ...sim_options, model: current_model.dev.name });
       const transport = await sim.getTransport();
       const eth = new Eth(transport);
 
@@ -156,7 +169,7 @@ async function processTransaction(eth, sim, steps, label, rawTxHex, srlTx = "") 
     .catch((e) => {
       console.warn(
         "an error occurred in resolveTransaction => fallback to blind signing: " +
-        e.stack
+        String(e)
       );
       return null;
     });
@@ -168,7 +181,11 @@ async function processTransaction(eth, sim, steps, label, rawTxHex, srlTx = "") 
     transactionUploadDelay
   );
 
-  await sim.navigateAndCompareSnapshots(".", label, [steps, 0]);
+  if (sim.startOptions.model === "stax" || sim.startOptions.model === "flex") {
+    await sim.compareSnapshotsAndApprove(".", label)
+  } else {
+    await sim.navigateAndCompareSnapshots(".", label, [steps, 0]);
+  }
   await tx;
 }
 
@@ -181,7 +198,7 @@ async function processTransaction(eth, sim, steps, label, rawTxHex, srlTx = "") 
  * @param {string} rawTxHex RawTx Hex to test
  * @param {boolean} signed The plugin is already signed and existing in Ledger database
  */
-function processTest(device, contractName, testLabel, testDirSuffix, rawTxHex, signed, serializedTx, testNetwork) {
+async function processTest(device, contractName, testLabel, testDirSuffix, rawTxHex, signed, serializedTx, testNetwork) {
   test(
     "[" + contractName + "] - " + device.label + " - " + testLabel,
     zemu(device.name, async (sim, eth) => {
@@ -213,9 +230,4 @@ function populateTransaction(contractAddr, inputData, chainId, value = "0.0") {
   return ethers.utils.serializeTransaction(unsignedTx).slice(2);
 }
 
-
-module.exports = {
-  processTest,
-  genericTx,
-  populateTransaction
-};
+export { processTest, genericTx, populateTransaction };

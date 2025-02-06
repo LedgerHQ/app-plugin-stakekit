@@ -62,6 +62,12 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case VIC_UNVOTE:
             strlcpy(msg->title, "Cap", msg->titleLength);
             break;
+        case CLAIM:
+            strlcpy(msg->title, "Request Number", msg->titleLength);
+            break;
+        case DELEGATE:
+            strlcpy(msg->title, "Vote Power", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             return false;
@@ -257,6 +263,13 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case VIC_UNVOTE:
             strlcpy(msg->title, "Candidate", msg->titleLength);
             break;
+        case CLAIM:
+        case DELEGATE:
+            strlcpy(msg->title, "Operator", msg->titleLength);
+            break;
+        case REDELEGATE:
+            strlcpy(msg->title, "Old Operator", msg->titleLength);
+            break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
             return false;
@@ -279,6 +292,9 @@ static bool set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
             break;
         case ANGLE_WITHDRAW:
             strlcpy(msg->title, "Owner", msg->titleLength);
+            break;
+        case REDELEGATE:
+            strlcpy(msg->title, "New Operator", msg->titleLength);
             break;
         default:
             PRINTF("Unhandled selector Index: %d\n", context->selectorIndex);
@@ -364,6 +380,18 @@ static bool set_warning_ui(ethQueryContractUI_t *msg,
     return true;
 }
 
+// Set UI for "Vote Power" screen.
+static bool set_delegate_vote_power_ui(ethQueryContractUI_t *msg,
+                                       plugin_parameters_t *context __attribute__((unused))) {
+    strlcpy(msg->title, "Vote Power", msg->titleLength);
+    if (ADDRESS_IS_NULL(context->amount_sent)) {
+        strlcpy(msg->msg, "False", msg->msgLength);
+    } else {
+        strlcpy(msg->msg, "True", msg->msgLength);
+    }
+    return true;
+}
+
 // Set UI for the methods needing a send screen.
 static screens_t get_screen_amount_sent(ethQueryContractUI_t *msg,
                                         plugin_parameters_t *context __attribute__((unused))) {
@@ -395,6 +423,34 @@ static screens_t get_screen_amount_sent_recipient(ethQueryContractUI_t *msg,
             return SEND_SCREEN;
         case 1:
             return RECIPIENT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
+// Set UI for the methods needing a send and vote power screens.
+static screens_t get_screen_delegate(ethQueryContractUI_t *msg,
+                                     plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return DELEGATE_VOTE_POWER_SCREEN;
+        case 1:
+            return RECIPIENT_SCREEN;
+        default:
+            return ERROR;
+    }
+}
+
+// Set UI for the methods needing a send and vote power screens.
+static screens_t get_screen_redelegate(ethQueryContractUI_t *msg,
+                                       plugin_parameters_t *context __attribute__((unused))) {
+    switch (msg->screenIndex) {
+        case 0:
+            return DELEGATE_VOTE_POWER_SCREEN;
+        case 1:
+            return RECIPIENT_SCREEN;
+        case 2:
+            return RECIPIENT_2_SCREEN;
         default:
             return ERROR;
     }
@@ -620,7 +676,12 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case YEARN_VAULT_WITHDRAW_3:
         case LIDO_REQUEST_WITHDRAWALS:
         case VIC_UNVOTE:
+        case CLAIM:
             return get_screen_amount_sent_recipient(msg, context);
+        case DELEGATE:
+            return get_screen_delegate(msg, context);
+        case REDELEGATE:
+            return get_screen_redelegate(msg, context);
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
@@ -701,6 +762,9 @@ void handle_query_contract_ui(ethQueryContractUI_t *msg) {
             break;
         case RECEIVE_2_SCREEN:
             ret = set_receive_2_ui(msg, context);
+            break;
+        case DELEGATE_VOTE_POWER_SCREEN:
+            ret = set_delegate_vote_power_ui(msg, context);
             break;
         case WARN_SCREEN:
             ret = set_warning_ui(msg, context);

@@ -51,8 +51,7 @@ static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
     return false;
 }
 
-void handle_finalize(void *parameters) {
-    ethPluginFinalize_t *msg = (ethPluginFinalize_t *) parameters;
+void handle_finalize(ethPluginFinalize_t *msg) {
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
 
     msg->uiType = ETH_UI_TYPE_GENERIC;
@@ -66,7 +65,13 @@ void handle_finalize(void *parameters) {
     if (context->valid) {
         switch (context->selectorIndex) {
             case COMET_CLAIM:
+            case CLAIM:
+            case DELEGATE:
                 msg->numScreens = 2;
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case REDELEGATE:
+                msg->numScreens = 3;
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             case VOTE:
