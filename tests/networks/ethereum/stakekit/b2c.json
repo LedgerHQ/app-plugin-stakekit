@@ -68,29 +68,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -114,29 +99,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -160,29 +130,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -206,29 +161,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -252,29 +192,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -298,29 +223,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -344,29 +254,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -390,29 +285,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -436,29 +316,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
@@ -482,29 +347,14 @@
                     "method": "buyVoucherPOL",
                     "plugin": "StakeKit"
                 },
-                "0xc83ec04d": {
-                    "erc20OfInterest": [],
-                    "method": "sellVoucher_new",
-                    "plugin": "StakeKit"
-                },
                 "0xe570b78b": {
                     "erc20OfInterest": [],
                     "method": "sellVoucher_newPOL",
                     "plugin": "StakeKit"
                 },
-                "0xe97fddc2": {
-                    "erc20OfInterest": [],
-                    "method": "unstakeClaimTokens_new",
-                    "plugin": "StakeKit"
-                },
                 "0x8759c234": {
                     "erc20OfInterest": [],
                     "method": "unstakeClaimTokens_newPOL",
-                    "plugin": "StakeKit"
-                },
-                "0xc7b8981c": {
-                    "erc20OfInterest": [],
-                    "method": "withdrawRewards",
                     "plugin": "StakeKit"
                 },
                 "0xe0db556b": {
