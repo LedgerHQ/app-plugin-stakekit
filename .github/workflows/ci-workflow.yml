@@ -133,7 +133,6 @@ jobs:
       - name: Download built binaries
         uses: actions/download-artifact@v4
         with:
-          name: *_binaries
           pattern: "*_binary_*"
           path: tests/elfs/
           merge-multiple: true
