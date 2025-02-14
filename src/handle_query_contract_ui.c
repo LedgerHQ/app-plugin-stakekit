@@ -12,6 +12,7 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
         case BUY_VOUCHER:
         case BUY_VOUCHER_POL:
         case SELL_VOUCHER_NEW:
+        case SELL_VOUCHER_NEW_POL:
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
@@ -652,6 +653,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case BUY_VOUCHER:
         case BUY_VOUCHER_POL:
         case SELL_VOUCHER_NEW:
+        case SELL_VOUCHER_NEW_POL:
         case ENTER:
         case LEAVE:
         case UNLOCK:

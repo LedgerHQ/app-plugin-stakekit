@@ -110,6 +110,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 break;
             case CLAIM_TOKENS:
             case SELL_VOUCHER_NEW:
+            case SELL_VOUCHER_NEW_POL:
             case AVALANCHE_REDEEM_2:
             case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
                 msg->numScreens = 1;

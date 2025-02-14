@@ -21,6 +21,10 @@ static const uint8_t STAKEKIT_CLAIM_TOKENS_SELECTOR[SELECTOR_SIZE] = {0x46, 0xe0
 static const uint8_t STAKEKIT_BUY_VOUCHER_SELECTOR[SELECTOR_SIZE] = {0x6a, 0xb1, 0x50, 0x71};
 static const uint8_t STAKEKIT_BUY_VOUCHER_POL_SELECTOR[SELECTOR_SIZE] = {0xe4, 0x45, 0x7a, 0x8a};
 static const uint8_t STAKEKIT_SELL_VOUCHER_NEW_SELECTOR[SELECTOR_SIZE] = {0xc8, 0x3e, 0xc0, 0x4d};
+static const uint8_t STAKEKIT_SELL_VOUCHER_NEW_POL_SELECTOR[SELECTOR_SIZE] = {0xe5,
+                                                                              0x70,
+                                                                              0xb7,
+                                                                              0x8b};
 static const uint8_t STAKEKIT_MORPHO_SUPPLY_1_SELECTOR[SELECTOR_SIZE] = {0x0c, 0x0a, 0x76, 0x9b};
 static const uint8_t STAKEKIT_MORPHO_SUPPLY_2_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
 static const uint8_t STAKEKIT_MORPHO_SUPPLY_3_SELECTOR[SELECTOR_SIZE] = {0xf6, 0x22, 0x56, 0xc7};
@@ -130,6 +134,7 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_BUY_VOUCHER_SELECTOR,
     STAKEKIT_BUY_VOUCHER_POL_SELECTOR,
     STAKEKIT_SELL_VOUCHER_NEW_SELECTOR,
+    STAKEKIT_SELL_VOUCHER_NEW_POL_SELECTOR,
     STAKEKIT_MORPHO_SUPPLY_1_SELECTOR,
     STAKEKIT_MORPHO_SUPPLY_2_SELECTOR,
     STAKEKIT_MORPHO_SUPPLY_3_SELECTOR,
