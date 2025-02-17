@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 61u
+#define NUM_STAKEKIT_SELECTORS 62u
 
 #define TICKER_LEN 30u
 
@@ -49,6 +49,7 @@ typedef enum {
     BUY_VOUCHER,
     BUY_VOUCHER_POL,
     SELL_VOUCHER_NEW,
+    SELL_VOUCHER_NEW_POL,
     MORPHO_SUPPLY_1,
     MORPHO_SUPPLY_2,
     MORPHO_SUPPLY_3,

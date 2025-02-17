@@ -45,6 +45,9 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case SELL_VOUCHER_NEW:
             strlcpy(msg->version, "Sell Voucher New", msg->versionLength);
             break;
+        case SELL_VOUCHER_NEW_POL:
+            strlcpy(msg->version, "Sell Voucher New POL", msg->versionLength);
+            break;
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
         case MORPHO_SUPPLY_3:
