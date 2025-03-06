@@ -69,6 +69,7 @@ static void handle_angle_withdraw(ethPluginProvideParameter_t *msg, plugin_param
             context->next_param = NONE;
             break;
         case NONE:
+            break;
         default:
             PRINTF("Param not supported\n");
             msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -210,6 +211,57 @@ static void handle_comet_claim(ethPluginProvideParameter_t *msg, plugin_paramete
             break;
         case RECIPIENT_2:
             copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+// Save 1 amount and 1 recipient in the context.
+// The first param is the operator saved in recipient.
+// The second param is the [request number | vote power | shares] saved in amount_sent.
+static void handle_claim_and_delegate(ethPluginProvideParameter_t *msg,
+                                      plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT:  // Put the operator address in recipient
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = AMOUNT_SENT;
+            break;
+        case AMOUNT_SENT:
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
+            context->next_param = NONE;
+            break;
+        case NONE:
+            break;
+        default:
+            PRINTF("Param not supported\n");
+            msg->result = ETH_PLUGIN_RESULT_ERROR;
+            break;
+    }
+}
+
+// Save 2 operator and 1 amount in the context.
+// The first param is the old operator address saved in recipient.
+// The second param is the new operator address saved in contract_address.
+// The third param is the delegateVotePower saved in amount_sent.
+static void handle_redelegate(ethPluginProvideParameter_t *msg, plugin_parameters_t *context) {
+    switch (context->next_param) {
+        case RECIPIENT:  // Put the old operator address in recipient
+            copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = RECIPIENT_2;
+            break;
+        case RECIPIENT_2:  // Put the new operator address in contract_address
+            copy_address(context->contract_address, msg->parameter, ADDRESS_LENGTH);
+            context->next_param = AMOUNT_SENT;
+            context->skip = 1;
+            break;
+        case AMOUNT_SENT:  // Skip shares and put the delegateVotePower in amount_sent
+            copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
             context->next_param = NONE;
             break;
         case NONE:
@@ -411,8 +463,7 @@ static void handle_lido_claim_withdrawal(ethPluginProvideParameter_t *msg,
     }
 }
 
-void handle_provide_parameter(void *parameters) {
-    ethPluginProvideParameter_t *msg = (ethPluginProvideParameter_t *) parameters;
+void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
 
     // We use `%.*H`: it's a utility function to print bytes. You first give
@@ -449,6 +500,8 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case BUY_VOUCHER:
             case SELL_VOUCHER_NEW:
+            case SELL_VOUCHER_NEW_POL:
+            case BUY_VOUCHER_POL:
                 // Save the amount sent to the context and skip.
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 context->skip = 1;
@@ -468,6 +521,7 @@ void handle_provide_parameter(void *parameters) {
                 context->skip = 1;
                 break;
             case UNSTAKE_CLAIM_TOKENS_NEW:
+            case UNSTAKE_CLAIM_TOKENS_NEW_POL:
                 // Save the Unbound nonce boolean to the context.
                 if (!U2BE_from_parameter(msg->parameter, &(context->unbound_nonce))) {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
@@ -479,6 +533,7 @@ void handle_provide_parameter(void *parameters) {
             case CREATE_ACCOUNT:
             case LOCK:
             case WITHDRAW_REWARDS:
+            case WITHDRAW_REWARDS_POL:
             case AVALANCHE_SUBMIT:
             case AVALANCHE_REDEEM_1:
             case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
@@ -536,6 +591,13 @@ void handle_provide_parameter(void *parameters) {
                 break;
             case LIDO_CLAIM_WITHDRAWALS:
                 handle_lido_claim_withdrawal(msg, context);
+                break;
+            case CLAIM:
+            case DELEGATE:
+                handle_claim_and_delegate(msg, context);
+                break;
+            case REDELEGATE:
+                handle_redelegate(msg, context);
                 break;
             case VIC_VOTE:
             case VIC_RESIGN:

@@ -1,9 +1,7 @@
 #include "stakekit_plugin.h"
 
 // Called once to init.
-void handle_init_contract(void *parameters) {
-    ethPluginInitContract_t *msg = (ethPluginInitContract_t *) parameters;
-
+void handle_init_contract(ethPluginInitContract_t *msg) {
     if (msg->interfaceVersion != ETH_PLUGIN_INTERFACE_VERSION_LATEST) {
         msg->result = ETH_PLUGIN_RESULT_UNAVAILABLE;
         return;
@@ -40,7 +38,9 @@ void handle_init_contract(void *parameters) {
         case REQUEST_WITHDRAW:
         case CLAIM_TOKENS:
         case BUY_VOUCHER:
+        case BUY_VOUCHER_POL:
         case SELL_VOUCHER_NEW:
+        case SELL_VOUCHER_NEW_POL:
         case ENTER:
         case LEAVE:
         case UNLOCK:
@@ -64,6 +64,7 @@ void handle_init_contract(void *parameters) {
         case CREATE_ACCOUNT:
         case LOCK:
         case WITHDRAW_REWARDS:
+        case WITHDRAW_REWARDS_POL:
         case AVALANCHE_SUBMIT:
         case AVALANCHE_REDEEM_1:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
@@ -82,6 +83,9 @@ void handle_init_contract(void *parameters) {
         case VOTE:
         case REVOKE_ACTIVE:
         case VIC_UNVOTE:
+        case CLAIM:
+        case DELEGATE:
+        case REDELEGATE:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:
@@ -103,6 +107,7 @@ void handle_init_contract(void *parameters) {
             context->next_param = AMOUNT_RECEIVED;
             break;
         case UNSTAKE_CLAIM_TOKENS_NEW:
+        case UNSTAKE_CLAIM_TOKENS_NEW_POL:
             context->next_param = UNBOUND_NONCE;
             break;
         case LIDO_REQUEST_WITHDRAWALS:

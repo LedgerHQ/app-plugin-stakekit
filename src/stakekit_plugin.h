@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 55u
+#define NUM_STAKEKIT_SELECTORS 62u
 
 #define TICKER_LEN 30u
 
@@ -47,7 +47,9 @@ typedef enum {
     REQUEST_WITHDRAW,
     CLAIM_TOKENS,
     BUY_VOUCHER,
+    BUY_VOUCHER_POL,
     SELL_VOUCHER_NEW,
+    SELL_VOUCHER_NEW_POL,
     MORPHO_SUPPLY_1,
     MORPHO_SUPPLY_2,
     MORPHO_SUPPLY_3,
@@ -71,7 +73,9 @@ typedef enum {
     REVOKE_ACTIVE,
     AAVE_SUPPLY,
     WITHDRAW_REWARDS,
+    WITHDRAW_REWARDS_POL,
     UNSTAKE_CLAIM_TOKENS_NEW,
+    UNSTAKE_CLAIM_TOKENS_NEW_POL,
     AVALANCHE_SUBMIT,
     AVALANCHE_REQUEST_UNLOCK,
     AVALANCHE_REDEEM_1,
@@ -91,6 +95,9 @@ typedef enum {
     VIC_RESIGN,
     VIC_UNVOTE,
     VIC_WITHDRAW,
+    CLAIM,
+    DELEGATE,
+    REDELEGATE,
 } selector_t;
 
 extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
@@ -107,6 +114,7 @@ typedef enum {
     WARN_SCREEN,
     SEND_2_SCREEN,
     RECEIVE_2_SCREEN,
+    DELEGATE_VOTE_POWER_SCREEN,
     ERROR,
 } screens_t;
 
@@ -150,6 +158,9 @@ typedef enum {
 
 // Ticker used for rETH.
 #define MATIC_TICKER "MATIC"
+
+// Ticker used for POL.
+#define POL_TICKER "POL"
 
 // Ticker used for GRT.
 #define GRT_TICKER "GRT"

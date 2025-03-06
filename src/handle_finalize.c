@@ -51,8 +51,7 @@ static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
     return false;
 }
 
-void handle_finalize(void *parameters) {
-    ethPluginFinalize_t *msg = (ethPluginFinalize_t *) parameters;
+void handle_finalize(ethPluginFinalize_t *msg) {
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
 
     msg->uiType = ETH_UI_TYPE_GENERIC;
@@ -66,7 +65,13 @@ void handle_finalize(void *parameters) {
     if (context->valid) {
         switch (context->selectorIndex) {
             case COMET_CLAIM:
+            case CLAIM:
+            case DELEGATE:
                 msg->numScreens = 2;
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case REDELEGATE:
+                msg->numScreens = 3;
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             case VOTE:
@@ -105,6 +110,7 @@ void handle_finalize(void *parameters) {
                 break;
             case CLAIM_TOKENS:
             case SELL_VOUCHER_NEW:
+            case SELL_VOUCHER_NEW_POL:
             case AVALANCHE_REDEEM_2:
             case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
                 msg->numScreens = 1;
@@ -154,6 +160,11 @@ void handle_finalize(void *parameters) {
             case BUY_VOUCHER:
                 msg->numScreens = 1;
                 strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case BUY_VOUCHER_POL:
+                msg->numScreens = 1;
+                strlcpy(context->ticker_sent, POL_TICKER, sizeof(context->ticker_sent));
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             case SWAP_FROM:

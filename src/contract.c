@@ -19,7 +19,12 @@ static const uint8_t STAKEKIT_SUBMIT_MATIC_LIDO_SELECTOR[SELECTOR_SIZE] = {0xf5,
 static const uint8_t STAKEKIT_REQUEST_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xcc, 0xc1, 0x43, 0xb8};
 static const uint8_t STAKEKIT_CLAIM_TOKENS_SELECTOR[SELECTOR_SIZE] = {0x46, 0xe0, 0x4a, 0x2f};
 static const uint8_t STAKEKIT_BUY_VOUCHER_SELECTOR[SELECTOR_SIZE] = {0x6a, 0xb1, 0x50, 0x71};
+static const uint8_t STAKEKIT_BUY_VOUCHER_POL_SELECTOR[SELECTOR_SIZE] = {0xe4, 0x45, 0x7a, 0x8a};
 static const uint8_t STAKEKIT_SELL_VOUCHER_NEW_SELECTOR[SELECTOR_SIZE] = {0xc8, 0x3e, 0xc0, 0x4d};
+static const uint8_t STAKEKIT_SELL_VOUCHER_NEW_POL_SELECTOR[SELECTOR_SIZE] = {0xe5,
+                                                                              0x70,
+                                                                              0xb7,
+                                                                              0x8b};
 static const uint8_t STAKEKIT_MORPHO_SUPPLY_1_SELECTOR[SELECTOR_SIZE] = {0x0c, 0x0a, 0x76, 0x9b};
 static const uint8_t STAKEKIT_MORPHO_SUPPLY_2_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
 static const uint8_t STAKEKIT_MORPHO_SUPPLY_3_SELECTOR[SELECTOR_SIZE] = {0xf6, 0x22, 0x56, 0xc7};
@@ -46,10 +51,18 @@ static const uint8_t STAKEKIT_VOTE_SELECTOR[SELECTOR_SIZE] = {0x58, 0x0d, 0x74, 
 static const uint8_t STAKEKIT_REVOKE_ACTIVE_SELECTOR[SELECTOR_SIZE] = {0x6e, 0x19, 0x84, 0x75};
 static const uint8_t STAKEKIT_AAVE_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0x61, 0x7b, 0xa0, 0x37};
 static const uint8_t STAKEKIT_WITHDRAW_REWARDS_SELECTOR[SELECTOR_SIZE] = {0xc7, 0xb8, 0x98, 0x1c};
+static const uint8_t STAKEKIT_WITHDRAW_REWARDS_POL_SELECTOR[SELECTOR_SIZE] = {0xe0,
+                                                                              0xdb,
+                                                                              0x55,
+                                                                              0x6b};
 static const uint8_t STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR[SELECTOR_SIZE] = {0xe9,
                                                                                   0x7f,
                                                                                   0xdd,
                                                                                   0xc2};
+static const uint8_t STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_POL_SELECTOR[SELECTOR_SIZE] = {0x87,
+                                                                                      0x59,
+                                                                                      0xc2,
+                                                                                      0x34};
 static const uint8_t STAKEKIT_AVALANCHE_SUBMIT_SELECTOR[SELECTOR_SIZE] = {0x5b, 0xcb, 0x2f, 0xc6};
 static const uint8_t STAKEKIT_AVALANCHE_REQUEST_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0xc9,
                                                                                   0xd2,
@@ -103,7 +116,9 @@ static const uint8_t STAKEKIT_VIC_VOTE_SELECTOR[SELECTOR_SIZE] = {0x6d, 0xd7, 0x
 static const uint8_t STAKEKIT_VIC_RESIGN_SELECTOR[SELECTOR_SIZE] = {0xae, 0x6e, 0x43, 0xf5};
 static const uint8_t STAKEKIT_VIC_UNVOTE_SELECTOR[SELECTOR_SIZE] = {0x02, 0xaa, 0x9b, 0xe2};
 static const uint8_t STAKEKIT_VIC_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0x44, 0x1a, 0x3e, 0x70};
-
+static const uint8_t STAKEKIT_CLAIM_SELECTOR[SELECTOR_SIZE] = {0xaa, 0xd3, 0xec, 0x96};
+static const uint8_t STAKEKIT_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x98, 0x2e, 0xf0, 0xa7};
+static const uint8_t STAKEKIT_REDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x59, 0x49, 0x18, 0x71};
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_DEPOSIT_SELF_APECOIN_SELECTOR,
@@ -117,7 +132,9 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_REQUEST_WITHDRAW_SELECTOR,
     STAKEKIT_CLAIM_TOKENS_SELECTOR,
     STAKEKIT_BUY_VOUCHER_SELECTOR,
+    STAKEKIT_BUY_VOUCHER_POL_SELECTOR,
     STAKEKIT_SELL_VOUCHER_NEW_SELECTOR,
+    STAKEKIT_SELL_VOUCHER_NEW_POL_SELECTOR,
     STAKEKIT_MORPHO_SUPPLY_1_SELECTOR,
     STAKEKIT_MORPHO_SUPPLY_2_SELECTOR,
     STAKEKIT_MORPHO_SUPPLY_3_SELECTOR,
@@ -141,7 +158,9 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_REVOKE_ACTIVE_SELECTOR,
     STAKEKIT_AAVE_SUPPLY_SELECTOR,
     STAKEKIT_WITHDRAW_REWARDS_SELECTOR,
+    STAKEKIT_WITHDRAW_REWARDS_POL_SELECTOR,
     STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR,
+    STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_POL_SELECTOR,
     STAKEKIT_AVALANCHE_SUBMIT_SELECTOR,
     STAKEKIT_AVALANCHE_REQUEST_UNLOCK_SELECTOR,
     STAKEKIT_AVALANCHE_REDEEM_1_SELECTOR,
@@ -161,7 +180,9 @@ const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
     STAKEKIT_VIC_RESIGN_SELECTOR,
     STAKEKIT_VIC_UNVOTE_SELECTOR,
     STAKEKIT_VIC_WITHDRAW_SELECTOR,
-};
+    STAKEKIT_CLAIM_SELECTOR,
+    STAKEKIT_DELEGATE_SELECTOR,
+    STAKEKIT_REDELEGATE_SELECTOR};
 
 // Null address
 const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
