@@ -7,18 +7,20 @@
 static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
                                                 ethPluginFinalize_t *msg) {
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
-        if (!memcmp(msg->pluginSharedRO->txContent->destination,
-                    STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
-                    ADDRESS_LENGTH)) {
-            char ticker[TICKER_LEN];
-            strlcpy(ticker,
-                    (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_deposit,
-                    sizeof(ticker));
-            strlcat(ticker, " ", sizeof(ticker));
-            strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
-            context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
-            context->tokens_found |= TOKEN_SENT_FOUND;
-            return true;
+        if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
+            if (!memcmp(msg->pluginSharedRO->txContent->destination,
+                        STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
+                        ADDRESS_LENGTH)) {
+                char ticker[TICKER_LEN];
+                strlcpy(ticker,
+                        (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_deposit,
+                        sizeof(ticker));
+                strlcat(ticker, " ", sizeof(ticker));
+                strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
+                context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
+                context->tokens_found |= TOKEN_SENT_FOUND;
+                return true;
+            }
         }
     }
     return false;
@@ -30,18 +32,20 @@ static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
 static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
                                                  ethPluginFinalize_t *msg) {
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
-        if (!memcmp(msg->pluginSharedRO->txContent->destination,
-                    STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
-                    ADDRESS_LENGTH)) {
-            char ticker[TICKER_LEN];
-            strlcpy(ticker,
-                    (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_withdraw,
-                    sizeof(ticker));
-            strlcat(ticker, " ", sizeof(ticker));
-            strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
-            context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
-            context->tokens_found |= TOKEN_SENT_FOUND;
-            return true;
+        if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
+            if (!memcmp(msg->pluginSharedRO->txContent->destination,
+                        STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
+                        ADDRESS_LENGTH)) {
+                char ticker[TICKER_LEN];
+                strlcpy(ticker,
+                        (char *) STAKEKIT_SUPPORTED_YEARN_VAULT[i].token_symbol_withdraw,
+                        sizeof(ticker));
+                strlcat(ticker, " ", sizeof(ticker));
+                strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
+                context->decimals_sent = STAKEKIT_SUPPORTED_YEARN_VAULT[i].decimals_sent;
+                context->tokens_found |= TOKEN_SENT_FOUND;
+                return true;
+            }
         }
     }
     return false;
@@ -61,7 +65,13 @@ void handle_finalize(ethPluginFinalize_t *msg) {
     if (context->valid) {
         switch (context->selectorIndex) {
             case COMET_CLAIM:
+            case CLAIM:
+            case DELEGATE:
                 msg->numScreens = 2;
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case REDELEGATE:
+                msg->numScreens = 3;
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             case VOTE:
@@ -100,6 +110,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 break;
             case CLAIM_TOKENS:
             case SELL_VOUCHER_NEW:
+            case SELL_VOUCHER_NEW_POL:
             case AVALANCHE_REDEEM_2:
             case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
                 msg->numScreens = 1;
@@ -151,6 +162,11 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 strlcpy(context->ticker_sent, MATIC_TICKER, sizeof(context->ticker_sent));
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
+            case BUY_VOUCHER_POL:
+                msg->numScreens = 1;
+                strlcpy(context->ticker_sent, POL_TICKER, sizeof(context->ticker_sent));
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
             case SWAP_FROM:
                 msg->numScreens = 2;
                 strlcpy(context->ticker_received, WETH_TICKER, sizeof(context->ticker_received));
@@ -187,15 +203,53 @@ void handle_finalize(ethPluginFinalize_t *msg) {
             case PARASPACE_WITHDRAW:
             case YEARN_VAULT_WITHDRAW_2:
             case YEARN_VAULT_WITHDRAW_3:
+            case ANGLE_WITHDRAW:
                 msg->numScreens = 1;
                 if (context->selectorIndex == YEARN_VAULT_WITHDRAW_3) {
                     msg->numScreens++;
+                }
+                if (context->selectorIndex == ANGLE_WITHDRAW) {
+                    msg->numScreens += 2;
                 }
                 if (set_ticker_withdraw_for_mapped_token(context, msg)) {
                     msg->result = ETH_PLUGIN_RESULT_OK;
                 } else {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
                 }
+                break;
+            case LIDO_REQUEST_WITHDRAWALS:
+                msg->numScreens = 2;
+                if (set_ticker_withdraw_for_mapped_token(context, msg)) {
+                    msg->result = ETH_PLUGIN_RESULT_OK;
+                } else {
+                    msg->result = ETH_PLUGIN_RESULT_ERROR;
+                }
+                break;
+            case LIDO_CLAIM_WITHDRAWALS:
+                msg->numScreens = 2;
+                if (context->nb_requests >= 2) {
+                    msg->numScreens += 2;
+                }
+                context->decimals_sent = 0;
+                context->decimals_received = 0;
+                // No ticker to display
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case VIC_VOTE:
+            case VIC_RESIGN:
+                msg->numScreens = 1;
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case VIC_UNVOTE:
+                msg->numScreens = 2;
+                strlcpy(context->ticker_sent, VIC_TICKER, sizeof(context->ticker_sent));
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
+            case VIC_WITHDRAW:
+                msg->numScreens = 2;
+                context->decimals_sent = 0;
+                context->decimals_received = 0;
+                msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
             default:
                 msg->numScreens = 1;

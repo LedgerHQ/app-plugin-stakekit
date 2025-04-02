@@ -39,8 +39,14 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case BUY_VOUCHER:
             strlcpy(msg->version, "Buy Voucher", msg->versionLength);
             break;
+        case BUY_VOUCHER_POL:
+            strlcpy(msg->version, "Buy Voucher POL", msg->versionLength);
+            break;
         case SELL_VOUCHER_NEW:
             strlcpy(msg->version, "Sell Voucher New", msg->versionLength);
+            break;
+        case SELL_VOUCHER_NEW_POL:
+            strlcpy(msg->version, "Sell Voucher New POL", msg->versionLength);
             break;
         case MORPHO_SUPPLY_1:
         case MORPHO_SUPPLY_2:
@@ -56,6 +62,7 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case YEARN_VAULT_WITHDRAW_1:
         case YEARN_VAULT_WITHDRAW_2:
         case YEARN_VAULT_WITHDRAW_3:
+        case VIC_WITHDRAW:
             strlcpy(msg->version, "Withdraw", msg->versionLength);
             break;
         case PARASPACE_DEPOSIT:
@@ -65,10 +72,14 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
             strlcpy(msg->version, "Deposit", msg->versionLength);
             break;
         case GRT_DELEGATE:
+        case DELEGATE:
             strlcpy(msg->version, "Delegate", msg->versionLength);
             break;
         case GRT_UNDELEGATE:
             strlcpy(msg->version, "Undelegate", msg->versionLength);
+            break;
+        case REDELEGATE:
+            strlcpy(msg->version, "Redelegate", msg->versionLength);
             break;
         case GRT_WITHDRAW_DELEGATED:
             strlcpy(msg->version, "Withdraw Delegated", msg->versionLength);
@@ -80,6 +91,7 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
             strlcpy(msg->version, "Leave", msg->versionLength);
             break;
         case COMET_CLAIM:
+        case CLAIM:
             strlcpy(msg->version, "Claim", msg->versionLength);
             break;
         case TRANSFER_OUT:
@@ -95,6 +107,7 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
             strlcpy(msg->version, "Unlock", msg->versionLength);
             break;
         case VOTE:
+        case VIC_VOTE:
             strlcpy(msg->version, "Vote", msg->versionLength);
             break;
         case REVOKE_ACTIVE:
@@ -103,8 +116,14 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case WITHDRAW_REWARDS:
             strlcpy(msg->version, "Withdraw Rewards", msg->versionLength);
             break;
+        case WITHDRAW_REWARDS_POL:
+            strlcpy(msg->version, "Withdraw Rewards POL", msg->versionLength);
+            break;
         case UNSTAKE_CLAIM_TOKENS_NEW:
             strlcpy(msg->version, "Unstake Claim Tokens New", msg->versionLength);
+            break;
+        case UNSTAKE_CLAIM_TOKENS_NEW_POL:
+            strlcpy(msg->version, "Unstake Claim Tokens New POL", msg->versionLength);
             break;
         case AVALANCHE_REQUEST_UNLOCK:
             strlcpy(msg->version, "Request Unlock", msg->versionLength);
@@ -116,6 +135,21 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
         case AVALANCHE_REDEEM_OVERDUE_SHARES_1:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
             strlcpy(msg->version, "Redeem Overdue Shares", msg->versionLength);
+            break;
+        case ANGLE_WITHDRAW:
+            strlcpy(msg->version, "Withdraw", msg->versionLength);
+            break;
+        case LIDO_REQUEST_WITHDRAWALS:
+            strlcpy(msg->version, "Request Withdrawals", msg->versionLength);
+            break;
+        case LIDO_CLAIM_WITHDRAWALS:
+            strlcpy(msg->version, "Claim Withdrawals", msg->versionLength);
+            break;
+        case VIC_RESIGN:
+            strlcpy(msg->version, "Resign", msg->versionLength);
+            break;
+        case VIC_UNVOTE:
+            strlcpy(msg->version, "Unvote", msg->versionLength);
             break;
         default:
             PRINTF("Selector Index :%d not supported\n", context->selectorIndex);
