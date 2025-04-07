@@ -1,6 +1,28 @@
 #include "stakekit_plugin.h"
 
 // Sets the deposit ticker as the token symbol
+// Check if the destination is the STAKEKIT_STAKED_USDE_V2 smart contract
+// If yes, set the ticker and decimals. Then return true.
+// If not, return false.
+static bool set_ticker_deposit_for_staked_usde_v2(plugin_parameters_t *context,
+                                                  ethPluginFinalize_t *msg) {
+    if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
+        if (!memcmp(msg->pluginSharedRO->txContent->destination,
+                    STAKEKIT_STAKED_USDE_V2.smart_contract,
+                    ADDRESS_LENGTH)) {
+            char ticker[TICKER_LEN];
+            strlcpy(ticker, (char *) STAKEKIT_STAKED_USDE_V2.token_symbol_deposit, sizeof(ticker));
+            strlcat(ticker, " ", sizeof(ticker));
+            strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
+            context->decimals_sent = STAKEKIT_STAKED_USDE_V2.decimals_sent;
+            context->tokens_found |= TOKEN_SENT_FOUND;
+            return true;
+        }
+    }
+    return false;
+}
+
+// Sets the deposit ticker as the token symbol
 // Look into the STAKEKIT_SUPPORTED_YEARN_VAULT array to find the corresponding token symbol.
 // If found, set the ticker and decimals. Then return true.
 // If not found, return false.
@@ -194,7 +216,9 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 if (context->selectorIndex == YEARN_VAULT_DEPOSIT_3) {
                     msg->numScreens++;
                 }
-                if (set_ticker_deposit_for_mapped_token(context, msg)) {
+                if (set_ticker_deposit_for_staked_usde_v2(context, msg)) {
+                    msg->result = ETH_PLUGIN_RESULT_OK;
+                } else if (set_ticker_deposit_for_mapped_token(context, msg)) {
                     msg->result = ETH_PLUGIN_RESULT_OK;
                 } else {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
