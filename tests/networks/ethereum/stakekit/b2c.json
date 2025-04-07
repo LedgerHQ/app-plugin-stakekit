@@ -2,6 +2,17 @@
   "chainId": 1,
   "contracts": [
     {
+      "address": "0x9d39a5de30e57443bff2a8307a4256c8797a3497",
+      "contractName": "StakedUSDeV2",
+      "selectors": {
+        "0x6e553f65": {
+          "erc20OfInterest": [],
+          "method": "deposit",
+          "plugin": "StakeKit"
+        }
+      }
+    },
+    {
       "address": "0x5954ab967bc958940b7eb73ee84797dc8a2afbb9",
       "contractName": "ApeCoinStaking",
       "selectors": {
