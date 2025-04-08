@@ -51,6 +51,7 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             strlcpy(msg->title, "Index", msg->titleLength);
             break;
         case ANGLE_WITHDRAW:
+        case STAKED_USDE_V2_COOLDOWN_ASSETS:
             strlcpy(msg->title, "Assets", msg->titleLength);
             break;
         case LIDO_REQUEST_WITHDRAWALS:
@@ -665,6 +666,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case AVALANCHE_REDEEM_2:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
         case STAKED_USDE_V2_COOLDOWN_SHARES:
+        case STAKED_USDE_V2_COOLDOWN_ASSETS:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:

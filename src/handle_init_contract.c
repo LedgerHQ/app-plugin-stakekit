@@ -97,6 +97,7 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case TRANSFER_OUT:
         case AAVE_SUPPLY:
         case STAKED_USDE_V2_COOLDOWN_SHARES:
+        case STAKED_USDE_V2_COOLDOWN_ASSETS:
             context->next_param = TOKEN_SENT;
             break;
         case MORPHO_WITHDRAW_1:
