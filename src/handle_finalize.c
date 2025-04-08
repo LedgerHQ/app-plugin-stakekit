@@ -108,6 +108,12 @@ void handle_finalize(ethPluginFinalize_t *msg) {
 
     if (context->valid) {
         switch (context->selectorIndex) {
+            case STAKED_USDE_V2_COOLDOWN_SHARES:
+            case STAKED_USDE_V2_COOLDOWN_ASSETS:
+                msg->numScreens = 1;
+                strlcpy(context->ticker_sent, STAKED_USDE_V2_TICKER, sizeof(context->ticker_sent));
+                msg->result = ETH_PLUGIN_RESULT_OK;
+                break;
             case STAKED_USDE_V2_MINT:
                 msg->numScreens = 2;
                 strlcpy(context->ticker_sent, STAKED_USDE_V2_TICKER, sizeof(context->ticker_sent));
@@ -290,6 +296,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 break;
             case VIC_VOTE:
             case VIC_RESIGN:
+            case STAKED_USDE_V2_UNSTAKE:
                 msg->numScreens = 1;
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;

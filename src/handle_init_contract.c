@@ -87,6 +87,7 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case CLAIM:
         case DELEGATE:
         case REDELEGATE:
+        case STAKED_USDE_V2_UNSTAKE:
             context->next_param = RECIPIENT;
             break;
         case MORPHO_SUPPLY_1:
@@ -95,6 +96,8 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case COMET_SUPPLY:
         case TRANSFER_OUT:
         case AAVE_SUPPLY:
+        case STAKED_USDE_V2_COOLDOWN_SHARES:
+        case STAKED_USDE_V2_COOLDOWN_ASSETS:
             context->next_param = TOKEN_SENT;
             break;
         case MORPHO_WITHDRAW_1:

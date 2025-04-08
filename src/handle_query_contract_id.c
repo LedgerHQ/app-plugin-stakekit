@@ -7,6 +7,15 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
     strlcpy(msg->name, PLUGIN_NAME, msg->nameLength);
 
     switch (context->selectorIndex) {
+        case STAKED_USDE_V2_COOLDOWN_ASSETS:
+            strlcpy(msg->version, "Cooldown Assets", msg->versionLength);
+            break;
+        case STAKED_USDE_V2_COOLDOWN_SHARES:
+            strlcpy(msg->version, "Cooldown Shares", msg->versionLength);
+            break;
+        case STAKED_USDE_V2_UNSTAKE:
+            strlcpy(msg->version, "Unstake", msg->versionLength);
+            break;
         case STAKED_USDE_V2_MINT:
             strlcpy(msg->version, "Mint", msg->versionLength);
             break;
