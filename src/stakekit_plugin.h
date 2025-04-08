@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 62u
+#define NUM_STAKEKIT_SELECTORS 66u
 
 #define TICKER_LEN 30u
 
@@ -36,6 +36,10 @@ extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];
 #define ADDRESS_IS_NULL(_addr) !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH)
 
 typedef enum {
+    STAKED_USDE_V2_MINT,
+    STAKED_USDE_V2_UNSTAKE,
+    STAKED_USDE_V2_COOLDOWN_SHARES,
+    STAKED_USDE_V2_COOLDOWN_ASSETS,
     DEPOSIT_SELF_APECOIN,
     WITHDRAW_SELF_APECOIN,
     CLAIM_SELF_APECOIN,
@@ -179,6 +183,9 @@ typedef enum {
 
 // Ticker used for Viction native token.
 #define VIC_TICKER "VIC"
+
+// Ticker used for Staked USDE V2.
+#define STAKED_USDE_V2_TICKER "sUSDe"
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 typedef struct plugin_parameters_t {

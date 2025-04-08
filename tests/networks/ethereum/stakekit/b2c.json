@@ -14,6 +14,26 @@
           "erc20OfInterest": [],
           "method": "withdraw",
           "plugin": "StakeKit"
+        },
+        "0x94bf804d": {
+          "erc20OfInterest": [],
+          "method": "mint",
+          "plugin": "StakeKit"
+        },
+        "0xf2888dbb": {
+          "erc20OfInterest": [],
+          "method": "unstake",
+          "plugin": "StakeKit"
+        },
+        "0x9343d9e1": {
+          "erc20OfInterest": [],
+          "method": "cooldownShares",
+          "plugin": "StakeKit"
+        },
+        "0xcdac52ed": {
+          "erc20OfInterest": [],
+          "method": "cooldownAssets",
+          "plugin": "StakeKit"
         }
       }
     },

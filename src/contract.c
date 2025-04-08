@@ -2,6 +2,22 @@
 
 // Need more information about the interface for plugins? Please read the README.md!
 
+static const uint8_t STAKEKIT_STAKED_USDE_V2_MINT_SELECTOR[SELECTOR_SIZE] = {0x94,
+                                                                             0xbf,
+                                                                             0x80,
+                                                                             0x4d};
+static const uint8_t STAKEKIT_STAKED_USDE_V2_UNSTAKE_SELECTOR[SELECTOR_SIZE] = {0xf2,
+                                                                                0x88,
+                                                                                0x8d,
+                                                                                0xbb};
+static const uint8_t STAKEKIT_STAKED_USDE_V2_COOLDOWN_SHARES_SELECTOR[SELECTOR_SIZE] = {0x93,
+                                                                                        0x43,
+                                                                                        0xd9,
+                                                                                        0xe1};
+static const uint8_t STAKEKIT_STAKED_USDE_V2_COOLDOWN_ASSETS_SELECTOR[SELECTOR_SIZE] = {0xcd,
+                                                                                        0xac,
+                                                                                        0x52,
+                                                                                        0xed};
 static const uint8_t STAKEKIT_DEPOSIT_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x9d,
                                                                               0xca,
                                                                               0xaf,
@@ -121,6 +137,10 @@ static const uint8_t STAKEKIT_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x98, 0x2e, 0x
 static const uint8_t STAKEKIT_REDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x59, 0x49, 0x18, 0x71};
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
+    STAKEKIT_STAKED_USDE_V2_MINT_SELECTOR,
+    STAKEKIT_STAKED_USDE_V2_UNSTAKE_SELECTOR,
+    STAKEKIT_STAKED_USDE_V2_COOLDOWN_SHARES_SELECTOR,
+    STAKEKIT_STAKED_USDE_V2_COOLDOWN_ASSETS_SELECTOR,
     STAKEKIT_DEPOSIT_SELF_APECOIN_SELECTOR,
     STAKEKIT_WITHDRAW_SELF_APECOIN_SELECTOR,
     STAKEKIT_CLAIM_SELF_APECOIN_SELECTOR,
