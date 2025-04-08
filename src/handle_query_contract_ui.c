@@ -42,6 +42,7 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             break;
         case AVALANCHE_REQUEST_UNLOCK:
         case STAKED_USDE_V2_MINT:
+        case STAKED_USDE_V2_COOLDOWN_SHARES:
             strlcpy(msg->title, "Shares", msg->titleLength);
             break;
         case AVALANCHE_REDEEM_2:
@@ -663,6 +664,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case AVALANCHE_REQUEST_UNLOCK:
         case AVALANCHE_REDEEM_2:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
+        case STAKED_USDE_V2_COOLDOWN_SHARES:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:

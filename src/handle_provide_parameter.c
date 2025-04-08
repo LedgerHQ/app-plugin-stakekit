@@ -495,6 +495,7 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
             case PARASPACE_WITHDRAW:
             case YEARN_VAULT_DEPOSIT_2:
             case YEARN_VAULT_WITHDRAW_2:
+            case STAKED_USDE_V2_COOLDOWN_SHARES:
                 // Save the amount sent to the context.
                 copy_parameter(context->amount_sent, msg->parameter, INT256_LENGTH);
                 break;
