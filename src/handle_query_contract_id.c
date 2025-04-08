@@ -7,6 +7,9 @@ void handle_query_contract_id(ethQueryContractID_t *msg) {
     strlcpy(msg->name, PLUGIN_NAME, msg->nameLength);
 
     switch (context->selectorIndex) {
+        case STAKED_USDE_V2_MINT:
+            strlcpy(msg->version, "Mint", msg->versionLength);
+            break;
         case CLAIM_SELF_APECOIN:
             strlcpy(msg->version, "Claim Self APE coin", msg->versionLength);
             break;

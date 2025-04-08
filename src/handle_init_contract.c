@@ -53,6 +53,7 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
         case YEARN_VAULT_WITHDRAW_2:
         case YEARN_VAULT_WITHDRAW_3:
         case ANGLE_WITHDRAW:
+        case STAKED_USDE_V2_MINT:
             context->next_param = AMOUNT_SENT;
             break;
         case WITHDRAW_SELF_APECOIN:

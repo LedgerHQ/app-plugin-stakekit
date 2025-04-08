@@ -41,6 +41,7 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             strlcpy(msg->title, "Votes", msg->titleLength);
             break;
         case AVALANCHE_REQUEST_UNLOCK:
+        case STAKED_USDE_V2_MINT:
             strlcpy(msg->title, "Shares", msg->titleLength);
             break;
         case AVALANCHE_REDEEM_2:
@@ -236,6 +237,7 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case YEARN_VAULT_DEPOSIT_3:
         case YEARN_VAULT_WITHDRAW_3:
         case ANGLE_WITHDRAW:
+        case STAKED_USDE_V2_MINT:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -683,6 +685,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case LIDO_REQUEST_WITHDRAWALS:
         case VIC_UNVOTE:
         case CLAIM:
+        case STAKED_USDE_V2_MINT:
             return get_screen_amount_sent_recipient(msg, context);
         case DELEGATE:
             return get_screen_delegate(msg, context);

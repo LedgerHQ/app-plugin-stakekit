@@ -545,6 +545,7 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
             case REQUEST_WITHDRAW:
             case YEARN_VAULT_DEPOSIT_3:
             case YEARN_VAULT_WITHDRAW_3:
+            case STAKED_USDE_V2_MINT:
                 handle_amount_recipient(msg, context);
                 break;
             case SWAP_FROM:
