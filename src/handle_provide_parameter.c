@@ -512,6 +512,7 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 copy_parameter(context->amount_received, msg->parameter, INT256_LENGTH);
                 break;
             case SUBMIT_ETH_LIDO:
+            case STAKED_USDE_V2_UNSTAKE:
                 // Save the recipient to the context.
                 copy_address(context->recipient, msg->parameter, ADDRESS_LENGTH);
                 break;

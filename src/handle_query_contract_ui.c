@@ -238,6 +238,7 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case YEARN_VAULT_WITHDRAW_3:
         case ANGLE_WITHDRAW:
         case STAKED_USDE_V2_MINT:
+        case STAKED_USDE_V2_UNSTAKE:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -672,6 +673,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SUBMIT_ETH_LIDO:
         case VIC_VOTE:
         case VIC_RESIGN:
+        case STAKED_USDE_V2_UNSTAKE:
             return get_screen_recipient(msg, context);
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:

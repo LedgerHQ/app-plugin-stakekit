@@ -290,6 +290,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 break;
             case VIC_VOTE:
             case VIC_RESIGN:
+            case STAKED_USDE_V2_UNSTAKE:
                 msg->numScreens = 1;
                 msg->result = ETH_PLUGIN_RESULT_OK;
                 break;
