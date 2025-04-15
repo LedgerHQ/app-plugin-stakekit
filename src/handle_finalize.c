@@ -72,8 +72,11 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 break;
             case STAKED_USDE_V2_MINT:
                 msg->numScreens = 2;
-                strlcpy(context->ticker_sent, STAKED_USDE_V2_TICKER, sizeof(context->ticker_sent));
-                msg->result = ETH_PLUGIN_RESULT_OK;
+                if (set_ticker_deposit_for_mapped_token(context, msg)) {
+                    msg->result = ETH_PLUGIN_RESULT_OK;
+                } else {
+                    msg->result = ETH_PLUGIN_RESULT_ERROR;
+                }
                 break;
             case COMET_CLAIM:
             case CLAIM:
