@@ -1,6 +1,6 @@
 import { processTest, populateTransaction } from "../test.fixture";
 
-const contractName = "TransparentUpgradeableProxy";  // <= Name of the smart contract
+const contractName = "StakedUSDeV2";  // <= Name of the smart contract
 
 const testLabel = "ethereum_staked_usde_v2_deposit"; // <= Name of the test
 const testDirSuffix = "ethereum_staked_usde_v2_deposit"; // <= directory to compare device snapshots to
