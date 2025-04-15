@@ -14,15 +14,14 @@
 #define TOKEN_SENT_FOUND     1u
 #define TOKEN_RECEIVED_FOUND 1u << 1u
 
-#define NUM_SUPPORTED_SMART_CONTRACT 105u
+#define NUM_SUPPORTED_SMART_CONTRACT 107u
 typedef struct tokenSymbolAndDecimals_t {
     uint8_t smart_contract[ADDRESS_LENGTH];
     char token_symbol_deposit[TICKER_LEN];
     char token_symbol_withdraw[TICKER_LEN];
     uint8_t decimals_sent;
 } tokenSymbolAndDecimals_t;
-extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMART_CONTRACT];
-extern const tokenSymbolAndDecimals_t STAKEKIT_STAKED_USDE_V2;
+extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT];
 #define CHAIN_ID_LENGTH 1
 
 #define MIN_MSG_LENGTH 42
