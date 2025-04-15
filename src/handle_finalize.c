@@ -218,11 +218,13 @@ void handle_finalize(ethPluginFinalize_t *msg) {
             case YEARN_VAULT_WITHDRAW_2:
             case YEARN_VAULT_WITHDRAW_3:
             case ANGLE_WITHDRAW:
+            case STK_USDE_REDEEM:
                 msg->numScreens = 1;
                 if (context->selectorIndex == YEARN_VAULT_WITHDRAW_3) {
                     msg->numScreens++;
                 }
-                if (context->selectorIndex == ANGLE_WITHDRAW) {
+                if (context->selectorIndex == ANGLE_WITHDRAW ||
+                    context->selectorIndex == STK_USDE_REDEEM) {
                     msg->numScreens += 2;
                 }
                 if (set_ticker_withdraw_for_mapped_token(context, msg)) {
