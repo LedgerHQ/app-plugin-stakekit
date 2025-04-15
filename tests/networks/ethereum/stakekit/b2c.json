@@ -2,6 +2,32 @@
   "chainId": 1,
   "contracts": [
     {
+      "address": "0x4e6189f16a348e6233a33317c6480f2fd4fc7870",
+      "contractName": "TransparentUpgradeableProxy",
+      "selectors": {
+        "0x6e553f65": {
+          "erc20OfInterest": [],
+          "method": "deposit",
+          "plugin": "StakeKit"
+        },
+        "0x94bf804d": {
+          "erc20OfInterest": [],
+          "method": "mint",
+          "plugin": "StakeKit"
+        },
+        "0xb460af94": {
+          "erc20OfInterest": [],
+          "method": "withdraw",
+          "plugin": "StakeKit"
+        },
+        "0xba087652": {
+          "erc20OfInterest": [],
+          "method": "reedeem",
+          "plugin": "StakeKit"
+        }
+      }
+    },
+    {
       "address": "0x9d39a5de30e57443bff2a8307a4256c8797a3497",
       "contractName": "StakedUSDeV2",
       "selectors": {

@@ -588,6 +588,7 @@ void handle_provide_parameter(ethPluginProvideParameter_t *msg) {
                 handle_aave_supply(msg, context);
                 break;
             case ANGLE_WITHDRAW:
+            case STK_USDE_REDEEM:
                 handle_angle_withdraw(msg, context);
                 break;
             case LIDO_REQUEST_WITHDRAWALS:

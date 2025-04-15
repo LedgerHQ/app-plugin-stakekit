@@ -2,6 +2,7 @@
 
 // Need more information about the interface for plugins? Please read the README.md!
 
+static const uint8_t STAKEKIT_STK_USDE_REDEEM_SELECTOR[SELECTOR_SIZE] = {0xba, 0x08, 0x76, 0x52};
 static const uint8_t STAKEKIT_STAKED_USDE_V2_MINT_SELECTOR[SELECTOR_SIZE] = {0x94,
                                                                              0xbf,
                                                                              0x80,
@@ -137,6 +138,7 @@ static const uint8_t STAKEKIT_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x98, 0x2e, 0x
 static const uint8_t STAKEKIT_REDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x59, 0x49, 0x18, 0x71};
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
+    STAKEKIT_STK_USDE_REDEEM_SELECTOR,
     STAKEKIT_STAKED_USDE_V2_MINT_SELECTOR,
     STAKEKIT_STAKED_USDE_V2_UNSTAKE_SELECTOR,
     STAKEKIT_STAKED_USDE_V2_COOLDOWN_SHARES_SELECTOR,
@@ -209,16 +211,19 @@ const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH] = {0x00, 0x00, 0x00, 0x00, 0x00, 
                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-const tokenSymbolAndDecimals_t STAKEKIT_STAKED_USDE_V2 = {
-    {0x9d, 0x39, 0xa5, 0xde, 0x30, 0xe5, 0x74, 0x43, 0xbf, 0xf2,
-     0xa8, 0x30, 0x7a, 0x42, 0x56, 0xc8, 0x79, 0x7a, 0x34, 0x97},
-    "USDe",
-    "sUSDe",
-    18};
-
-// Array containing the yearn vault smart contracts supported by StakeKit Plugin
+// Array containing some smart contracts supported by StakeKit Plugin
 // each contain the token symbol and decimal
-const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMART_CONTRACT] = {
+const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT] = {
+    {{0x4e, 0x61, 0x89, 0xf1, 0x6a, 0x34, 0x8e, 0x62, 0x33, 0xa3,
+      0x33, 0x17, 0xc6, 0x48, 0x0f, 0x2f, 0xd4, 0xfc, 0x78, 0x70},
+     "USDe",
+     "stk-USDe",
+     18},
+    {{0x9d, 0x39, 0xa5, 0xde, 0x30, 0xe5, 0x74, 0x43, 0xbf, 0xf2,
+      0xa8, 0x30, 0x7a, 0x42, 0x56, 0xc8, 0x79, 0x7a, 0x34, 0x97},
+     "USDe",
+     "sUSDe",
+     18},
     {{0xc5, 0xc9, 0xfb, 0x62, 0x23, 0xa9, 0x89, 0x20, 0x8d, 0xf2,
       0x7d, 0xce, 0xe3, 0x3f, 0xc5, 0x9f, 0xf5, 0xc2, 0x6f, 0xff},
      "APE",
