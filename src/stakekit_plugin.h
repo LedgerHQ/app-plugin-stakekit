@@ -188,6 +188,9 @@ typedef enum {
 // Ticker used for Staked USDE V2.
 #define STAKED_USDE_V2_TICKER "sUSDe"
 
+// Ticker used for USDE.
+#define USDE_TICKER "USDe"
+
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 typedef struct plugin_parameters_t {
     uint8_t amount_sent[INT256_LENGTH];
