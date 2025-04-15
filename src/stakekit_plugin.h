@@ -21,7 +21,8 @@ typedef struct tokenSymbolAndDecimals_t {
     char token_symbol_withdraw[TICKER_LEN];
     uint8_t decimals_sent;
 } tokenSymbolAndDecimals_t;
-extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT];
+extern const tokenSymbolAndDecimals_t
+    STAKEKIT_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT];
 #define CHAIN_ID_LENGTH 1
 
 #define MIN_MSG_LENGTH 42
