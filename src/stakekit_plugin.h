@@ -7,7 +7,7 @@
 
 #define PLUGIN_NAME "StakeKit"
 
-#define NUM_STAKEKIT_SELECTORS 66u
+#define NUM_STAKEKIT_SELECTORS 67u
 
 #define TICKER_LEN 30u
 
@@ -36,6 +36,7 @@ extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];
 #define ADDRESS_IS_NULL(_addr) !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH)
 
 typedef enum {
+    STK_USDE_REDEEM,
     STAKED_USDE_V2_MINT,
     STAKED_USDE_V2_UNSTAKE,
     STAKED_USDE_V2_COOLDOWN_SHARES,

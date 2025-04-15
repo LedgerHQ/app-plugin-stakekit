@@ -2,6 +2,7 @@
 
 // Need more information about the interface for plugins? Please read the README.md!
 
+static const uint8_t STAKEKIT_STK_USDE_REDEEM_SELECTOR[SELECTOR_SIZE] = {0xba, 0x08, 0x76, 0x52};
 static const uint8_t STAKEKIT_STAKED_USDE_V2_MINT_SELECTOR[SELECTOR_SIZE] = {0x94,
                                                                              0xbf,
                                                                              0x80,
@@ -137,6 +138,7 @@ static const uint8_t STAKEKIT_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x98, 0x2e, 0x
 static const uint8_t STAKEKIT_REDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x59, 0x49, 0x18, 0x71};
 // Array of all the different StakeKit selectors.
 const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
+    STAKEKIT_STK_USDE_REDEEM_SELECTOR,
     STAKEKIT_STAKED_USDE_V2_MINT_SELECTOR,
     STAKEKIT_STAKED_USDE_V2_UNSTAKE_SELECTOR,
     STAKEKIT_STAKED_USDE_V2_COOLDOWN_SHARES_SELECTOR,
