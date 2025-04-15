@@ -72,7 +72,7 @@ void handle_finalize(ethPluginFinalize_t *msg) {
                 break;
             case STAKED_USDE_V2_MINT:
                 msg->numScreens = 2;
-                if (set_ticker_deposit_for_mapped_token(context, msg)) {
+                if (set_ticker_withdraw_for_mapped_token(context, msg)) {
                     msg->result = ETH_PLUGIN_RESULT_OK;
                 } else {
                     msg->result = ETH_PLUGIN_RESULT_ERROR;
