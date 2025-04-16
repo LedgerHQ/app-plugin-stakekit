@@ -6,19 +6,26 @@
 
 This is a plugin for the Ethereum application which helps parsing and displaying relevant information when signing a StakeKit transaction.
 
-## Prerequisite
+## Quick start guide with VSCode
 
-Clone the plugin to a new folder.
+You can quickly setup a convenient environment to build and test your application by using [Ledger's VSCode developer tools extension](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools) which leverages the [ledger-app-dev-tools](https://github.com/LedgerHQ/ledger-app-builder/pkgs/container/ledger-app-builder%2Fledger-app-dev-tools) docker image.
 
-```shell
-git clone https://github.com/blooo-io/LedgerHQ-app-plugin-stakekit.git
-```
+It will allow you, whether you are developing on macOS, Windows or Linux to quickly **build** your apps, **test** them on **Speculos** and **load** them on any supported device.
 
-Then in the same folder clone one more repository, which is the app-ethereum.
+- Install and run [Docker](https://www.docker.com/products/docker-desktop/).
+- Make sure you have an X11 server running :
+  - On Ubuntu Linux, it should be running by default.
+  - On macOS, install and launch [XQuartz](https://www.xquartz.org/) (make sure to go to XQuartz > Preferences > Security and check "Allow client connections").
+  - On Windows, install and launch [VcXsrv](https://sourceforge.net/projects/vcxsrv/) (make sure to configure it to disable access control).
+- Install [VScode](https://code.visualstudio.com/download) and add [Ledger's extension](https://marketplace.visualstudio.com/items?itemName=LedgerHQ.ledger-dev-tools).
+- Open a terminal and clone `LedgerHQ-app-plugun-stakekit` with `git clone git@github.com:blooo-io/LedgerHQ-app-plugun-stakekit.git`.
+- Also clone `app-ethereum` with `git clone --recurse-submodules https://github.com/LedgerHQ/app-ethereum.git`.
+- Open the `LedgerHQ-app-plugun-stakekit` folder with VSCode.
+- Use Ledger extension's sidebar menu or open the tasks menu with `ctrl + shift + b` (`command + shift + b` on a Mac) to conveniently execute actions :
+  - Build the app for the device model of your choice with `Build`.
+  - You can also load the app on a physical device, and more.
 
-```shell
-git clone --recurse-submodules https://github.com/LedgerHQ/app-ethereum.git     #app-ethereum
-```
+:information_source: The terminal tab of VSCode will show you what commands the extension runs behind the scene.
 
 ## Documentation
 
@@ -82,7 +89,7 @@ Methods covered by this plugin are:
 | Ethena sUSDe Token           | StakedUSDeV2                                                                                                                                                                                                                                                                          | <table><tbody> <tr><td><code>0x6e553f65</code></td></tr> <tr><td><code>0xb460af94</code></td></tr> <tr><td><code>0x94bf804d</code></td></tr> <tr><td><code>0xf2888dbb</code></td></tr> <tr><td><code>0x9343d9e1</code></td></tr> <tr><td><code>0xcdac52ed</code></td></tr> </tbody></table>                                                                                     | <table><tbody> <tr><td><code>deposit</code></td></tr><tr><td><code>withdraw</code></td></tr><tr><td><code>mint</code></td></tr><tr><td><code>unstake</code></td></tr><tr><td><code>cooldownShares</code></td></tr><tr><td><code>cooldownAssets</code></td></tr> </tbody></table>                                                                                                                                                        |
 | StakeKit                     | AllocatorVaultV1                                                                                                                                                                                                                                                                      | <table><tbody> <tr><td><code>0x6e553f65</code></td></tr> <tr><td><code>0x94bf804d</code></td></tr> <tr><td><code>0xb460af94</code></td></tr> <tr><td><code>0xba087652</code></td></tr> </tbody></table>                                                                                                                                                                         | <table><tbody> <tr><td><code>deposit</code></td></tr> <tr><td><code>mint</code></td></tr> <tr><td><code>withdraw</code></td></tr> <tr><td><code>reedeem</code></td></tr> </tbody></table>                                                                                                                                                                                                                                               |
 
-## Build
+## Run functional Tests
 
 Go to the global folder and run the below command.
 
@@ -98,16 +105,14 @@ cd LedgerHQ-app-plugin-stakekit/tests       # go to the tests folder in LedgerHQ
 ./build_local_test_elfs.sh              # run the script build_local_test_elfs.sh
 ```
 
-## Tests
-
-To test the plugin go to the tests folder from the "LedgerHQ-app-plugin-stakekit" and run the script "test"
+You can exit the container, to test the plugin go to the tests folder from the "LedgerHQ-app-plugin-stakekit" and run the script "test"
 
 ```shell
 cd LedgerHQ-app-plugin-stakekit/tests       # go to the tests folder in LedgerHQ-app-plugin-stakekit
 yarn test                       # run the script test
 ```
 
-## Loading on a physical device
+## Loading on a physical device with terminal
 
 This step will vary slightly depending on your platform.
 
