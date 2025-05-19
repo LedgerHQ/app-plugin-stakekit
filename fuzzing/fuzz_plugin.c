@@ -29,7 +29,7 @@ int LLVMFuzzerTestOneInput(const uint8_t *data, size_t size) {
     ethPluginSharedRW_t shared_rw;
     shared_rw.sha3 = &sha3;
 
-    context_t context;
+    plugin_parameters_t context;
     const uint8_t address[ADDRESS_LENGTH] = {0xee, 0xee, 0xee, 0xee, 0xee, 0xee, 0xee,
                                              0xee, 0xee, 0xee, 0xee, 0xee, 0xee, 0xee,
                                              0xee, 0xee, 0xee, 0xee, 0xee, 0xee};
