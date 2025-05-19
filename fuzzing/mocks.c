@@ -1,4 +1,4 @@
-#include "plugin.h"
+#include "stakekit_plugin.h"
 #include "lcx_common.h"
 #include "lcx_hash.h"
 #include <stddef.h>

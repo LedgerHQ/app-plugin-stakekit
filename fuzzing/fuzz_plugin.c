@@ -1,4 +1,4 @@
-#include "plugin.h"
+#include "stakekit_plugin.h"
 
 // set a small size to detect possible overflows
 #define NAME_LENGTH    3u
