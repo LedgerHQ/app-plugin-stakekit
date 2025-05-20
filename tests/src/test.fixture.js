@@ -89,7 +89,7 @@ function txFromEtherscan(rawTx) {
 
 /**
  * Emulation of the device using zemu
- * @param {string} device name of the device to emulate (nanos, nanox)
+ * @param {string} device name of the device to emulate (nanox, nanosp, stax, flex)
  * @param {function} func
  * @param {boolean} signed the plugin is already signed
  * @returns {Promise}
@@ -100,24 +100,21 @@ function zemu(device, func, testNetwork, signed = false) {
     let current_model;
 
     const models = [
-      { dev: { name: 'nanos', prefix: 'S', path: APP_PATH_NANOS }, plugin: PLUGIN_LIB_NANOS },
       { dev: { name: 'nanox', prefix: 'X', path: APP_PATH_NANOX }, plugin: PLUGIN_LIB_NANOX },
       { dev: { name: 'nanosp', prefix: 'SP', path: APP_PATH_NANOSP }, plugin: PLUGIN_LIB_NANOSP },
       { dev: { name: 'stax', prefix: 'ST', path: APP_PATH_STAX }, plugin: PLUGIN_LIB_STAX },
       { dev: { name: 'flex', prefix: 'FL', path: APP_PATH_FLEX }, plugin: PLUGIN_LIB_FLEX }
     ]
 
-    if (device === "nanos") {
+    if (device === "nanox") {
       current_model = models[0]
-    } else if (device === "nanox") {
-      current_model = models[1]
     } else if (device === "nanosp") {
-      current_model = models[2]
+      current_model = models[1]
     } else if (device === "stax") {
-      current_model = models[3]
+      current_model = models[2]
       simOptions.startText = "Ethereum"
     } else {
-      current_model = models[4]
+      current_model = models[3]
       simOptions.startText = "Ethereum"
     }
 
@@ -144,7 +141,7 @@ function zemu(device, func, testNetwork, signed = false) {
 
 /**
  * Process the trasaction through the full test process in interaction with the simulator
- * @param {Eth} eth Device to test (nanos, nanox)
+ * @param {Eth} eth Device to test (nanosp, nanox)
  * @param {function} sim Zemu simulator
  * @param {int} steps Number of steps to push right button
  * @param {string} label directory against which the test snapshots must be checked.

@@ -13,7 +13,6 @@ const transactions = [
     {
         // From : https://tomoscan.io/tx/0x820b57ef79a067c3b7d2c9e99b46a63a1a8cafb8c4b51ca23d01928efe66a3d7
         inputData: "0xae6e43f5000000000000000000000000d3cac70664429382db8f59ca1eac89634edd23c8",
-        nanoStep: 7,
         nanoSPtep: 5,
         nanoXtep: 5,
         index: 1,
@@ -22,11 +21,6 @@ const transactions = [
 
 transactions.forEach((tx) => {
     const devices = [
-        {
-            name: 'nanos',
-            label: 'Nano S',
-            steps: tx.nanoStep, // <= Define the number of steps for this test case and this device
-        },
         {
             name: 'nanox',
             label: 'Nano X',
