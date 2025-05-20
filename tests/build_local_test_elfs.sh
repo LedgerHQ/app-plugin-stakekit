@@ -38,7 +38,7 @@ build_device_elfs() {
 cd ..
 
 # List of supported devices
-DEVICES=("NANOS" "NANOX" "NANOSP" "FLEX" "STAX")
+DEVICES=("NANOX" "NANOSP" "FLEX" "STAX")
 
 # Build for each device
 for device in "${DEVICES[@]}"; do
