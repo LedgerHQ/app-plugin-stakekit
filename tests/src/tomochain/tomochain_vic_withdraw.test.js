@@ -13,8 +13,8 @@ const transactions = [
     {
         // From : https://tomoscan.io/tx/0x18a68417e99b419c9b16c20474ca3df78ce9767ca4059385d0a5b75648e56c44
         inputData: "0x441a3e7000000000000000000000000000000000000000000000000000000000046648e00000000000000000000000000000000000000000000000000000000000000000",
-        nanoSPtep: 6,
-        nanoXtep: 6,
+        nanoSPtep: 5,
+        nanoXtep: 5,
         index: 1,
     },
 ];

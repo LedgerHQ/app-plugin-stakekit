@@ -15,15 +15,15 @@ const transactions = [
     {
         // From : https://snowtrace.io/tx/0xada8f8fe6ae25dcf9bdbccb9caf8d3f0dc75b5085f03c665d5cc4cd16eced93c
         inputData: '0x0d10d32c',
-        nanoSPtep: 5,
-        nanoXtep: 5,
+        nanoSPtep: 4,
+        nanoXtep: 4,
         index: 1,
     },
     {
         // From : https://snowtrace.io/tx/0x03280d9d84c0f20870a9a265aa00dd69299a332e16e504104048116a1a6d7e5d
         inputData: '0x0f7e20480000000000000000000000000000000000000000000000000000000000000000',
-        nanoSPtep: 5,
-        nanoXtep: 5,
+        nanoSPtep: 4,
+        nanoXtep: 4,
         index: 2,
     },
 ];
