@@ -5,9 +5,9 @@
 
 #include "eth_plugin_interface.h"
 
-#define PLUGIN_NAME "StakeKit"
+#define PLUGIN_NAME "Yield.xyz"
 
-#define NUM_STAKEKIT_SELECTORS 67u
+#define NUM_YIELD_XYZ_SELECTORS 67u
 
 #define TICKER_LEN 30u
 
@@ -22,7 +22,7 @@ typedef struct tokenSymbolAndDecimals_t {
     uint8_t decimals_sent;
 } tokenSymbolAndDecimals_t;
 extern const tokenSymbolAndDecimals_t
-    STAKEKIT_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT];
+    YIELD_XYZ_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT];
 #define CHAIN_ID_LENGTH 1
 
 #define MIN_MSG_LENGTH 42
@@ -105,7 +105,7 @@ typedef enum {
     REDELEGATE,
 } selector_t;
 
-extern const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS];
+extern const uint8_t *const YIELD_XYZ_SELECTORS[NUM_YIELD_XYZ_SELECTORS];
 
 typedef enum {
     SEND_SCREEN,

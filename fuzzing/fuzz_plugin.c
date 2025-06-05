@@ -1,4 +1,4 @@
-#include "stakekit_plugin.h"
+#include "yield_xyz_plugin.h"
 
 // set a small size to detect possible overflows
 #define NAME_LENGTH    3u

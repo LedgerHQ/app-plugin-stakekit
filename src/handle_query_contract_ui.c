@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "stakekit_plugin.h"
+#include "yield_xyz_plugin.h"
 
 // Set UI for the "Send" screen.
 // Each methods sets the title and the message to be displayed on the screen.

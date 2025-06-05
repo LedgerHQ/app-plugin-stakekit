@@ -1,219 +1,231 @@
-#include "stakekit_plugin.h"
+#include "yield_xyz_plugin.h"
 
 // Need more information about the interface for plugins? Please read the README.md!
 
-static const uint8_t STAKEKIT_STK_USDE_REDEEM_SELECTOR[SELECTOR_SIZE] = {0xba, 0x08, 0x76, 0x52};
-static const uint8_t STAKEKIT_STAKED_USDE_V2_MINT_SELECTOR[SELECTOR_SIZE] = {0x94,
-                                                                             0xbf,
-                                                                             0x80,
+static const uint8_t YIELD_XYZ_STK_USDE_REDEEM_SELECTOR[SELECTOR_SIZE] = {0xba, 0x08, 0x76, 0x52};
+static const uint8_t YIELD_XYZ_STAKED_USDE_V2_MINT_SELECTOR[SELECTOR_SIZE] = {0x94,
+                                                                              0xbf,
+                                                                              0x80,
+                                                                              0x4d};
+static const uint8_t YIELD_XYZ_STAKED_USDE_V2_UNSTAKE_SELECTOR[SELECTOR_SIZE] = {0xf2,
+                                                                                 0x88,
+                                                                                 0x8d,
+                                                                                 0xbb};
+static const uint8_t YIELD_XYZ_STAKED_USDE_V2_COOLDOWN_SHARES_SELECTOR[SELECTOR_SIZE] = {0x93,
+                                                                                         0x43,
+                                                                                         0xd9,
+                                                                                         0xe1};
+static const uint8_t YIELD_XYZ_STAKED_USDE_V2_COOLDOWN_ASSETS_SELECTOR[SELECTOR_SIZE] = {0xcd,
+                                                                                         0xac,
+                                                                                         0x52,
+                                                                                         0xed};
+static const uint8_t YIELD_XYZ_DEPOSIT_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x9d,
+                                                                               0xca,
+                                                                               0xaf,
+                                                                               0xb4};
+static const uint8_t YIELD_XYZ_WITHDRAW_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x7f,
+                                                                                0x60,
+                                                                                0xd3,
+                                                                                0x38};
+static const uint8_t YIELD_XYZ_CLAIM_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x82,
+                                                                             0x79,
+                                                                             0xe7,
+                                                                             0x60};
+static const uint8_t YIELD_XYZ_SUBMIT_ETH_LIDO_SELECTOR[SELECTOR_SIZE] = {0xa1, 0x90, 0x3e, 0xab};
+static const uint8_t YIELD_XYZ_SWAP_TO_SELECTOR[SELECTOR_SIZE] = {0x55, 0x36, 0x2f, 0x4d};
+static const uint8_t YIELD_XYZ_SWAP_FROM_SELECTOR[SELECTOR_SIZE] = {0xa8, 0x24, 0xae, 0x8b};
+static const uint8_t YIELD_XYZ_STAKE_SELECTOR[SELECTOR_SIZE] = {0x3a, 0x4b, 0x66, 0xf1};
+static const uint8_t YIELD_XYZ_SUBMIT_MATIC_LIDO_SELECTOR[SELECTOR_SIZE] = {0xf5, 0x32, 0xe8, 0x6a};
+static const uint8_t YIELD_XYZ_REQUEST_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xcc, 0xc1, 0x43, 0xb8};
+static const uint8_t YIELD_XYZ_CLAIM_TOKENS_SELECTOR[SELECTOR_SIZE] = {0x46, 0xe0, 0x4a, 0x2f};
+static const uint8_t YIELD_XYZ_BUY_VOUCHER_SELECTOR[SELECTOR_SIZE] = {0x6a, 0xb1, 0x50, 0x71};
+static const uint8_t YIELD_XYZ_BUY_VOUCHER_POL_SELECTOR[SELECTOR_SIZE] = {0xe4, 0x45, 0x7a, 0x8a};
+static const uint8_t YIELD_XYZ_SELL_VOUCHER_NEW_SELECTOR[SELECTOR_SIZE] = {0xc8, 0x3e, 0xc0, 0x4d};
+static const uint8_t YIELD_XYZ_SELL_VOUCHER_NEW_POL_SELECTOR[SELECTOR_SIZE] = {0xe5,
+                                                                               0x70,
+                                                                               0xb7,
+                                                                               0x8b};
+static const uint8_t YIELD_XYZ_MORPHO_SUPPLY_1_SELECTOR[SELECTOR_SIZE] = {0x0c, 0x0a, 0x76, 0x9b};
+static const uint8_t YIELD_XYZ_MORPHO_SUPPLY_2_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
+static const uint8_t YIELD_XYZ_MORPHO_SUPPLY_3_SELECTOR[SELECTOR_SIZE] = {0xf6, 0x22, 0x56, 0xc7};
+static const uint8_t YIELD_XYZ_MORPHO_WITHDRAW_1_SELECTOR[SELECTOR_SIZE] = {0xf3, 0xfe, 0xf3, 0xa3};
+static const uint8_t YIELD_XYZ_MORPHO_WITHDRAW_2_SELECTOR[SELECTOR_SIZE] = {0x69, 0x32, 0x8d, 0xec};
+static const uint8_t YIELD_XYZ_PARASPACE_DEPOSIT_SELECTOR[SELECTOR_SIZE] = {0x47, 0xe7, 0xef, 0x24};
+static const uint8_t YIELD_XYZ_PARASPACE_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0x2e,
+                                                                             0x1a,
+                                                                             0x7d,
                                                                              0x4d};
-static const uint8_t STAKEKIT_STAKED_USDE_V2_UNSTAKE_SELECTOR[SELECTOR_SIZE] = {0xf2,
-                                                                                0x88,
-                                                                                0x8d,
-                                                                                0xbb};
-static const uint8_t STAKEKIT_STAKED_USDE_V2_COOLDOWN_SHARES_SELECTOR[SELECTOR_SIZE] = {0x93,
-                                                                                        0x43,
-                                                                                        0xd9,
-                                                                                        0xe1};
-static const uint8_t STAKEKIT_STAKED_USDE_V2_COOLDOWN_ASSETS_SELECTOR[SELECTOR_SIZE] = {0xcd,
-                                                                                        0xac,
-                                                                                        0x52,
-                                                                                        0xed};
-static const uint8_t STAKEKIT_DEPOSIT_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x9d,
-                                                                              0xca,
-                                                                              0xaf,
-                                                                              0xb4};
-static const uint8_t STAKEKIT_WITHDRAW_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x7f,
-                                                                               0x60,
-                                                                               0xd3,
-                                                                               0x38};
-static const uint8_t STAKEKIT_CLAIM_SELF_APECOIN_SELECTOR[SELECTOR_SIZE] = {0x82, 0x79, 0xe7, 0x60};
-static const uint8_t STAKEKIT_SUBMIT_ETH_LIDO_SELECTOR[SELECTOR_SIZE] = {0xa1, 0x90, 0x3e, 0xab};
-static const uint8_t STAKEKIT_SWAP_TO_SELECTOR[SELECTOR_SIZE] = {0x55, 0x36, 0x2f, 0x4d};
-static const uint8_t STAKEKIT_SWAP_FROM_SELECTOR[SELECTOR_SIZE] = {0xa8, 0x24, 0xae, 0x8b};
-static const uint8_t STAKEKIT_STAKE_SELECTOR[SELECTOR_SIZE] = {0x3a, 0x4b, 0x66, 0xf1};
-static const uint8_t STAKEKIT_SUBMIT_MATIC_LIDO_SELECTOR[SELECTOR_SIZE] = {0xf5, 0x32, 0xe8, 0x6a};
-static const uint8_t STAKEKIT_REQUEST_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xcc, 0xc1, 0x43, 0xb8};
-static const uint8_t STAKEKIT_CLAIM_TOKENS_SELECTOR[SELECTOR_SIZE] = {0x46, 0xe0, 0x4a, 0x2f};
-static const uint8_t STAKEKIT_BUY_VOUCHER_SELECTOR[SELECTOR_SIZE] = {0x6a, 0xb1, 0x50, 0x71};
-static const uint8_t STAKEKIT_BUY_VOUCHER_POL_SELECTOR[SELECTOR_SIZE] = {0xe4, 0x45, 0x7a, 0x8a};
-static const uint8_t STAKEKIT_SELL_VOUCHER_NEW_SELECTOR[SELECTOR_SIZE] = {0xc8, 0x3e, 0xc0, 0x4d};
-static const uint8_t STAKEKIT_SELL_VOUCHER_NEW_POL_SELECTOR[SELECTOR_SIZE] = {0xe5,
-                                                                              0x70,
-                                                                              0xb7,
-                                                                              0x8b};
-static const uint8_t STAKEKIT_MORPHO_SUPPLY_1_SELECTOR[SELECTOR_SIZE] = {0x0c, 0x0a, 0x76, 0x9b};
-static const uint8_t STAKEKIT_MORPHO_SUPPLY_2_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
-static const uint8_t STAKEKIT_MORPHO_SUPPLY_3_SELECTOR[SELECTOR_SIZE] = {0xf6, 0x22, 0x56, 0xc7};
-static const uint8_t STAKEKIT_MORPHO_WITHDRAW_1_SELECTOR[SELECTOR_SIZE] = {0xf3, 0xfe, 0xf3, 0xa3};
-static const uint8_t STAKEKIT_MORPHO_WITHDRAW_2_SELECTOR[SELECTOR_SIZE] = {0x69, 0x32, 0x8d, 0xec};
-static const uint8_t STAKEKIT_PARASPACE_DEPOSIT_SELECTOR[SELECTOR_SIZE] = {0x47, 0xe7, 0xef, 0x24};
-static const uint8_t STAKEKIT_PARASPACE_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0x2e, 0x1a, 0x7d, 0x4d};
-static const uint8_t STAKEKIT_GRT_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x02, 0x6e, 0x40, 0x2b};
-static const uint8_t STAKEKIT_GRT_UNDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x4d, 0x99, 0xdd, 0x16};
-static const uint8_t STAKEKIT_GRT_WITHDRAW_DELEGATED_SELECTOR[SELECTOR_SIZE] = {0x51,
-                                                                                0xa6,
-                                                                                0x0b,
-                                                                                0x02};
-static const uint8_t STAKEKIT_ENTER_SELECTOR[SELECTOR_SIZE] = {0xa5, 0x9f, 0x3e, 0x0c};
-static const uint8_t STAKEKIT_LEAVE_SELECTOR[SELECTOR_SIZE] = {0x67, 0xdf, 0xd4, 0xc9};
-static const uint8_t STAKEKIT_COMET_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
-static const uint8_t STAKEKIT_COMET_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xf3, 0xfe, 0xf3, 0xa3};
-static const uint8_t STAKEKIT_COMET_CLAIM_SELECTOR[SELECTOR_SIZE] = {0xb7, 0x03, 0x4f, 0x7e};
-static const uint8_t STAKEKIT_TRANSFER_OUT_SELECTOR[SELECTOR_SIZE] = {0xaa, 0x74, 0x15, 0xf5};
-static const uint8_t STAKEKIT_CREATE_ACCOUNT_SELECTOR[SELECTOR_SIZE] = {0x9d, 0xca, 0x36, 0x2f};
-static const uint8_t STAKEKIT_LOCK_SELECTOR[SELECTOR_SIZE] = {0xf8, 0x3d, 0x08, 0xba};
-static const uint8_t STAKEKIT_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0x61, 0x98, 0xe3, 0x39};
-static const uint8_t STAKEKIT_VOTE_SELECTOR[SELECTOR_SIZE] = {0x58, 0x0d, 0x74, 0x7a};
-static const uint8_t STAKEKIT_REVOKE_ACTIVE_SELECTOR[SELECTOR_SIZE] = {0x6e, 0x19, 0x84, 0x75};
-static const uint8_t STAKEKIT_AAVE_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0x61, 0x7b, 0xa0, 0x37};
-static const uint8_t STAKEKIT_WITHDRAW_REWARDS_SELECTOR[SELECTOR_SIZE] = {0xc7, 0xb8, 0x98, 0x1c};
-static const uint8_t STAKEKIT_WITHDRAW_REWARDS_POL_SELECTOR[SELECTOR_SIZE] = {0xe0,
-                                                                              0xdb,
-                                                                              0x55,
-                                                                              0x6b};
-static const uint8_t STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR[SELECTOR_SIZE] = {0xe9,
-                                                                                  0x7f,
-                                                                                  0xdd,
-                                                                                  0xc2};
-static const uint8_t STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_POL_SELECTOR[SELECTOR_SIZE] = {0x87,
-                                                                                      0x59,
-                                                                                      0xc2,
-                                                                                      0x34};
-static const uint8_t STAKEKIT_AVALANCHE_SUBMIT_SELECTOR[SELECTOR_SIZE] = {0x5b, 0xcb, 0x2f, 0xc6};
-static const uint8_t STAKEKIT_AVALANCHE_REQUEST_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0xc9,
-                                                                                  0xd2,
-                                                                                  0xff,
-                                                                                  0x9d};
-static const uint8_t STAKEKIT_AVALANCHE_REDEEM_1_SELECTOR[SELECTOR_SIZE] = {0xbe, 0x04, 0x0f, 0xb0};
-static const uint8_t STAKEKIT_AVALANCHE_REDEEM_2_SELECTOR[SELECTOR_SIZE] = {0xdb, 0x00, 0x6a, 0x75};
-static const uint8_t STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_1_SELECTOR[SELECTOR_SIZE] = {0x0d,
-                                                                                           0x10,
-                                                                                           0xd3,
-                                                                                           0x2c};
-static const uint8_t STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_2_SELECTOR[SELECTOR_SIZE] = {0x0f,
-                                                                                           0x7e,
-                                                                                           0x20,
-                                                                                           0x48};
-static const uint8_t STAKEKIT_YEARN_VAULT_DEPOSIT_1_SELECTOR[SELECTOR_SIZE] = {0xd0,
-                                                                               0xe3,
-                                                                               0x0d,
-                                                                               0xb0};
-static const uint8_t STAKEKIT_YEARN_VAULT_DEPOSIT_2_SELECTOR[SELECTOR_SIZE] = {0xb6,
-                                                                               0xb5,
-                                                                               0x5f,
-                                                                               0x25};
-static const uint8_t STAKEKIT_YEARN_VAULT_DEPOSIT_3_SELECTOR[SELECTOR_SIZE] = {0x6e,
+static const uint8_t YIELD_XYZ_GRT_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x02, 0x6e, 0x40, 0x2b};
+static const uint8_t YIELD_XYZ_GRT_UNDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x4d, 0x99, 0xdd, 0x16};
+static const uint8_t YIELD_XYZ_GRT_WITHDRAW_DELEGATED_SELECTOR[SELECTOR_SIZE] = {0x51,
+                                                                                 0xa6,
+                                                                                 0x0b,
+                                                                                 0x02};
+static const uint8_t YIELD_XYZ_ENTER_SELECTOR[SELECTOR_SIZE] = {0xa5, 0x9f, 0x3e, 0x0c};
+static const uint8_t YIELD_XYZ_LEAVE_SELECTOR[SELECTOR_SIZE] = {0x67, 0xdf, 0xd4, 0xc9};
+static const uint8_t YIELD_XYZ_COMET_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0xf2, 0xb9, 0xfd, 0xb8};
+static const uint8_t YIELD_XYZ_COMET_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xf3, 0xfe, 0xf3, 0xa3};
+static const uint8_t YIELD_XYZ_COMET_CLAIM_SELECTOR[SELECTOR_SIZE] = {0xb7, 0x03, 0x4f, 0x7e};
+static const uint8_t YIELD_XYZ_TRANSFER_OUT_SELECTOR[SELECTOR_SIZE] = {0xaa, 0x74, 0x15, 0xf5};
+static const uint8_t YIELD_XYZ_CREATE_ACCOUNT_SELECTOR[SELECTOR_SIZE] = {0x9d, 0xca, 0x36, 0x2f};
+static const uint8_t YIELD_XYZ_LOCK_SELECTOR[SELECTOR_SIZE] = {0xf8, 0x3d, 0x08, 0xba};
+static const uint8_t YIELD_XYZ_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0x61, 0x98, 0xe3, 0x39};
+static const uint8_t YIELD_XYZ_VOTE_SELECTOR[SELECTOR_SIZE] = {0x58, 0x0d, 0x74, 0x7a};
+static const uint8_t YIELD_XYZ_REVOKE_ACTIVE_SELECTOR[SELECTOR_SIZE] = {0x6e, 0x19, 0x84, 0x75};
+static const uint8_t YIELD_XYZ_AAVE_SUPPLY_SELECTOR[SELECTOR_SIZE] = {0x61, 0x7b, 0xa0, 0x37};
+static const uint8_t YIELD_XYZ_WITHDRAW_REWARDS_SELECTOR[SELECTOR_SIZE] = {0xc7, 0xb8, 0x98, 0x1c};
+static const uint8_t YIELD_XYZ_WITHDRAW_REWARDS_POL_SELECTOR[SELECTOR_SIZE] = {0xe0,
+                                                                               0xdb,
                                                                                0x55,
-                                                                               0x3f,
-                                                                               0x65};
-static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_1_SELECTOR[SELECTOR_SIZE] = {0x3c,
-                                                                                0xcf,
-                                                                                0xd6,
-                                                                                0x0b};
-static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_2_SELECTOR[SELECTOR_SIZE] = {0x2e,
-                                                                                0x1a,
-                                                                                0x7d,
-                                                                                0x4d};
-static const uint8_t STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR[SELECTOR_SIZE] = {0x00,
-                                                                                0xf7,
-                                                                                0x14,
-                                                                                0xce};
-static const uint8_t STAKEKIT_ANGLE_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xb4, 0x60, 0xaf, 0x94};
-static const uint8_t STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {0xd6,
-                                                                                  0x68,
-                                                                                  0x10,
-                                                                                  0x42};
-static const uint8_t STAKEKIT_LIDO_CLAIM_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {0xe3,
-                                                                                0xaf,
-                                                                                0xe0,
-                                                                                0xa3};
-static const uint8_t STAKEKIT_VIC_VOTE_SELECTOR[SELECTOR_SIZE] = {0x6d, 0xd7, 0xd8, 0xea};
+                                                                               0x6b};
+static const uint8_t YIELD_XYZ_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR[SELECTOR_SIZE] = {0xe9,
+                                                                                   0x7f,
+                                                                                   0xdd,
+                                                                                   0xc2};
+static const uint8_t YIELD_XYZ_UNSTAKE_CLAIM_TOKENS_NEW_POL_SELECTOR[SELECTOR_SIZE] = {0x87,
+                                                                                       0x59,
+                                                                                       0xc2,
+                                                                                       0x34};
+static const uint8_t YIELD_XYZ_AVALANCHE_SUBMIT_SELECTOR[SELECTOR_SIZE] = {0x5b, 0xcb, 0x2f, 0xc6};
+static const uint8_t YIELD_XYZ_AVALANCHE_REQUEST_UNLOCK_SELECTOR[SELECTOR_SIZE] = {0xc9,
+                                                                                   0xd2,
+                                                                                   0xff,
+                                                                                   0x9d};
+static const uint8_t YIELD_XYZ_AVALANCHE_REDEEM_1_SELECTOR[SELECTOR_SIZE] = {0xbe,
+                                                                             0x04,
+                                                                             0x0f,
+                                                                             0xb0};
+static const uint8_t YIELD_XYZ_AVALANCHE_REDEEM_2_SELECTOR[SELECTOR_SIZE] = {0xdb,
+                                                                             0x00,
+                                                                             0x6a,
+                                                                             0x75};
+static const uint8_t YIELD_XYZ_AVALANCHE_REDEEM_OVERDUE_SHARES_1_SELECTOR[SELECTOR_SIZE] = {0x0d,
+                                                                                            0x10,
+                                                                                            0xd3,
+                                                                                            0x2c};
+static const uint8_t YIELD_XYZ_AVALANCHE_REDEEM_OVERDUE_SHARES_2_SELECTOR[SELECTOR_SIZE] = {0x0f,
+                                                                                            0x7e,
+                                                                                            0x20,
+                                                                                            0x48};
+static const uint8_t YIELD_XYZ_YEARN_VAULT_DEPOSIT_1_SELECTOR[SELECTOR_SIZE] = {0xd0,
+                                                                                0xe3,
+                                                                                0x0d,
+                                                                                0xb0};
+static const uint8_t YIELD_XYZ_YEARN_VAULT_DEPOSIT_2_SELECTOR[SELECTOR_SIZE] = {0xb6,
+                                                                                0xb5,
+                                                                                0x5f,
+                                                                                0x25};
+static const uint8_t YIELD_XYZ_YEARN_VAULT_DEPOSIT_3_SELECTOR[SELECTOR_SIZE] = {0x6e,
+                                                                                0x55,
+                                                                                0x3f,
+                                                                                0x65};
+static const uint8_t YIELD_XYZ_YEARN_VAULT_WITHDRAW_1_SELECTOR[SELECTOR_SIZE] = {0x3c,
+                                                                                 0xcf,
+                                                                                 0xd6,
+                                                                                 0x0b};
+static const uint8_t YIELD_XYZ_YEARN_VAULT_WITHDRAW_2_SELECTOR[SELECTOR_SIZE] = {0x2e,
+                                                                                 0x1a,
+                                                                                 0x7d,
+                                                                                 0x4d};
+static const uint8_t YIELD_XYZ_YEARN_VAULT_WITHDRAW_3_SELECTOR[SELECTOR_SIZE] = {0x00,
+                                                                                 0xf7,
+                                                                                 0x14,
+                                                                                 0xce};
+static const uint8_t YIELD_XYZ_ANGLE_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0xb4, 0x60, 0xaf, 0x94};
+static const uint8_t YIELD_XYZ_LIDO_REQUEST_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {0xd6,
+                                                                                   0x68,
+                                                                                   0x10,
+                                                                                   0x42};
+static const uint8_t YIELD_XYZ_LIDO_CLAIM_WITHDRAWALS_SELECTOR[SELECTOR_SIZE] = {0xe3,
+                                                                                 0xaf,
+                                                                                 0xe0,
+                                                                                 0xa3};
+static const uint8_t YIELD_XYZ_VIC_VOTE_SELECTOR[SELECTOR_SIZE] = {0x6d, 0xd7, 0xd8, 0xea};
 
-static const uint8_t STAKEKIT_VIC_RESIGN_SELECTOR[SELECTOR_SIZE] = {0xae, 0x6e, 0x43, 0xf5};
-static const uint8_t STAKEKIT_VIC_UNVOTE_SELECTOR[SELECTOR_SIZE] = {0x02, 0xaa, 0x9b, 0xe2};
-static const uint8_t STAKEKIT_VIC_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0x44, 0x1a, 0x3e, 0x70};
-static const uint8_t STAKEKIT_CLAIM_SELECTOR[SELECTOR_SIZE] = {0xaa, 0xd3, 0xec, 0x96};
-static const uint8_t STAKEKIT_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x98, 0x2e, 0xf0, 0xa7};
-static const uint8_t STAKEKIT_REDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x59, 0x49, 0x18, 0x71};
-// Array of all the different StakeKit selectors.
-const uint8_t *const STAKEKIT_SELECTORS[NUM_STAKEKIT_SELECTORS] = {
-    STAKEKIT_STK_USDE_REDEEM_SELECTOR,
-    STAKEKIT_STAKED_USDE_V2_MINT_SELECTOR,
-    STAKEKIT_STAKED_USDE_V2_UNSTAKE_SELECTOR,
-    STAKEKIT_STAKED_USDE_V2_COOLDOWN_SHARES_SELECTOR,
-    STAKEKIT_STAKED_USDE_V2_COOLDOWN_ASSETS_SELECTOR,
-    STAKEKIT_DEPOSIT_SELF_APECOIN_SELECTOR,
-    STAKEKIT_WITHDRAW_SELF_APECOIN_SELECTOR,
-    STAKEKIT_CLAIM_SELF_APECOIN_SELECTOR,
-    STAKEKIT_SUBMIT_ETH_LIDO_SELECTOR,
-    STAKEKIT_SWAP_TO_SELECTOR,
-    STAKEKIT_SWAP_FROM_SELECTOR,
-    STAKEKIT_STAKE_SELECTOR,
-    STAKEKIT_SUBMIT_MATIC_LIDO_SELECTOR,
-    STAKEKIT_REQUEST_WITHDRAW_SELECTOR,
-    STAKEKIT_CLAIM_TOKENS_SELECTOR,
-    STAKEKIT_BUY_VOUCHER_SELECTOR,
-    STAKEKIT_BUY_VOUCHER_POL_SELECTOR,
-    STAKEKIT_SELL_VOUCHER_NEW_SELECTOR,
-    STAKEKIT_SELL_VOUCHER_NEW_POL_SELECTOR,
-    STAKEKIT_MORPHO_SUPPLY_1_SELECTOR,
-    STAKEKIT_MORPHO_SUPPLY_2_SELECTOR,
-    STAKEKIT_MORPHO_SUPPLY_3_SELECTOR,
-    STAKEKIT_MORPHO_WITHDRAW_1_SELECTOR,
-    STAKEKIT_MORPHO_WITHDRAW_2_SELECTOR,
-    STAKEKIT_PARASPACE_DEPOSIT_SELECTOR,
-    STAKEKIT_PARASPACE_WITHDRAW_SELECTOR,
-    STAKEKIT_GRT_DELEGATE_SELECTOR,
-    STAKEKIT_GRT_UNDELEGATE_SELECTOR,
-    STAKEKIT_GRT_WITHDRAW_DELEGATED_SELECTOR,
-    STAKEKIT_ENTER_SELECTOR,
-    STAKEKIT_LEAVE_SELECTOR,
-    STAKEKIT_COMET_SUPPLY_SELECTOR,
-    STAKEKIT_COMET_WITHDRAW_SELECTOR,
-    STAKEKIT_COMET_CLAIM_SELECTOR,
-    STAKEKIT_TRANSFER_OUT_SELECTOR,
-    STAKEKIT_CREATE_ACCOUNT_SELECTOR,
-    STAKEKIT_LOCK_SELECTOR,
-    STAKEKIT_UNLOCK_SELECTOR,
-    STAKEKIT_VOTE_SELECTOR,
-    STAKEKIT_REVOKE_ACTIVE_SELECTOR,
-    STAKEKIT_AAVE_SUPPLY_SELECTOR,
-    STAKEKIT_WITHDRAW_REWARDS_SELECTOR,
-    STAKEKIT_WITHDRAW_REWARDS_POL_SELECTOR,
-    STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR,
-    STAKEKIT_UNSTAKE_CLAIM_TOKENS_NEW_POL_SELECTOR,
-    STAKEKIT_AVALANCHE_SUBMIT_SELECTOR,
-    STAKEKIT_AVALANCHE_REQUEST_UNLOCK_SELECTOR,
-    STAKEKIT_AVALANCHE_REDEEM_1_SELECTOR,
-    STAKEKIT_AVALANCHE_REDEEM_2_SELECTOR,
-    STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_1_SELECTOR,
-    STAKEKIT_AVALANCHE_REDEEM_OVERDUE_SHARES_2_SELECTOR,
-    STAKEKIT_YEARN_VAULT_DEPOSIT_1_SELECTOR,
-    STAKEKIT_YEARN_VAULT_DEPOSIT_2_SELECTOR,
-    STAKEKIT_YEARN_VAULT_DEPOSIT_3_SELECTOR,
-    STAKEKIT_YEARN_VAULT_WITHDRAW_1_SELECTOR,
-    STAKEKIT_YEARN_VAULT_WITHDRAW_2_SELECTOR,
-    STAKEKIT_YEARN_VAULT_WITHDRAW_3_SELECTOR,
-    STAKEKIT_ANGLE_WITHDRAW_SELECTOR,
-    STAKEKIT_LIDO_REQUEST_WITHDRAWALS_SELECTOR,
-    STAKEKIT_LIDO_CLAIM_WITHDRAWALS_SELECTOR,
-    STAKEKIT_VIC_VOTE_SELECTOR,
-    STAKEKIT_VIC_RESIGN_SELECTOR,
-    STAKEKIT_VIC_UNVOTE_SELECTOR,
-    STAKEKIT_VIC_WITHDRAW_SELECTOR,
-    STAKEKIT_CLAIM_SELECTOR,
-    STAKEKIT_DELEGATE_SELECTOR,
-    STAKEKIT_REDELEGATE_SELECTOR};
+static const uint8_t YIELD_XYZ_VIC_RESIGN_SELECTOR[SELECTOR_SIZE] = {0xae, 0x6e, 0x43, 0xf5};
+static const uint8_t YIELD_XYZ_VIC_UNVOTE_SELECTOR[SELECTOR_SIZE] = {0x02, 0xaa, 0x9b, 0xe2};
+static const uint8_t YIELD_XYZ_VIC_WITHDRAW_SELECTOR[SELECTOR_SIZE] = {0x44, 0x1a, 0x3e, 0x70};
+static const uint8_t YIELD_XYZ_CLAIM_SELECTOR[SELECTOR_SIZE] = {0xaa, 0xd3, 0xec, 0x96};
+static const uint8_t YIELD_XYZ_DELEGATE_SELECTOR[SELECTOR_SIZE] = {0x98, 0x2e, 0xf0, 0xa7};
+static const uint8_t YIELD_XYZ_REDELEGATE_SELECTOR[SELECTOR_SIZE] = {0x59, 0x49, 0x18, 0x71};
+// Array of all the different Yield.xyz selectors.
+const uint8_t *const YIELD_XYZ_SELECTORS[NUM_YIELD_XYZ_SELECTORS] = {
+    YIELD_XYZ_STK_USDE_REDEEM_SELECTOR,
+    YIELD_XYZ_STAKED_USDE_V2_MINT_SELECTOR,
+    YIELD_XYZ_STAKED_USDE_V2_UNSTAKE_SELECTOR,
+    YIELD_XYZ_STAKED_USDE_V2_COOLDOWN_SHARES_SELECTOR,
+    YIELD_XYZ_STAKED_USDE_V2_COOLDOWN_ASSETS_SELECTOR,
+    YIELD_XYZ_DEPOSIT_SELF_APECOIN_SELECTOR,
+    YIELD_XYZ_WITHDRAW_SELF_APECOIN_SELECTOR,
+    YIELD_XYZ_CLAIM_SELF_APECOIN_SELECTOR,
+    YIELD_XYZ_SUBMIT_ETH_LIDO_SELECTOR,
+    YIELD_XYZ_SWAP_TO_SELECTOR,
+    YIELD_XYZ_SWAP_FROM_SELECTOR,
+    YIELD_XYZ_STAKE_SELECTOR,
+    YIELD_XYZ_SUBMIT_MATIC_LIDO_SELECTOR,
+    YIELD_XYZ_REQUEST_WITHDRAW_SELECTOR,
+    YIELD_XYZ_CLAIM_TOKENS_SELECTOR,
+    YIELD_XYZ_BUY_VOUCHER_SELECTOR,
+    YIELD_XYZ_BUY_VOUCHER_POL_SELECTOR,
+    YIELD_XYZ_SELL_VOUCHER_NEW_SELECTOR,
+    YIELD_XYZ_SELL_VOUCHER_NEW_POL_SELECTOR,
+    YIELD_XYZ_MORPHO_SUPPLY_1_SELECTOR,
+    YIELD_XYZ_MORPHO_SUPPLY_2_SELECTOR,
+    YIELD_XYZ_MORPHO_SUPPLY_3_SELECTOR,
+    YIELD_XYZ_MORPHO_WITHDRAW_1_SELECTOR,
+    YIELD_XYZ_MORPHO_WITHDRAW_2_SELECTOR,
+    YIELD_XYZ_PARASPACE_DEPOSIT_SELECTOR,
+    YIELD_XYZ_PARASPACE_WITHDRAW_SELECTOR,
+    YIELD_XYZ_GRT_DELEGATE_SELECTOR,
+    YIELD_XYZ_GRT_UNDELEGATE_SELECTOR,
+    YIELD_XYZ_GRT_WITHDRAW_DELEGATED_SELECTOR,
+    YIELD_XYZ_ENTER_SELECTOR,
+    YIELD_XYZ_LEAVE_SELECTOR,
+    YIELD_XYZ_COMET_SUPPLY_SELECTOR,
+    YIELD_XYZ_COMET_WITHDRAW_SELECTOR,
+    YIELD_XYZ_COMET_CLAIM_SELECTOR,
+    YIELD_XYZ_TRANSFER_OUT_SELECTOR,
+    YIELD_XYZ_CREATE_ACCOUNT_SELECTOR,
+    YIELD_XYZ_LOCK_SELECTOR,
+    YIELD_XYZ_UNLOCK_SELECTOR,
+    YIELD_XYZ_VOTE_SELECTOR,
+    YIELD_XYZ_REVOKE_ACTIVE_SELECTOR,
+    YIELD_XYZ_AAVE_SUPPLY_SELECTOR,
+    YIELD_XYZ_WITHDRAW_REWARDS_SELECTOR,
+    YIELD_XYZ_WITHDRAW_REWARDS_POL_SELECTOR,
+    YIELD_XYZ_UNSTAKE_CLAIM_TOKENS_NEW_SELECTOR,
+    YIELD_XYZ_UNSTAKE_CLAIM_TOKENS_NEW_POL_SELECTOR,
+    YIELD_XYZ_AVALANCHE_SUBMIT_SELECTOR,
+    YIELD_XYZ_AVALANCHE_REQUEST_UNLOCK_SELECTOR,
+    YIELD_XYZ_AVALANCHE_REDEEM_1_SELECTOR,
+    YIELD_XYZ_AVALANCHE_REDEEM_2_SELECTOR,
+    YIELD_XYZ_AVALANCHE_REDEEM_OVERDUE_SHARES_1_SELECTOR,
+    YIELD_XYZ_AVALANCHE_REDEEM_OVERDUE_SHARES_2_SELECTOR,
+    YIELD_XYZ_YEARN_VAULT_DEPOSIT_1_SELECTOR,
+    YIELD_XYZ_YEARN_VAULT_DEPOSIT_2_SELECTOR,
+    YIELD_XYZ_YEARN_VAULT_DEPOSIT_3_SELECTOR,
+    YIELD_XYZ_YEARN_VAULT_WITHDRAW_1_SELECTOR,
+    YIELD_XYZ_YEARN_VAULT_WITHDRAW_2_SELECTOR,
+    YIELD_XYZ_YEARN_VAULT_WITHDRAW_3_SELECTOR,
+    YIELD_XYZ_ANGLE_WITHDRAW_SELECTOR,
+    YIELD_XYZ_LIDO_REQUEST_WITHDRAWALS_SELECTOR,
+    YIELD_XYZ_LIDO_CLAIM_WITHDRAWALS_SELECTOR,
+    YIELD_XYZ_VIC_VOTE_SELECTOR,
+    YIELD_XYZ_VIC_RESIGN_SELECTOR,
+    YIELD_XYZ_VIC_UNVOTE_SELECTOR,
+    YIELD_XYZ_VIC_WITHDRAW_SELECTOR,
+    YIELD_XYZ_CLAIM_SELECTOR,
+    YIELD_XYZ_DELEGATE_SELECTOR,
+    YIELD_XYZ_REDELEGATE_SELECTOR};
 
 // Null address
 const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                                   0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-// Array containing some smart contracts supported by StakeKit Plugin
+// Array containing some smart contracts supported by Yield.xyz Plugin
 // each contain the token symbol and decimal
-const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT] = {
+const tokenSymbolAndDecimals_t YIELD_XYZ_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT] = {
     {{0x4e, 0x61, 0x89, 0xf1, 0x6a, 0x34, 0x8e, 0x62, 0x33, 0xa3,
       0x33, 0x17, 0xc6, 0x48, 0x0f, 0x2f, 0xd4, 0xfc, 0x78, 0x70},
      "USDe",
