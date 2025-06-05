@@ -20,7 +20,7 @@ build_device_elfs() {
     export BOLOS_SDK="${!sdk_var}"
 
     # Build plugin
-    echo "**Building app-stakekit for ${device}..."
+    echo "**Building app-yield_xyz for ${device}..."
     make clean
     make -j DEBUG=1
     cp bin/app.elf "tests/elfs/plugin_${device,,}.elf"

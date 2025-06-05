@@ -1,4 +1,4 @@
-#include "stakekit_plugin.h"
+#include "yield_xyz_plugin.h"
 
 // Adds two 256-bit numbers represented as arrays of uint8_t, 'a' and 'b'.
 // The result of the addition is stored in 'a'.

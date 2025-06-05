@@ -1,4 +1,4 @@
-#include "stakekit_plugin.h"
+#include "yield_xyz_plugin.h"
 
 // Called once to init.
 void handle_init_contract(ethPluginInitContract_t *msg) {
@@ -18,14 +18,14 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
 
     // Determine a function to call
     size_t i;
-    for (i = 0; i < NUM_STAKEKIT_SELECTORS; i++) {
-        if (memcmp((uint8_t *) PIC(STAKEKIT_SELECTORS[i]), msg->selector, SELECTOR_SIZE) == 0) {
+    for (i = 0; i < NUM_YIELD_XYZ_SELECTORS; i++) {
+        if (memcmp((uint8_t *) PIC(YIELD_XYZ_SELECTORS[i]), msg->selector, SELECTOR_SIZE) == 0) {
             context->selectorIndex = i;
             break;
         }
     }
 
-    if (i == NUM_STAKEKIT_SELECTORS) {
+    if (i == NUM_YIELD_XYZ_SELECTORS) {
         // Selector was not found
         msg->result = ETH_PLUGIN_RESULT_ERROR;
         return;
