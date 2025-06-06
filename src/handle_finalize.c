@@ -1,7 +1,7 @@
-#include "yield_xyz_plugin.h"
+#include "stakekit_plugin.h"
 
 // Sets the deposit ticker as the token symbol
-// Look into the YIELD_XYZ_SUPPORTED_SMART_CONTRACT array to find the corresponding token symbol.
+// Look into the STAKEKIT_SUPPORTED_SMART_CONTRACT array to find the corresponding token symbol.
 // If found, set the ticker and decimals. Then return true.
 // If not found, return false.
 static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
@@ -9,15 +9,15 @@ static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
         if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
             if (!memcmp(msg->pluginSharedRO->txContent->destination,
-                        YIELD_XYZ_SUPPORTED_SMART_CONTRACT[i].smart_contract,
+                        STAKEKIT_SUPPORTED_SMART_CONTRACT[i].smart_contract,
                         ADDRESS_LENGTH)) {
                 char ticker[TICKER_LEN];
                 strlcpy(ticker,
-                        (char *) YIELD_XYZ_SUPPORTED_SMART_CONTRACT[i].token_symbol_deposit,
+                        (char *) STAKEKIT_SUPPORTED_SMART_CONTRACT[i].token_symbol_deposit,
                         sizeof(ticker));
                 strlcat(ticker, " ", sizeof(ticker));
                 strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
-                context->decimals_sent = YIELD_XYZ_SUPPORTED_SMART_CONTRACT[i].decimals_sent;
+                context->decimals_sent = STAKEKIT_SUPPORTED_SMART_CONTRACT[i].decimals_sent;
                 context->tokens_found |= TOKEN_SENT_FOUND;
                 return true;
             }
@@ -26,7 +26,7 @@ static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
     return false;
 }
 // Sets the withdraw ticker as the token symbol
-// Look into the YIELD_XYZ_SUPPORTED_SMART_CONTRACT array to find the corresponding token symbol.
+// Look into the STAKEKIT_SUPPORTED_SMART_CONTRACT array to find the corresponding token symbol.
 // If found, set the ticker and decimals. Then return true.
 // If not found, return false.
 static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
@@ -34,15 +34,15 @@ static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
         if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
             if (!memcmp(msg->pluginSharedRO->txContent->destination,
-                        YIELD_XYZ_SUPPORTED_SMART_CONTRACT[i].smart_contract,
+                        STAKEKIT_SUPPORTED_SMART_CONTRACT[i].smart_contract,
                         ADDRESS_LENGTH)) {
                 char ticker[TICKER_LEN];
                 strlcpy(ticker,
-                        (char *) YIELD_XYZ_SUPPORTED_SMART_CONTRACT[i].token_symbol_withdraw,
+                        (char *) STAKEKIT_SUPPORTED_SMART_CONTRACT[i].token_symbol_withdraw,
                         sizeof(ticker));
                 strlcat(ticker, " ", sizeof(ticker));
                 strlcpy(context->ticker_sent, (char *) ticker, sizeof(context->ticker_sent));
-                context->decimals_sent = YIELD_XYZ_SUPPORTED_SMART_CONTRACT[i].decimals_sent;
+                context->decimals_sent = STAKEKIT_SUPPORTED_SMART_CONTRACT[i].decimals_sent;
                 context->tokens_found |= TOKEN_SENT_FOUND;
                 return true;
             }

@@ -1,4 +1,4 @@
-#include "yield_xyz_plugin.h"
+#include "stakekit_plugin.h"
 
 // Function to display the method name on the device.
 void handle_query_contract_id(ethQueryContractID_t *msg) {

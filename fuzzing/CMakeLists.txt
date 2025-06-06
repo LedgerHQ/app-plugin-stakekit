@@ -7,7 +7,7 @@ endif()
 # project information
 project(Fuzzer
         VERSION 1.0
-        DESCRIPTION "Contract parser of Yield.xyz plugin app"
+        DESCRIPTION "Contract parser of StakeKit plugin app"
         LANGUAGES C)
 
 # guard against bad build-type strings
