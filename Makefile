@@ -16,11 +16,11 @@
 # ****************************************************************************
 
 # Application name
-APPNAME = "StakeKit"
+APPNAME = "Yield.xyz"
 
 # Application version
 APPVERSION_M = 1
-APPVERSION_N = 4
+APPVERSION_N = 7
 APPVERSION_P = 0
 
 include ethereum-plugin-sdk/standard_plugin.mk

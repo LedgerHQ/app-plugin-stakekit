@@ -8,25 +8,25 @@
                 "0x6dd7d8ea": {
                     "erc20OfInterest": [],
                     "method": "vote",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 },
                 "0xae6e43f5": {
                     "erc20OfInterest": [],
                     "method": "resign",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 },
                 "0x02aa9be2": {
                     "erc20OfInterest": [],
                     "method": "unvote",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 },
                 "0x441a3e70": {
                     "erc20OfInterest": [],
                     "method": "withdraw",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 }
             }
         }
     ],
-    "name": "StakeKit"
+    "name": "Yield.xyz"
 }

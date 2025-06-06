@@ -3,15 +3,17 @@
 ### Binaries
 
 The tests run using both the plugin elf and the ethereum elf, both compiled
-for NanoS, S+ and X, so 6 binaries are needed. They are expected to be stored in the
+for NanoS+, NanoX, Flex and Stax, so 8 binaries are needed. They are expected to be stored in the
 `tests/elfs/` directory, and named as follow:
 
-* `tests/elfs/plugin_nanos.elf`
-* `tests/elfs/plugin_nanosp.elf`
-* `tests/elfs/plugin_nanox.elf`
-* `tests/elfs/ethereum_nanos.elf`
-* `tests/elfs/ethereum_nanosp.elf`
-* `tests/elfs/ethereum_nanox.elf`
+- `tests/elfs/plugin_nanosp.elf`
+- `tests/elfs/plugin_nanox.elf`
+- `tests/elfs/plugin_flex.elf`
+- `tests/elfs/plugin_stax.elf`
+- `tests/elfs/ethereum_nanosp.elf`
+- `tests/elfs/ethereum_nanox.elf`
+- `tests/elfs/ethereum_flex.elf`
+- `tests/elfs/ethereum_stax.elf`
 
 The `tests/build_local_test_elfs.sh` can be used to generate these binaries.
 

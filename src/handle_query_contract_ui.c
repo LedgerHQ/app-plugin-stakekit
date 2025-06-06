@@ -41,6 +41,9 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             strlcpy(msg->title, "Votes", msg->titleLength);
             break;
         case AVALANCHE_REQUEST_UNLOCK:
+        case STAKED_USDE_V2_MINT:
+        case STAKED_USDE_V2_COOLDOWN_SHARES:
+        case STK_USDE_REDEEM:
             strlcpy(msg->title, "Shares", msg->titleLength);
             break;
         case AVALANCHE_REDEEM_2:
@@ -49,6 +52,7 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
             strlcpy(msg->title, "Index", msg->titleLength);
             break;
         case ANGLE_WITHDRAW:
+        case STAKED_USDE_V2_COOLDOWN_ASSETS:
             strlcpy(msg->title, "Assets", msg->titleLength);
             break;
         case LIDO_REQUEST_WITHDRAWALS:
@@ -236,6 +240,9 @@ static bool set_recipient_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
         case YEARN_VAULT_DEPOSIT_3:
         case YEARN_VAULT_WITHDRAW_3:
         case ANGLE_WITHDRAW:
+        case STAKED_USDE_V2_MINT:
+        case STAKED_USDE_V2_UNSTAKE:
+        case STK_USDE_REDEEM:
             strlcpy(msg->title, "Recipient", msg->titleLength);
             break;
         case MORPHO_SUPPLY_1:
@@ -293,6 +300,7 @@ static bool set_recipient_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *c
             strlcpy(msg->title, "Lesser Group", msg->titleLength);
             break;
         case ANGLE_WITHDRAW:
+        case STK_USDE_REDEEM:
             strlcpy(msg->title, "Owner", msg->titleLength);
             break;
         case REDELEGATE:
@@ -660,6 +668,8 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case AVALANCHE_REQUEST_UNLOCK:
         case AVALANCHE_REDEEM_2:
         case AVALANCHE_REDEEM_OVERDUE_SHARES_2:
+        case STAKED_USDE_V2_COOLDOWN_SHARES:
+        case STAKED_USDE_V2_COOLDOWN_ASSETS:
             return get_screen_amount_sent(msg, context);
         case WITHDRAW_SELF_APECOIN:
         case SWAP_TO:
@@ -670,6 +680,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case SUBMIT_ETH_LIDO:
         case VIC_VOTE:
         case VIC_RESIGN:
+        case STAKED_USDE_V2_UNSTAKE:
             return get_screen_recipient(msg, context);
         case SUBMIT_MATIC_LIDO:
         case REQUEST_WITHDRAW:
@@ -683,6 +694,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case LIDO_REQUEST_WITHDRAWALS:
         case VIC_UNVOTE:
         case CLAIM:
+        case STAKED_USDE_V2_MINT:
             return get_screen_amount_sent_recipient(msg, context);
         case DELEGATE:
             return get_screen_delegate(msg, context);
@@ -723,6 +735,7 @@ static screens_t get_screen(ethQueryContractUI_t *msg,
         case UNSTAKE_CLAIM_TOKENS_NEW_POL:
             return get_screen_unstake_claim(msg, context);
         case ANGLE_WITHDRAW:
+        case STK_USDE_REDEEM:
             return get_screen_angle_withdraw(msg, context);
         case LIDO_CLAIM_WITHDRAWALS:
             return get_screen_lido_claim_withdrawal(msg, context);

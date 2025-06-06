@@ -10,14 +10,14 @@
                         "asset"
                     ],
                     "method": "supply",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 },
                 "0x69328dec": {
                     "erc20OfInterest": [
                         "asset"
                     ],
                     "method": "withdraw",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 }
             }
         },
@@ -28,12 +28,12 @@
                 "0x6e553f65": {
                     "erc20OfInterest": [],
                     "method": "deposit",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 },
                 "0xb460af94": {
                     "erc20OfInterest": [],
                     "method": "withdraw",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 }
             }
         },
@@ -44,20 +44,20 @@
                 "0x026e402b": {
                     "erc20OfInterest": [],
                     "method": "delegate",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 },
                 "0x4d99dd16": {
                     "erc20OfInterest": [],
                     "method": "undelegate",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 },
                 "0x51a60b02": {
                     "erc20OfInterest": [],
                     "method": "withdrawDelegated",
-                    "plugin": "StakeKit"
+                    "plugin": "Yield.xyz"
                 }
             }
         }
     ],
-    "name": "StakeKit"
+    "name": "Yield.xyz"
 }

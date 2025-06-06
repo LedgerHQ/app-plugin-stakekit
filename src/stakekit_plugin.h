@@ -5,24 +5,24 @@
 
 #include "eth_plugin_interface.h"
 
-#define PLUGIN_NAME "StakeKit"
+#define PLUGIN_NAME "Yield.xyz"
 
-#define NUM_STAKEKIT_SELECTORS 62u
+#define NUM_STAKEKIT_SELECTORS 67u
 
 #define TICKER_LEN 30u
 
 #define TOKEN_SENT_FOUND     1u
 #define TOKEN_RECEIVED_FOUND 1u << 1u
 
-#define NUM_SUPPORTED_SMART_CONTRACT 105u
+#define NUM_SUPPORTED_SMART_CONTRACT 107u
 typedef struct tokenSymbolAndDecimals_t {
     uint8_t smart_contract[ADDRESS_LENGTH];
     char token_symbol_deposit[TICKER_LEN];
     char token_symbol_withdraw[TICKER_LEN];
     uint8_t decimals_sent;
 } tokenSymbolAndDecimals_t;
-extern const tokenSymbolAndDecimals_t STAKEKIT_SUPPORTED_YEARN_VAULT[NUM_SUPPORTED_SMART_CONTRACT];
-
+extern const tokenSymbolAndDecimals_t
+    STAKEKIT_SUPPORTED_SMART_CONTRACT[NUM_SUPPORTED_SMART_CONTRACT];
 #define CHAIN_ID_LENGTH 1
 
 #define MIN_MSG_LENGTH 42
@@ -36,6 +36,11 @@ extern const uint8_t NULL_ETH_ADDRESS[ADDRESS_LENGTH];
 #define ADDRESS_IS_NULL(_addr) !memcmp(_addr, NULL_ETH_ADDRESS, ADDRESS_LENGTH)
 
 typedef enum {
+    STK_USDE_REDEEM,
+    STAKED_USDE_V2_MINT,
+    STAKED_USDE_V2_UNSTAKE,
+    STAKED_USDE_V2_COOLDOWN_SHARES,
+    STAKED_USDE_V2_COOLDOWN_ASSETS,
     DEPOSIT_SELF_APECOIN,
     WITHDRAW_SELF_APECOIN,
     CLAIM_SELF_APECOIN,
@@ -179,6 +184,12 @@ typedef enum {
 
 // Ticker used for Viction native token.
 #define VIC_TICKER "VIC"
+
+// Ticker used for Staked USDE V2.
+#define STAKED_USDE_V2_TICKER "sUSDe"
+
+// Ticker used for USDE.
+#define USDE_TICKER "USDe"
 
 // Shared global memory with Ethereum app. Must be at most 5 * 32 bytes.
 typedef struct plugin_parameters_t {
