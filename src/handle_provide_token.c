@@ -1,4 +1,4 @@
-#include "yield_xyz_plugin.h"
+#include "stakekit_plugin.h"
 
 static void network_token(plugin_parameters_t *context) {
     if (context->is_token_sent) {
