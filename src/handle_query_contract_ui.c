@@ -88,7 +88,7 @@ static bool set_send_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context)
     return true;
 }
 
-// Same as the "set_send_ui" function. However the value is extracted from the pluginSharedRO.
+// Same as the "set_send_ui" function. However the value is extracted from the txContent.
 static bool set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *context) {
     switch (context->selectorIndex) {
         case STAKE:
@@ -99,18 +99,14 @@ static bool set_send_value_ui(ethQueryContractUI_t *msg, plugin_parameters_t *co
             return false;
     }
 
-    if (msg->pluginSharedRO == NULL) {
-        PRINTF("Error: msg->pluginSharedRO is NULL\n");
-        return false;
-    }
-    if (msg->pluginSharedRO->txContent == NULL) {
-        PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
+    if (msg->txContent == NULL) {
+        PRINTF("Error: msg->txContent is NULL\n");
         return false;
     }
 
     // Convert to string.
-    if (!amountToString(msg->pluginSharedRO->txContent->value.value,
-                        msg->pluginSharedRO->txContent->value.length,
+    if (!amountToString(msg->txContent->value.value,
+                        msg->txContent->value.length,
                         context->decimals_sent,
                         context->ticker_sent,
                         msg->msg,
@@ -202,7 +198,7 @@ static bool set_receive_2_ui(ethQueryContractUI_t *msg, plugin_parameters_t *con
 }
 
 // Utility function to print an address to the UI.
-static bool print_address(ethQueryContractUI_t *msg, uint8_t *address) {
+static bool print_address(ethQueryContractUI_t *msg, const uint8_t *address) {
     if (msg == NULL || msg->msgLength <= MIN_MSG_LENGTH) {
         return false;
     }
@@ -344,16 +340,12 @@ static bool set_smart_contract_ui(ethQueryContractUI_t *msg, plugin_parameters_t
             return false;
     }
 
-    if (msg->pluginSharedRO == NULL) {
-        PRINTF("Error: msg->pluginSharedRO is NULL\n");
-        return false;
-    }
-    if (msg->pluginSharedRO->txContent == NULL) {
-        PRINTF("Error: msg->pluginSharedRO->txContent is NULL\n");
+    if (msg->txContent == NULL) {
+        PRINTF("Error: msg->txContent is NULL\n");
         return false;
     }
 
-    return print_address(msg, msg->pluginSharedRO->txContent->destination);
+    return print_address(msg, msg->txContent->destination);
 }
 
 // Set UI for unbound nonce boolean screen.

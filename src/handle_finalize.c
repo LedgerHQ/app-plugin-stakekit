@@ -7,8 +7,8 @@
 static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
                                                 ethPluginFinalize_t *msg) {
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
-        if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
-            if (!memcmp(msg->pluginSharedRO->txContent->destination,
+        if (msg != NULL && msg->txContent != NULL) {
+            if (!memcmp(msg->txContent->destination,
                         STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
                         ADDRESS_LENGTH)) {
                 char ticker[TICKER_LEN];
@@ -32,8 +32,8 @@ static bool set_ticker_deposit_for_mapped_token(plugin_parameters_t *context,
 static bool set_ticker_withdraw_for_mapped_token(plugin_parameters_t *context,
                                                  ethPluginFinalize_t *msg) {
     for (size_t i = 0; i < NUM_SUPPORTED_SMART_CONTRACT; i++) {
-        if (msg != NULL && msg->pluginSharedRO != NULL && msg->pluginSharedRO->txContent != NULL) {
-            if (!memcmp(msg->pluginSharedRO->txContent->destination,
+        if (msg != NULL && msg->txContent != NULL) {
+            if (!memcmp(msg->txContent->destination,
                         STAKEKIT_SUPPORTED_YEARN_VAULT[i].smart_contract,
                         ADDRESS_LENGTH)) {
                 char ticker[TICKER_LEN];
