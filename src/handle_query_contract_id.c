@@ -4,7 +4,7 @@
 void handle_query_contract_id(ethQueryContractID_t *msg) {
     plugin_parameters_t *context = (plugin_parameters_t *) msg->pluginContext;
 
-    strlcpy(msg->name, PLUGIN_NAME, msg->nameLength);
+    strlcpy(msg->name, APPNAME, msg->nameLength);
 
     switch (context->selectorIndex) {
         case CLAIM_SELF_APECOIN:

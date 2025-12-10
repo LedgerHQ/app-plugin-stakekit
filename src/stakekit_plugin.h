@@ -5,8 +5,6 @@
 
 #include "eth_plugin_interface.h"
 
-#define PLUGIN_NAME "StakeKit"
-
 #define NUM_STAKEKIT_SELECTORS 62u
 
 #define TICKER_LEN 30u
