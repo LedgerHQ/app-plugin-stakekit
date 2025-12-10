@@ -16,7 +16,7 @@
 # ****************************************************************************
 
 # Application name
-APPNAME = "StakeKit"
+APPNAME = "Yield.xyz"
 
 # Application version
 APPVERSION_M = 1

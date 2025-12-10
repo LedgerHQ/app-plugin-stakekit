@@ -1,9 +1,9 @@
 # Badges
 <Plugin Github Action Badger>
 
-# Ledger StakeKit Plugin
+# Ledger Yield.xyz Plugin
 
-This is a plugin for the Ethereum application which helps parsing and displaying relevant information when signing a StakeKit transaction.
+This is a plugin for the Ethereum application which helps parsing and displaying relevant information when signing a Yield.xyz transaction.
 
 ## Prerequisite
 
